@@ -1,0 +1,10 @@
+C:\GitHub\university\C#\Tests\bin\Debug\Tests.exe.config
+C:\GitHub\university\C#\Tests\bin\Debug\Tests.exe
+C:\GitHub\university\C#\Tests\bin\Debug\Tests.pdb
+C:\GitHub\university\C#\Tests\bin\Debug\Tree.dll
+C:\GitHub\university\C#\Tests\bin\Debug\Tree.pdb
+C:\GitHub\university\C#\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\GitHub\university\C#\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\GitHub\university\C#\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\GitHub\university\C#\Tests\obj\Debug\Tests.exe
+C:\GitHub\university\C#\Tests\obj\Debug\Tests.pdb
