@@ -8,3 +8,12 @@ C:\GitHub\university\C#\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
 C:\GitHub\university\C#\Tests\obj\Debug\Tests.csproj.CopyComplete
 C:\GitHub\university\C#\Tests\obj\Debug\Tests.exe
 C:\GitHub\university\C#\Tests\obj\Debug\Tests.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\bin\Debug\Tests.exe.config
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\bin\Debug\Tests.exe
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\bin\Debug\Tests.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\bin\Debug\Tree.dll
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\bin\Debug\Tree.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\obj\Debug\Tests.exe
+C:\Users\Hardened\Documents\GitHub\university\C#\Tests\obj\Debug\Tests.pdb

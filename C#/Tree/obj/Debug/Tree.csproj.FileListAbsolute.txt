@@ -4,3 +4,8 @@ C:\GitHub\university\C#\Tree\obj\Debug\Tree.csprojAssemblyReference.cache
 C:\GitHub\university\C#\Tree\obj\Debug\Tree.csproj.CoreCompileInputs.cache
 C:\GitHub\university\C#\Tree\obj\Debug\Tree.dll
 C:\GitHub\university\C#\Tree\obj\Debug\Tree.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree\obj\Debug\Tree.dll
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree\obj\Debug\Tree.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree\bin\Debug\Tree.dll
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree\bin\Debug\Tree.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree\obj\Debug\Tree.csprojAssemblyReference.cache
