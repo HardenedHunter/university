@@ -29,39 +29,53 @@ namespace Tree
             Clear();
         }
 
-        public bool Remove(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(int index, T item)
-        {
-            throw new NotImplementedException();
-        }
-
+        //NOT IMPLEMENTED
         public void RemoveAt(int index)
         {
             throw new NotImplementedException();
         }
 
-        public void Dispose()
+        //NOT IMPLEMENTED
+        public void CopyTo(T[] array, int arrayIndex)
         {
-            
+            throw new NotImplementedException();
         }
 
-        private static Node<T> AddNode(ref Node<T> node, T info)
+        //REWRITE
+        public bool Remove(T item)
         {
-            var result = new Node<T>(info, node);
+            var indirect = new Node<T>(new T(), _head);
+            while (indirect.Next != null && !EqualityComparer<T>.Default.Equals(indirect.Next.Info, item))
+                indirect = indirect.Next;
+            var result = indirect.Next != null;
+            if (result)
+            {
+                if (indirect.Next == _head)
+                    _head = _head.Next;
+                else
+                    indirect.Next = indirect.Next.Next;
+            }
+            return result;
+        }
+
+        //TESTED?
+        public void Clear()
+        {
+            _head = null;
+            Count = 0;
+        }
+
+        //TESTED
+        private Node<T> AddNode(ref Node<T> node, T item)
+        {
+            Count++;
+            var result = new Node<T>(item, node);
             node = result;
             return result;
         }
 
-        private void DelNode(ref Node<T> node)
-        {
-            node = node.Next;
-        }
-
-        private Node<T> GetNode(int index)
+        //TESTED
+        private Node<T> GetNodeByIndex(int index)
         {
             Console.WriteLine($"Count: {Count}");
             if ((uint) index >= (uint) Count) throw new ArgumentOutOfRangeException();
@@ -72,25 +86,25 @@ namespace Tree
             return indirect;
         }
 
-        private Node<T> GetLastNode()
+        //TESTED
+        public void Insert(int index, T item)
         {
-            return GetNode(Count - 1);
+            if ((uint)index > (uint)Count) throw new ArgumentOutOfRangeException();
+            if (index == 0)
+            {
+                AddNode(ref _head, item);
+            }
+            else
+            {
+                var previous = GetNodeByIndex(index - 1);
+                AddNode(ref previous.Next, item);
+            }
         }
 
-        public void Clear()
-        {
-            _head = null;
-            Count = 0;
-        }
-
+        //TESTED
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
+            return IndexOf(item) != -1;
         }
 
         //TESTED
@@ -107,34 +121,29 @@ namespace Tree
         }
 
         //TESTED
-        public void Add(T info)
+        public void Add(T item)
         {
-            if (_head == null)
-            {
-                _head = AddNode(ref _head, info);
-            }
-            else
-            {
-                var indirect = GetLastNode();
-                AddNode(ref indirect.Next, info);
-            }
-
-            Count++;
+            Insert(Count, item);
         }
 
         //TESTED
         public T this[int index]
         {
-            get => GetNode(index).Info;
+            get => GetNodeByIndex(index).Info;
             set
             {
-                var indirect = GetNode(index);
+                var indirect = GetNodeByIndex(index);
                 indirect.Info = value;
             }
         }
 
         //TESTED
         #region IEnumerator and IEnumerable
+        public void Dispose()
+        {
+
+        }
+
         object IEnumerator.Current => Current;
 
         public T Current
