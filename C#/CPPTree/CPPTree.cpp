@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include <stdio.h>
+#include <cstdio>
 #include <conio.h>
 #include <iostream>
 using namespace std;
@@ -9,7 +9,10 @@ struct TreeNode
 	TreeNode * *child_ptr;
 	bool leaf;
 	int n;
-}*root = NULL, *np = NULL, *x = NULL;
+}
+
+*root = NULL, *np = NULL, *x = NULL;
+
 
 TreeNode * init()
 {

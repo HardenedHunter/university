@@ -77,7 +77,6 @@ namespace Tree
         //TESTED
         private Node<T> GetNodeByIndex(int index)
         {
-            Console.WriteLine($"Count: {Count}");
             if ((uint) index >= (uint) Count) throw new ArgumentOutOfRangeException();
 
             var indirect = _head;
