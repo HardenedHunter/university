@@ -1,9 +1,11 @@
-﻿namespace Tree
+﻿using System;
+
+namespace Tree
 {
-    interface INode<T>
+    interface INode<T>: IComparable where T: IComparable
     {
-        void Remove(T node);
-        void Add(T node);
+        void Remove(T key);
+        void Add(T key);
         T GetFirstLeafKey();
         void Merge(INode<T> sibling);
         INode<T> Split();

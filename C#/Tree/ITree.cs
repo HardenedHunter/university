@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Tree
 {
-    interface ITree<T> : IEnumerable<T> 
+    interface ITree<T> : IEnumerable<T>
     {
         void Add(T node);
         void Clear();

@@ -7,10 +7,9 @@ namespace Tests
     {
         static void Main(string[] args)
         {
-            var list = new List<int> {0, 1, 2, 3};
-            list.Print();
-            list.RemoveAt(2);
-            list.Print();
+            var list = new List<int> {0, 2, 4, 6};
+            Console.WriteLine(list.IndexInSorted(2));
+//            list.Print();
 
 
 

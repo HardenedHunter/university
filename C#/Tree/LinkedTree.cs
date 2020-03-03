@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Tree
 {
-    class LinkedTree<T> : ITree<T>
+    class LinkedTree<T> : ITree<T> where T: IComparable
     {
         public IEnumerator<T> GetEnumerator()
         {

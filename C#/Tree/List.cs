@@ -21,7 +21,7 @@ namespace Tree
         }
     }
 
-    public class List<T> : IList<T>, IEnumerator<T>
+    public class List<T> : IList<T>, IEnumerator<T> where T: IComparable
     {
         private ListNode<T> _head;
         private ListNode<T> _position;
@@ -36,7 +36,16 @@ namespace Tree
         //NOT IMPLEMENTED
         public int IndexInSorted(T item)
         {
-            return 0;
+            var indirect = _head;
+            int index = 0;
+            while (indirect != null && item.CompareTo(indirect.Info) > 0)
+            {
+                indirect = indirect.Next;
+                index++;
+            }
+            if (indirect == null) return -Count - 1;
+            if (item.CompareTo(indirect.Info) == 0) return index;
+            return -index - 1;
         }
 
         //NOT IMPLEMENTED
