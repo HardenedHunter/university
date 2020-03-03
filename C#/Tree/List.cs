@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Tree
 {
-    internal class Node<T>
+    internal class ListNode<T>
     {
         public T Info;
-        public Node<T> Next;
+        public ListNode<T> Next;
 
-        public Node(T info, Node<T> next)
+        public ListNode(T info, ListNode<T> next)
         {
             Info = info;
             Next = next;
         }
+
+        public ListNode(ListNode<T> next)
+        {
+            Next = next;
+        }
     }
 
-    public class List<T> : IList<T>, IEnumerator<T> where T : new()
+    public class List<T> : IList<T>, IEnumerator<T>
     {
-        private Node<T> _head;
-        private Node<T> _position;
+        private ListNode<T> _head;
+        private ListNode<T> _position;
         public int Count { get; private set; }
         public bool IsReadOnly => false;
 
@@ -30,9 +34,9 @@ namespace Tree
         }
 
         //NOT IMPLEMENTED
-        public void RemoveAt(int index)
+        public int IndexInSorted(T item)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         //NOT IMPLEMENTED
@@ -41,10 +45,17 @@ namespace Tree
             throw new NotImplementedException();
         }
 
-        //REWRITE
+        //TESTED
+        public void Clear()
+        {
+            _head = null;
+            Count = 0;
+        }
+
+        //TESTED
         public bool Remove(T item)
         {
-            var indirect = new Node<T>(new T(), _head);
+            var indirect = new ListNode<T>(next: _head);
             while (indirect.Next != null && !EqualityComparer<T>.Default.Equals(indirect.Next.Info, item))
                 indirect = indirect.Next;
             var result = indirect.Next != null;
@@ -58,24 +69,42 @@ namespace Tree
             return result;
         }
 
-        //TESTED?
-        public void Clear()
+        //TESTED
+        public void RemoveAt(int index)
         {
-            _head = null;
-            Count = 0;
+            if ((uint)index >= (uint)Count) throw new ArgumentOutOfRangeException();
+            if (index == 0)
+            {
+                _head = _head.Next;
+            }
+            else
+            {
+                var indirect = GetNodeByIndex(index - 1);
+                indirect.Next = indirect.Next.Next;
+            }
         }
 
         //TESTED
-        private Node<T> AddNode(ref Node<T> node, T item)
+        public void Print()
+        {
+            foreach (var item in this)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine();
+        }
+
+        //TESTED
+        private ListNode<T> AddNode(ref ListNode<T> listNode, T item)
         {
             Count++;
-            var result = new Node<T>(item, node);
-            node = result;
+            var result = new ListNode<T>(item, listNode);
+            listNode = result;
             return result;
         }
 
         //TESTED
-        private Node<T> GetNodeByIndex(int index)
+        private ListNode<T> GetNodeByIndex(int index)
         {
             if ((uint) index >= (uint) Count) throw new ArgumentOutOfRangeException();
 
@@ -123,6 +152,30 @@ namespace Tree
         public void Add(T item)
         {
             Insert(Count, item);
+        }
+
+        //TESTED
+        public List<T> GetRange(int index, int count)
+        {
+            if (index < 0 || count < 0) throw new ArgumentOutOfRangeException();
+            if (Count < count + index) throw new ArgumentException();
+
+            var list = new List<T>();
+            for (int i = index; i < count + index; i++)
+            {
+                list.Add(this[i]);
+            }
+
+            return list;
+        }
+
+        //TESTED
+        public void AddRange(IEnumerable<T> collection)
+        {
+            foreach (T item in collection)
+            {
+                Add(item);
+            }
         }
 
         //TESTED
@@ -175,7 +228,7 @@ namespace Tree
         {
             //Analog of "-1" for arrays, since MoveNext()
             //is called BEFORE yielding the fist element
-            _position = new Node<T>(new T(), _head);
+            _position = new ListNode<T>(next: _head);
             return this;
         }
 

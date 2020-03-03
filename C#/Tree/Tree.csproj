@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InternalArrayNode.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="InternalLinkedNode.cs" />
     <Compile Include="ArrayTree.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ITree.cs" />

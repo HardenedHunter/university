@@ -35,6 +35,8 @@ namespace Tree
             throw new System.NotImplementedException();
         }
 
+        public int BranchingFactor { get; }
+
         public int Count { get; set; }
         public bool IsEmpty { get; set; }
         public IEnumerable<T> Nodes { get; set; }

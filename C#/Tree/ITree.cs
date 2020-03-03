@@ -2,14 +2,15 @@
 
 namespace Tree
 {
-    interface ITree<T> : IEnumerable<T>
+    interface ITree<T> : IEnumerable<T> 
     {
         void Add(T node);
         void Clear();
         bool Contains(T node);
         void Remove(T node);
 
-        int Count { get; set; }
+        int BranchingFactor { get; }
+        int Count { get; }
         bool IsEmpty { get; set; }
         IEnumerable<T> Nodes { get; set; }
     }
