@@ -20,7 +20,7 @@
 //        private const int DefaultBranchingFactor = 5;
 //        private const int MinBranchingFactor = 3;
 //
-//        private INode<T> _root;
+//        private Node<T> _root;
 //
 //        public int BranchingFactor { get; }
 //        public int Count { get; private set; }

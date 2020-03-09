@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Tree
 {
-    class LinkedTree<T> : ITree<T> where T: IComparable
+    public class LinkedTree<T> : ITree<T> where T: IComparable
     {
         public IEnumerator<T> GetEnumerator()
         {
@@ -20,7 +20,7 @@ namespace Tree
         private const int MinBranchingFactor = 3;
 
         //ListNode
-        private INode<T> _root;
+        private Node<T> _root;
 
         public int BranchingFactor { get; }
         //Rewrite
@@ -55,7 +55,7 @@ namespace Tree
 
         public void Clear()
         {
-            _root = null;
+            _root = new LinkedLeafNode<T>(BranchingFactor, ref _root);
             Count = 0;
         }
     }

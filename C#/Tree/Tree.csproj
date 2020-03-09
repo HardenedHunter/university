@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InternalArrayNode.cs" />
-    <Compile Include="INode.cs" />
-    <Compile Include="InternalLinkedNode.cs" />
+    <Compile Include="LinkedLeafNode.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="LinkedNode.cs" />
     <Compile Include="ArrayTree.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ITree.cs" />

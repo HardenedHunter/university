@@ -2,9 +2,9 @@
 //
 //namespace Tree
 //{
-//    class InternalArrayNode<T>: INode<T> where T: new()
+//    class InternalArrayNode<T>: Node<T> where T: new()
 //    {
-//        private INode<T>[] _children;
+//        private Node<T>[] _children;
 //        private T[] _keys;
 //        public int ChildrenCount { get; private set; }
 //        public int KeysCount { get; private set; }
@@ -14,7 +14,7 @@
 //            KeysCount = 0;
 //            ChildrenCount = 0;
 //            _keys = new T[2 * branchingFactor - 1];
-//            _children = new INode<T>[2 * branchingFactor];
+//            _children = new Node<T>[2 * branchingFactor];
 //        }
 //
 //        public void Remove(T node)
@@ -43,7 +43,7 @@
 //
 ////        private void AddChild
 //
-//        public void Merge(INode<T> sibling)
+//        public void Merge(Node<T> sibling)
 //        {
 //            InternalArrayNode<T> node = (InternalArrayNode<T>) sibling;
 //            AddKey(node.GetFirstLeafKey());
@@ -53,7 +53,7 @@
 ////            }
 //        }
 //
-//        public INode<T> Split()
+//        public Node<T> Split()
 //        {
 //            throw new System.NotImplementedException();
 //        }
