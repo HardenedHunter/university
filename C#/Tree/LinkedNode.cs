@@ -2,19 +2,17 @@
 
 namespace Tree
 {
-    class LinkedNode<T> : Node<T> where T: IComparable
+    public class LinkedNode<T> : Node<T> where T: IComparable
     {
         public List<Node<T>> Children;
-        private Node<T> _root;
         public int BranchingFactor { get;}
 
 
-        public LinkedNode(int branchingFactor, ref Node<T> root)
+        public LinkedNode(int branchingFactor)
         {
             Keys = new List<T>();
             Children = new List<Node<T>>();
             BranchingFactor = branchingFactor;
-            _root = root;
         }
 
         public override void Remove(T key)
@@ -34,9 +32,9 @@ namespace Tree
                     Node<T> sibling = left.Split();
                     InsertChild(sibling.GetFirstLeafKey(), sibling);
                 }
-
-                if (_root.Keys.Count == 0)
-                    _root = left;
+                //
+                // if (_root.Keys.Count == 0)
+                //     _root = left;
             }
         }
 
@@ -48,16 +46,6 @@ namespace Tree
             {
                 Node<T> sibling = child.Split();
                 InsertChild(sibling.GetFirstLeafKey(), sibling);
-            }
-
-            if (_root.IsOverflow())
-            {
-                Node<T> sibling = Split();
-                LinkedNode<T> newRoot = new LinkedNode<T>(BranchingFactor, ref _root);
-                newRoot.Keys.Add(sibling.GetFirstLeafKey());
-                newRoot.Children.Add(this);
-                newRoot.Children.Add(sibling);
-                _root = newRoot;
             }
         }
 
@@ -73,13 +61,13 @@ namespace Tree
         public override Node<T> Split()
         {
             int from = Keys.Count / 2 + 1;
-            int to = Keys.Count;
-            LinkedNode<T> sibling = new LinkedNode<T>(BranchingFactor, ref _root);
-            sibling.Keys.AddRange(Keys.GetRange(from, to - from));
-            sibling.Children.AddRange(Children.GetRange(from, to - from + 1));
+            int count = Keys.Count - from;
+            LinkedNode<T> sibling = new LinkedNode<T>(BranchingFactor);
+            sibling.Keys.AddRange(Keys.GetRange(from, count));
+            sibling.Children.AddRange(Children.GetRange(from, count + 1));
 
-            Keys = Keys.GetRange(from - 1, to - from);
-            Children = Children.GetRange(from, to - from + 1);
+            Keys = Keys.GetRange(0, from - 1);
+            Children = Children.GetRange(0, from - 1);
             return sibling;
         }
 

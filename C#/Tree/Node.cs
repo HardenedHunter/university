@@ -4,7 +4,7 @@ namespace Tree
 {
     public abstract class Node<T>: IComparable where T: IComparable
     {
-        protected internal List<T> Keys;
+        public List<T> Keys;
         public abstract void Remove(T key);
         public abstract void Add(T key);
         public abstract T GetFirstLeafKey();

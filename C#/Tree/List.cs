@@ -34,6 +34,12 @@ namespace Tree
         }
 
         //NOT IMPLEMENTED
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        //TESTED
         public int IndexInSorted(T item)
         {
             var indirect = _head;
@@ -46,12 +52,6 @@ namespace Tree
             if (indirect == null) return -Count - 1;
             if (item.CompareTo(indirect.Info) == 0) return index;
             return -index - 1;
-        }
-
-        //NOT IMPLEMENTED
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
         }
 
         //TESTED

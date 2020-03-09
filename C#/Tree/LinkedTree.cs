@@ -10,6 +10,7 @@ namespace Tree
         {
             throw new System.NotImplementedException();
         }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -19,8 +20,8 @@ namespace Tree
         private const int DefaultBranchingFactor = 5;
         private const int MinBranchingFactor = 3;
 
-        //ListNode
-        private Node<T> _root;
+        //TODO private
+        public Node<T> _root;
 
         public int BranchingFactor { get; }
         //Rewrite
@@ -39,13 +40,16 @@ namespace Tree
         public void Add(T node)
         {
             _root.Add(node);
-        }
+            if (_root.IsOverflow())
+            {
+                Node<T> sibling = _root.Split();
+                LinkedNode<T> newRoot = new LinkedNode<T>(BranchingFactor);
+                newRoot.Keys.Add(sibling.GetFirstLeafKey());
+                newRoot.Children.Add(_root);
+                newRoot.Children.Add(sibling);
+                _root = newRoot;
 
-
-        public bool Contains(T node)
-        {
-            return false;
-//            return _root.Contains(node);
+            }
         }
 
         public void Remove(T node)
@@ -53,9 +57,15 @@ namespace Tree
             _root.Remove(node);
         }
 
+        public bool Contains(T node)
+        {
+            return false;
+//            return _root.Contains(node);
+        }
+
         public void Clear()
         {
-            _root = new LinkedLeafNode<T>(BranchingFactor, ref _root);
+            _root = new LinkedLeafNode<T>(BranchingFactor);
             Count = 0;
         }
     }
