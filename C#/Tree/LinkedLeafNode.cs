@@ -22,6 +22,7 @@ namespace Tree
             }
         }
 
+        //TESTED?
         public override void Add(T key)
         {
             int location = Keys.IndexInSorted(key);
@@ -69,7 +70,7 @@ namespace Tree
 
         public override bool IsUnderFlow()
         {
-            return Keys.Count < (BranchingFactor) / 2;
+            return Keys.Count < BranchingFactor / 2;
         }
 
         public override int CompareTo(object obj)

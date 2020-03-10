@@ -48,7 +48,6 @@ namespace Tree
                 newRoot.Children.Add(_root);
                 newRoot.Children.Add(sibling);
                 _root = newRoot;
-
             }
         }
 
