@@ -1,0 +1,10 @@
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\bin\Debug\TrieTree.exe.config
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\bin\Debug\TrieTree.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\bin\Debug\TrieTree.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.csprojAssemblyReference.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.Properties.Resources.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.TreeForm.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.csproj.GenerateResource.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\TrieTree\obj\Debug\TrieTree.FormResult.resources

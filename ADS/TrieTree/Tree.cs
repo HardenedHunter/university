@@ -2,22 +2,28 @@
 using System.Collections.Generic;
 
 namespace TrieTree
-{
+{   
+    /// <summary>
+    /// Сильно ветвящееся дерево,
+    /// слова заполняются в перевернутом виде. 
+    /// </summary>
     class Tree
     {
-        /// Корень дерева
-        public TreeNode Root { get; private set; }
-
-        /// Проверка на пустоту
-        public bool IsEmpty => Root.IsEmpty;
-
-        /// Получение всех слов, хранящихся в дереве
-        public List<string> Words => Root.GetAllWords();
+        /// Корень дерева.
+        public TreeNode Root { get; }
 
         /// Конструктор
         public Tree()
         {
             Root = new TreeNode();
+        }
+
+        /// <summary>
+        /// Очистка дерева.
+        /// </summary>
+        public void Clear()
+        {
+            Root.Clear();
         }
 
         /// <summary>
@@ -31,30 +37,16 @@ namespace TrieTree
             Root.AddWord(ref word, 0);
         }
 
-        // Получить похожие слова (отличающиеся на n последних символов).
-        public List<string> GetSimilarWords(string word, int ending_length)
+        /// <summary>
+        /// Получение слов, имеющих заданное окончание.
+        /// </summary>
+        /// <param name="ending">Заданное окончание.</param>
+        /// <returns>Список из слов.</returns>
+        public List<string> GetWordsWithEnding(string ending)
         {
-            if ((ending_length < 0) || (ending_length >= word.Length))
-                throw new ArgumentException("Ошибка! Некорректное слово.");
-            string basis = word.Substring(0, word.Length - ending_length);
-            List<string> result = new List<string>();
-            TreeNode ending_node = Root.SearchEnding(ref basis, 0);
-            if (ending_node != null)
-            {
-                List<string> endings = ending_node.GetAllWords();
-                foreach(string ending in endings)
-                {
-                    result.Add(basis + ending);
-                }
-            }
-            return result;
+            var list = Root.GetWordsWithEnding(ending, 0);
+            WordUtils.ReverseWordList(list);
+            return list;
         }
-
-        // Очистить дерево.
-        public void Clear()
-        {
-            Root.Clear();
-        }
-
     }
 }

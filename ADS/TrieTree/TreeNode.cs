@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 
 namespace TrieTree
 {
@@ -24,9 +26,10 @@ namespace TrieTree
         }
 
         /// <summary>
-        /// Добавить строку в поддерево с заданного индекса.
+        /// Добавить слово в поддерево с заданного индекса.
+        /// Слова добавляются в перевенутом виде!
         /// </summary>
-        /// <param name="word">Строка</param>
+        /// <param name="word">Слово</param>
         /// <param name="index">Индекс текущей буквы</param>
         public void AddWord(ref string word, int index)
         {
@@ -34,7 +37,7 @@ namespace TrieTree
                 IsWord = true;
             else
             {
-                char letter = word[index];
+                char letter = word[word.Length - 1 - index];
                 if (!_children.ContainsKey(letter))
                     _children.Add(letter, new TreeNode());
                 _children[letter].AddWord(ref word, index + 1);
@@ -61,22 +64,43 @@ namespace TrieTree
             return result;
         }
 
-        // Найти ячейку, которая является концом заданного слова.
-        public TreeNode SearchEnding(ref string word, int current_index)
-        {
-            TreeNode result = null;
-            if (current_index == word.Length)
-                result = this;
-            else
-                if (_children.ContainsKey(word[current_index]))
-                    result = _children[word[current_index]].SearchEnding(ref word, current_index + 1);
-            return result;
-        }
-
-        // Очистить поддерево.
+        /// <summary>
+        /// Очистка поддерева.
+        /// </summary>
         public void Clear()
         {
             _children.Clear();
+        }
+
+        /// <summary>
+        /// Получить все слова с заданным окончанием.
+        /// </summary>
+        /// <param name="ending">Окончание.</param>
+        /// <param name="currentIndex">Индекс текущего символа окончания.</param>
+        /// <returns>Список слов.</returns>
+        public List<string> GetWordsWithEnding(string ending, int currentIndex)
+        {
+            List<string> result;
+            if (ending.Length != currentIndex)
+            {
+                result = new List<string>();
+                // ending.Length - 1 - currentIndex, так как слова нужно искать с конца
+                // (дерево содержит перевёрнутые слова из файла)
+                var currentLetter = ending[ending.Length - 1 - currentIndex];
+                if (Children.ContainsKey(currentLetter))
+                {
+                    var tmp = Children[currentLetter].GetWordsWithEnding(ending, currentIndex + 1);
+                    foreach (var word in tmp)
+                    {
+                        result.Add(currentLetter + word);
+                    }
+                }
+            }
+            else
+            {
+                result = GetAllWords();
+            }
+            return result;
         }
     }
 }
