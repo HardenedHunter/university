@@ -5,7 +5,7 @@ namespace Tree
     public abstract class Node<T>: IComparable where T: IComparable
     {
         public List<T> Keys;
-        public abstract void Remove(T key);
+        public abstract Node<T> Remove(T key);
         public abstract void Add(T key);
         public abstract T GetFirstLeafKey();
         public abstract void Merge(Node<T> sibling);

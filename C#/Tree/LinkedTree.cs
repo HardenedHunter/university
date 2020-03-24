@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Tree
 {
@@ -17,33 +18,37 @@ namespace Tree
         }
 
         //Settings
-        private const int DefaultBranchingFactor = 5;
-        private const int MinBranchingFactor = 3;
+        private const int DefaultFactor = 2;
+        private const int MinFactor = 2;
 
         //TODO private
         public Node<T> _root;
 
-        public int BranchingFactor { get; }
+        public int Factor { get; }
         //Rewrite
         public int Count { get; private set; }
-        public bool IsEmpty { get; set; }
+        public bool IsEmpty => _root.Keys.Count == 0;
         public IEnumerable<T> Nodes { get; set; }
 
-        public LinkedTree(int factor = DefaultBranchingFactor)
+        public LinkedTree(int factor = DefaultFactor)
         {
-            if (factor < MinBranchingFactor)
+            if (factor < MinFactor)
                 throw new ArgumentOutOfRangeException(); //TODO REPLACE
-            BranchingFactor = factor;
+            Factor = factor;
             Clear();
         }
 
+
+        //Tested?
         public void Add(T node)
         {
+            if (_root == null)
+                _root = new LinkedLeafNode<T>(Factor);
             _root.Add(node);
             if (_root.IsOverflow())
             {
                 Node<T> sibling = _root.Split();
-                LinkedNode<T> newRoot = new LinkedNode<T>(BranchingFactor);
+                LinkedNode<T> newRoot = new LinkedNode<T>(Factor);
                 newRoot.Keys.Add(sibling.GetFirstLeafKey());
                 newRoot.Children.Add(_root);
                 newRoot.Children.Add(sibling);
@@ -51,9 +56,11 @@ namespace Tree
             }
         }
 
+
         public void Remove(T node)
         {
-            _root.Remove(node);
+            var newRoot = _root.Remove(node);
+            if (_root.IsUnderFlow()) _root = newRoot;
         }
 
         public bool Contains(T node)
@@ -64,7 +71,7 @@ namespace Tree
 
         public void Clear()
         {
-            _root = new LinkedLeafNode<T>(BranchingFactor);
+            _root = null;
             Count = 0;
         }
     }

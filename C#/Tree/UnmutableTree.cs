@@ -35,7 +35,7 @@ namespace Tree
             throw new System.NotImplementedException();
         }
 
-        public int BranchingFactor { get; }
+        public int Factor { get; }
 
         public int Count { get; set; }
         public bool IsEmpty { get; set; }

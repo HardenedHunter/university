@@ -22,7 +22,7 @@
 //
 //        private Node<T> _root;
 //
-//        public int BranchingFactor { get; }
+//        public int Factor { get; }
 //        public int Count { get; private set; }
 //        public bool IsEmpty { get; set; }
 //        public IEnumerable<T> Nodes { get; set; }
@@ -31,7 +31,7 @@
 //        {
 //            if (factor < MinBranchingFactor)
 //                throw new ArgumentOutOfRangeException(); //TODO REPLACE
-//            BranchingFactor = factor;
+//            Factor = factor;
 //            Clear();
 //        }
 //

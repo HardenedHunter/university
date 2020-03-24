@@ -10,9 +10,9 @@ namespace Tree
         bool Contains(T node);
         void Remove(T node);
 
-        int BranchingFactor { get; }
+        int Factor { get; }
         int Count { get; }
-        bool IsEmpty { get; set; }
+        bool IsEmpty { get;}
         IEnumerable<T> Nodes { get; set; }
     }
 }

@@ -74,6 +74,7 @@ namespace Tree
                     _head = _head.Next;
                 else
                     indirect.Next = indirect.Next.Next;
+                Count--;
             }
             return result;
         }
@@ -91,6 +92,7 @@ namespace Tree
                 var indirect = GetNodeByIndex(index - 1);
                 indirect.Next = indirect.Next.Next;
             }
+            Count--;
         }
 
         //TESTED

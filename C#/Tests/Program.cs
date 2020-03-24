@@ -1,44 +1,62 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using System.ComponentModel.Design;
 using Tree;
 
 namespace Tests
 {
     class Program
     {
+        static void PrintWrapper(Node<int> node)
+        {
+            PrintTree(node);
+            Console.WriteLine();
+        }
+
+        static void PrintTree(Node<int> node)
+        {
+            node.Keys.Print();
+            if (node is LinkedNode<int> tmp)
+                foreach (var tmpChild in tmp.Children)
+                {
+                    PrintTree(tmpChild);
+                }
+        }
+
         static void Main(string[] args)
         {
-            var tree =  new LinkedTree<int>(3);
+            var tree =  new LinkedTree<int>(2);
             tree.Add(1);
+            PrintWrapper(tree._root);
             tree.Add(2);
+            PrintWrapper(tree._root);
             tree.Add(3);
+            PrintWrapper(tree._root);
             tree.Add(4);
+            PrintWrapper(tree._root);
             tree.Add(5);
-            tree._root.Keys.Print();
-            Console.WriteLine();
-            var tmp = (LinkedNode<int>) tree._root;
-            foreach (var tmpChild in tmp.Children)
-            {
-                tmpChild.Keys.Print();
-                Console.WriteLine();
-            }
-            //            const int key = 8;
-            //            var keys = new List<int> {0, 2, 4, 6, 8};
-            //            var children = new List<int> {0, 1, 2, 3, 4, 5};
-            //            if (keys.Count == 0) Console.WriteLine("null");
-            //            else
-            //            {
-            //                int location = 0;
-            //                //Use IndexInSorted
-            //                while (location < keys.Count && key.CompareTo(keys[location]) >= 0)
-            //                {
-            //                    location++;
-            //                }
-            //
-            //                int childIndex = key.CompareTo(keys[location]) == 0 ? location : location - 1;
-            //                Console.WriteLine(children[childIndex + 2]);
-            //            }
+            PrintWrapper(tree._root);
+            tree.Add(6);
+            PrintWrapper(tree._root);
+            tree.Add(7);
+            PrintWrapper(tree._root);
+            tree.Add(8);
+            PrintWrapper(tree._root);
+            tree.Add(9);
+            PrintWrapper(tree._root);
+            tree.Add(10);
+            PrintWrapper(tree._root);
 
+            tree.Remove(1);
+            PrintWrapper(tree._root);
+            tree.Remove(2);
+            PrintWrapper(tree._root);
+            tree.Remove(5);
+            PrintWrapper(tree._root);
+            tree.Remove(6);
+            PrintWrapper(tree._root);
+            tree.Remove(3);
+            PrintWrapper(tree._root);
+            Console.WriteLine();
         }
     }
 }
