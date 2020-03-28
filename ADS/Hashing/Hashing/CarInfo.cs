@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace Hashing
 {
     class CarInfo
     {
         private string _model;
+        
         private string _owner;
+        
         private CarNumber _number;
 
         public string Model
@@ -20,6 +21,7 @@ namespace Hashing
                 _model = value;
             }
         }
+        
         public string Owner
         {
             get => _owner;

@@ -1,97 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Policy;
 
 namespace Hashing
 {
-    class TableCell<T>
-    {
-        public T Info { get; set; }
-        public int Next { get; set; }
-
-        public TableCell(T info, int next = -1)
-        {
-            Info = info;
-            Next = next;
-        }
-    }
-
-    class HashTable<T> where T : class
-    {
-        public const int Size = 211;
-        public int Count { get; private set; }
-        private readonly TableCell<T>[] _table;
-
-        public HashTable()
-        {
-            _table = new TableCell<T>[Size];
-            Clear();
-        }
-
-        public void Clear()
-        {
-            foreach (var cell in _table)
-            {
-                cell.Info = null;
-                cell.Next = -1;
-            }
-            Count = 0;
-        }
-
-        private int HashFunction(T item)
-        {
-            return item.GetHashCode() % Size;
-        }
-
-        private bool IsEqualKey(T first, T second)
-        {
-            return HashFunction(first) == HashFunction(second);
-        }
-
-        public int IndexOf(T item)
-        {
-            if (item == null) throw new ArgumentNullException();
-            int index = HashFunction(item);
-            bool found = false;
-            while (!found && index != -1)
-            {
-                found = _table[index].Info != null && IsEqualKey(item, _table[index].Info);
-                if (!found)
-                {
-                    if (_table[index].Info == null)
-                    {
-                        index = -1;
-                    }
-                    else
-                    {
-                        index = _table[index].Next;
-                    }
-                }
-            }
-            return index;
-        }
-
-        public bool Add(T item)
-        {
-            int index;
-            var result = Count != Size && IndexOf(item) == -1;
-            if (result)
-            {
-
-            }
-
-            return result;
-        }
-
-        public bool Delete(T item)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     class CarNumber
     {
         //Код региона 
