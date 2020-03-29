@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms.VisualStyles;
+﻿using System.Collections.Generic;
+
+// ReSharper disable CommentTypo
 
 namespace TrieTree
 {

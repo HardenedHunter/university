@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TrieTree
+namespace Hashing_GUI
 {
     static class Program
     {
@@ -13,7 +13,7 @@ namespace TrieTree
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TreeForm());
+            Application.Run(new FormMain());
         }
     }
 }

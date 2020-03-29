@@ -1,6 +1,6 @@
 ﻿namespace Hashing
 {
-    class TableCell<T>
+    public class TableCell<T>
     {
         public T Info { get; set; }
         public int Next { get; set; }

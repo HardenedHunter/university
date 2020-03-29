@@ -1,0 +1,13 @@
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing GUI.exe.config
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing GUI.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing GUI.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csprojAssemblyReference.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.FormMain.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.Properties.Resources.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csproj.GenerateResource.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing.exe.config
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csproj.CopyComplete

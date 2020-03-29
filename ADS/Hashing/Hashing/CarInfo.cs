@@ -3,13 +3,13 @@ using System.IO;
 
 namespace Hashing
 {
-    class CarInfo
+    public class CarInfo
     {
         private string _model;
         
         private string _owner;
         
-        private CarNumber _number;
+        private readonly CarNumber _number;
 
         public string Model
         {
@@ -40,16 +40,41 @@ namespace Hashing
             _number = number;
         }
 
-        public static bool TryReadAsText(StreamReader reader, ref CarInfo carInfo)
+        public override int GetHashCode()
+        {
+            return _number.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"{_number} {_model} {_owner}";
+        }
+
+        public void WriteAsText(StreamWriter writer)
+        {
+            writer.WriteLine($"Номер: {_number}");
+            writer.WriteLine($"Марка: {_model}");
+            writer.WriteLine($"Владелец: {_owner}");
+        }
+        
+        public void WriteToConsole()
+        {
+            Console.WriteLine($"Номер: {_number}");
+            Console.WriteLine($"Марка: {_model}");
+            Console.WriteLine($"Владелец: {_owner}");
+        }
+
+        public static bool TryReadAsText(StreamReader reader, out CarInfo carInfo)
         {
             string tmpModel = "", tmpOwner = "";
-            var tmpNumber = new CarNumber();
                            
-            bool result = CarNumber.TryReadAsText(reader, ref tmpNumber) && 
+            bool result = CarNumber.TryReadAsText(reader, out var tmpNumber) && 
                           FileUtils.GetValueFromFile(reader, ref tmpModel) &&
                           FileUtils.GetValueFromFile(reader, ref tmpOwner);
             if (result)
                 carInfo = new CarInfo(tmpModel, tmpOwner, tmpNumber);
+            else
+                carInfo = null;
             return result;
         }
     }

@@ -20,7 +20,6 @@ namespace Hashing
                     value = value.Substring(colonIndex + 1).Trim();
                 }
             }
-
             return result;
         }
     }

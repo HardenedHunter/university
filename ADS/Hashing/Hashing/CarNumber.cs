@@ -1,10 +1,13 @@
-﻿using System;
+﻿// ReSharper disable CommentTypo
+// ReSharper disable StringLiteralTypo
+
+using System;
 using System.IO;
 using System.Linq;
 
 namespace Hashing
 {
-    class CarNumber
+    public class CarNumber
     {
         //Код региона 
         public int RegionCode { get; set; }
@@ -14,7 +17,6 @@ namespace Hashing
 
         //Серия
         private string _series;
-
         public string Series
         {
             get => _series;
@@ -30,6 +32,18 @@ namespace Hashing
         private static readonly char[] ValidSeriesLetters =
             {'А', 'Е', 'У', 'В', 'О', 'Р', 'К', 'Н', 'Х', 'Т', 'С', 'М'};
 
+        public CarNumber(string source)
+        {
+            if (!TryStrToCarNumber(source, out var tmpSeries, out var tmpNumberCode, out var tmpRegionCode))
+            {
+                throw new ArgumentException("Строка не может быть преобразована в номер автомобиля.");
+            }
+
+            Series = tmpSeries;
+            RegionCode = tmpRegionCode;
+            NumberCode = tmpNumberCode;
+        }
+
         public CarNumber(int regionCode = 36, int numberCode = 001, string series = "ЕКХ")
         {
             RegionCode = regionCode;
@@ -39,8 +53,7 @@ namespace Hashing
 
         public override string ToString()
         {
-            return Series[0] + " " + NumToStr(NumberCode, 3) + " " + Series[1] + Series[2] + " " +
-                   NumToStr(RegionCode, 2);
+            return $"{Series[0]}{NumToStr(NumberCode, 3)}{Series[1]}{Series[2]}{NumToStr(RegionCode, 2)}";
         }
 
         /// <summary>
@@ -51,37 +64,73 @@ namespace Hashing
         /// <returns>Строковое представление числа.</returns>
         private static string NumToStr(int num, int minLength)
         {
-            string result = num.ToString();
+            var result = num.ToString();
             while (result.Length < minLength)
                 result = '0' + result;
             return result;
         }
 
-        public static bool TryReadAsText(StreamReader reader, ref CarNumber number)
+        /// <summary>
+        /// Попытка чтения номера из файла
+        /// </summary>
+        /// <param name="reader">Объект, читающий данные из потока</param>
+        /// <param name="number">Номер автомобиля</param>
+        /// <returns>Успешно ли прошло чтение и конвертация</returns>
+        public static bool TryReadAsText(StreamReader reader, out CarNumber number)
         {
-            string tmpNumber = "";
-            return FileUtils.GetValueFromFile(reader, ref tmpNumber) && TryStrToCarNumber(tmpNumber, ref number);
+            var tmpNumber = "";
+            number = null;
+            return FileUtils.GetValueFromFile(reader, ref tmpNumber) && TryStrToCarNumber(tmpNumber, out number);
         }
 
-        public static bool TryStrToCarNumber(string source, ref CarNumber number)
+        /// <summary>
+        /// Попытка конвертировать строку в номер автомобиля
+        /// </summary>
+        /// <param name="source">Исходная строка</param>
+        /// <param name="series">Серия</param>
+        /// <param name="numberCode">Регистрационный номер</param>
+        /// <param name="regionCode">Код региона</param>
+        /// <returns>Успешно ли прошла конвертация</returns>
+        public static bool TryStrToCarNumber(string source, out string series, out int numberCode, out int regionCode) 
         {
             source = source.ToUpper();
-            string tmpSeries = "";
-            int tmpRegionCode = 0, tmpNumberCode = 0;
-            bool result = GetSeriesChar(ref source, ref tmpSeries) &&
-                          GetNumber(ref source, 1, 999, ref tmpNumberCode) &&
-                          GetSeriesChar(ref source, ref tmpSeries) && GetSeriesChar(ref source, ref tmpSeries) &&
-                          GetNumber(ref source, 1, 999, ref tmpRegionCode) &&
-                          source.Trim() == "";
-            if (result)
-                number = new CarNumber(tmpRegionCode, tmpNumberCode, tmpSeries);
+            series = "";
+            regionCode = 0; 
+            numberCode = 0;
+            var result = GetSeriesChar(ref source, ref series) &&
+                         GetNumber(ref source, 1, 999, ref numberCode) &&
+                         GetSeriesChar(ref source, ref series) && GetSeriesChar(ref source, ref series) &&
+                         GetNumber(ref source, 1, 999, ref regionCode) &&
+                         source.Trim() == "";
             return result;
         }
 
+        /// <summary>
+        /// Попытка конвертировать строку в номер автомобиля
+        /// </summary>
+        /// <param name="source">Исходная строка</param>
+        /// <param name="number">Номер автомобиля</param>
+        /// <returns>Успешно ли прошла конвертация</returns>
+        public static bool TryStrToCarNumber(string source, out CarNumber number)
+        {
+            var result = TryStrToCarNumber(source, out var tmpSeries, out var tmpNumberCode, out var tmpRegionCode);
+            if (result)
+                number = new CarNumber(tmpRegionCode, tmpNumberCode, tmpSeries);
+            else
+                number = null;
+            return result;
+        }
+
+        /// <summary>
+        /// Попытка получить букву серии из строки
+        /// </summary>
+        /// <param name="source">Исходная строка</param>
+        /// <param name="series">Серия</param>
+        /// <returns>Успешно ли получена буква</returns>
         private static bool GetSeriesChar(ref string source, ref string series)
         {
             source = source.Trim();
-            bool result = source != "" && ValidSeriesLetters.Contains(source[0]);
+            var result = source != "" && ValidSeriesLetters.Contains(source[0]);
             if (result)
             {
                 series += source[0];
@@ -91,20 +140,28 @@ namespace Hashing
             return result;
         }
 
+        /// <summary>
+        /// Попытка достать число из строки
+        /// </summary>
+        /// <param name="source">Исходная строка</param>
+        /// <param name="min">Минимальное допустимое значение числа</param>
+        /// <param name="max">Максимальное допустимое значение числа</param>
+        /// <param name="number">Число</param>
+        /// <returns>Успешно ли получено число</returns>
         private static bool GetNumber(ref string source, int min, int max, ref int number)
         {
             source = source.Trim();
-            int length = source.Length;
+            var length = source.Length;
             number = 0;
-            bool result = length > 0 && source[0] >= '0' && source[0] <= '9';
+            var result = length > 0 && source[0] >= '0' && source[0] <= '9';
             if (result)
             {
-                int i = 0;
+                var i = 0;
                 do
                 {
-                    number += (int)char.GetNumericValue(source[i]);
+                    number = number * 10 + (int)char.GetNumericValue(source[i]);
                     i++;
-                } while (i < length && source[0] >= '0' && source[0] <= '9');
+                } while (i < length && source[i] >= '0' && source[i] <= '9');
 
                 source = source.Remove(0, i);
                 result = number >= min && number <= max;

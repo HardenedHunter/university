@@ -1,19 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+
+// ReSharper disable CommentTypo
 
 namespace Hashing
 {
-    class HashTable<T>
+    public class HashTable<T>
     {
-        public const int Size = 11;
-        
-        public int Count { get; private set; }
-        
         private readonly TableCell<T>[] _table;
 
-        public HashTable()
+        //Размер таблицы
+        private const int DefaultSize = 11;
+        public int Size { get; set; }
+        
+        //Количество элементов
+        public int Count { get; private set; }
+
+        //Перечислитель элементов (включает пустые ячейки)
+        public IEnumerable<TableCell<T>> Data => _table;
+
+        public HashTable(int size = DefaultSize)
         {
-            _table = new TableCell<T>[Size];
             Count = 0;
+            Size = size;
+            _table = new TableCell<T>[Size];
         }
 
         private int HashFunction(T item)
