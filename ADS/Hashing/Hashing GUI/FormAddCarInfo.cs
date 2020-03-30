@@ -14,6 +14,7 @@ namespace Hashing_GUI
         {
             OnSubmit = onSubmit;
             InitializeComponent();
+            ActiveControl = TextBoxCarNumber;
         }
 
         private void ButtonSubmit_Click(object sender, System.EventArgs e)

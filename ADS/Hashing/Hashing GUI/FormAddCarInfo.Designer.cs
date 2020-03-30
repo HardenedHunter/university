@@ -97,6 +97,7 @@
             // 
             // FormAddCarInfo
             // 
+            this.AcceptButton = this.ButtonSubmit;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(267, 213);
@@ -108,6 +109,7 @@
             this.Controls.Add(this.TextBoxCarModel);
             this.Controls.Add(this.TextBoxCarNumber);
             this.Name = "FormAddCarInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавить информацию";
             this.ResumeLayout(false);
             this.PerformLayout();

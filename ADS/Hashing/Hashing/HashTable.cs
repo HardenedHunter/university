@@ -10,7 +10,7 @@ namespace Hashing
         private readonly TableCell<T>[] _table;
 
         //Размер таблицы
-        private const int DefaultSize = 11;
+        private const int DefaultSize = 211;
         public int Size { get; set; }
         
         //Количество элементов
