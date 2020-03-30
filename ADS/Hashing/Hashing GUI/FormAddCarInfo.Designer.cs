@@ -49,14 +49,14 @@
             this.TextBoxCarModel.Location = new System.Drawing.Point(40, 87);
             this.TextBoxCarModel.Name = "TextBoxCarModel";
             this.TextBoxCarModel.Size = new System.Drawing.Size(190, 20);
-            this.TextBoxCarModel.TabIndex = 0;
+            this.TextBoxCarModel.TabIndex = 1;
             // 
             // TextBoxCarOwner
             // 
             this.TextBoxCarOwner.Location = new System.Drawing.Point(40, 131);
             this.TextBoxCarOwner.Name = "TextBoxCarOwner";
             this.TextBoxCarOwner.Size = new System.Drawing.Size(190, 20);
-            this.TextBoxCarOwner.TabIndex = 0;
+            this.TextBoxCarOwner.TabIndex = 2;
             // 
             // LabelCarNumber
             // 
@@ -108,9 +108,11 @@
             this.Controls.Add(this.TextBoxCarOwner);
             this.Controls.Add(this.TextBoxCarModel);
             this.Controls.Add(this.TextBoxCarNumber);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormAddCarInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Добавить информацию";
+            this.Text = "Добавить";
             this.ResumeLayout(false);
             this.PerformLayout();
 

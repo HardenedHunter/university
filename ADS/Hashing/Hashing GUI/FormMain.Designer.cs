@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvHashTable = new System.Windows.Forms.DataGridView();
             this.ButtonFill = new System.Windows.Forms.Button();
             this.ButtonAdd = new System.Windows.Forms.Button();
@@ -44,24 +44,24 @@
             // 
             this.dgvHashTable.AllowUserToAddRows = false;
             this.dgvHashTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvHashTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHashTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvHashTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHashTable.Location = new System.Drawing.Point(27, 27);
+            this.dgvHashTable.Location = new System.Drawing.Point(18, 17);
             this.dgvHashTable.Name = "dgvHashTable";
             this.dgvHashTable.RowHeadersVisible = false;
-            this.dgvHashTable.Size = new System.Drawing.Size(403, 457);
+            this.dgvHashTable.Size = new System.Drawing.Size(403, 364);
             this.dgvHashTable.TabIndex = 0;
             // 
             // ButtonFill
             // 
-            this.ButtonFill.Location = new System.Drawing.Point(477, 357);
+            this.ButtonFill.Location = new System.Drawing.Point(446, 304);
             this.ButtonFill.Name = "ButtonFill";
             this.ButtonFill.Size = new System.Drawing.Size(121, 34);
             this.ButtonFill.TabIndex = 1;
@@ -71,7 +71,7 @@
             // 
             // ButtonAdd
             // 
-            this.ButtonAdd.Location = new System.Drawing.Point(477, 258);
+            this.ButtonAdd.Location = new System.Drawing.Point(446, 205);
             this.ButtonAdd.Name = "ButtonAdd";
             this.ButtonAdd.Size = new System.Drawing.Size(121, 34);
             this.ButtonAdd.TabIndex = 2;
@@ -81,7 +81,7 @@
             // 
             // ButtonDelete
             // 
-            this.ButtonDelete.Location = new System.Drawing.Point(477, 208);
+            this.ButtonDelete.Location = new System.Drawing.Point(446, 155);
             this.ButtonDelete.Name = "ButtonDelete";
             this.ButtonDelete.Size = new System.Drawing.Size(121, 34);
             this.ButtonDelete.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             // ButtonFind
             // 
-            this.ButtonFind.Location = new System.Drawing.Point(477, 159);
+            this.ButtonFind.Location = new System.Drawing.Point(446, 106);
             this.ButtonFind.Name = "ButtonFind";
             this.ButtonFind.Size = new System.Drawing.Size(121, 34);
             this.ButtonFind.TabIndex = 3;
@@ -101,7 +101,7 @@
             // 
             // TextBoxCarNumber
             // 
-            this.TextBoxCarNumber.Location = new System.Drawing.Point(477, 124);
+            this.TextBoxCarNumber.Location = new System.Drawing.Point(446, 71);
             this.TextBoxCarNumber.Name = "TextBoxCarNumber";
             this.TextBoxCarNumber.Size = new System.Drawing.Size(121, 20);
             this.TextBoxCarNumber.TabIndex = 4;
@@ -109,7 +109,7 @@
             // LabelCarNumber
             // 
             this.LabelCarNumber.AutoSize = true;
-            this.LabelCarNumber.Location = new System.Drawing.Point(484, 108);
+            this.LabelCarNumber.Location = new System.Drawing.Point(453, 55);
             this.LabelCarNumber.Name = "LabelCarNumber";
             this.LabelCarNumber.Size = new System.Drawing.Size(105, 13);
             this.LabelCarNumber.TabIndex = 5;
@@ -117,7 +117,7 @@
             // 
             // ButtonSave
             // 
-            this.ButtonSave.Location = new System.Drawing.Point(477, 308);
+            this.ButtonSave.Location = new System.Drawing.Point(446, 255);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(121, 34);
             this.ButtonSave.TabIndex = 6;
@@ -129,7 +129,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 518);
+            this.ClientSize = new System.Drawing.Size(589, 398);
             this.Controls.Add(this.ButtonSave);
             this.Controls.Add(this.LabelCarNumber);
             this.Controls.Add(this.TextBoxCarNumber);
