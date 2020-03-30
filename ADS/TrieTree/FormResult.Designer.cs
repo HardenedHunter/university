@@ -60,7 +60,7 @@
             this.Controls.Add(this.ListViewWords);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormResult";
-            this.Text = "FormResult";
+            this.Text = "Результат";
             this.ResumeLayout(false);
 
         }

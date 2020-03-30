@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 
+// ReSharper disable StringLiteralTypo
+
 namespace Hashing
 {
     public class CarInfo
@@ -9,7 +11,7 @@ namespace Hashing
         
         private string _owner;
         
-        private readonly CarNumber _number;
+        public readonly CarNumber Number;
 
         public string Model
         {
@@ -33,33 +35,40 @@ namespace Hashing
             }
         }
 
-        public CarInfo(string model, string owner, CarNumber number)
+        public CarInfo(CarNumber number, string model, string owner)
         {
             Model = model;
             Owner = owner;
-            _number = number;
+            Number = number;
+        }
+
+        public void Deconstruct(out CarNumber number, out string model, out string owner)
+        {
+            number = Number;
+            model = Model;
+            owner = Owner;
         }
 
         public override int GetHashCode()
         {
-            return _number.GetHashCode();
+            return Number.GetHashCode();
         }
 
         public override string ToString()
         {
-            return $"{_number} {_model} {_owner}";
+            return $"{Number} {_model} {_owner}";
         }
 
         public void WriteAsText(StreamWriter writer)
         {
-            writer.WriteLine($"Номер: {_number}");
+            writer.WriteLine($"Номер: {Number}");
             writer.WriteLine($"Марка: {_model}");
             writer.WriteLine($"Владелец: {_owner}");
         }
         
         public void WriteToConsole()
         {
-            Console.WriteLine($"Номер: {_number}");
+            Console.WriteLine($"Номер: {Number}");
             Console.WriteLine($"Марка: {_model}");
             Console.WriteLine($"Владелец: {_owner}");
         }
@@ -72,7 +81,7 @@ namespace Hashing
                           FileUtils.GetValueFromFile(reader, ref tmpModel) &&
                           FileUtils.GetValueFromFile(reader, ref tmpOwner);
             if (result)
-                carInfo = new CarInfo(tmpModel, tmpOwner, tmpNumber);
+                carInfo = new CarInfo(tmpNumber, tmpModel, tmpOwner);
             else
                 carInfo = null;
             return result;

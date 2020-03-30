@@ -11,3 +11,4 @@ C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\
 C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing.pdb
 C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing.exe.config
 C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csproj.CopyComplete
+C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.FormAddCarInfo.resources

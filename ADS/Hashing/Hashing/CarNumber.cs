@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Hashing
 {
@@ -49,6 +50,16 @@ namespace Hashing
             RegionCode = regionCode;
             NumberCode = numberCode;
             Series = series;
+        }
+
+        public override int GetHashCode()
+        {
+            var result = 0;
+            var carNumber = ToString();
+            var length = carNumber.Length;
+            for (int i = 0; i < length; i++)
+                result += carNumber[i] * (int)Math.Pow(31, length - i - 1);
+            return Math.Abs(result);
         }
 
         public override string ToString()

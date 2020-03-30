@@ -26,14 +26,14 @@ namespace Hashing
             _table = new TableCell<T>[Size];
         }
 
-        private int HashFunction(T item)
+        private int HashFunction(int key)
         {
-            return item.GetHashCode() % 2; //% Size
+            return key % Size;
         }
 
-        private static bool IsEqualKey(T first, T second)
+        private static bool IsEqualKey(int first, int second)
         {
-            return first.GetHashCode() == second.GetHashCode();
+            return first == second;
         }
 
         public void Clear()
@@ -45,7 +45,7 @@ namespace Hashing
             Count = 0;
         }
 
-        public void DebugPrint()
+        public void DebugConsolePrint()
         {
             Console.WriteLine("Table:");
             for (int i = 0; i < Size; i++)
@@ -60,34 +60,38 @@ namespace Hashing
             Console.WriteLine("\n");
         }
 
-        public int IndexOf(T item, out int previous)
+        public int IndexOf(int key, out int previous)
         {
-            if (item == null) throw new ArgumentNullException();
-            int index = HashFunction(item);
+            int index = HashFunction(key);
             previous = -1;
             bool found = false;
             while (!found && index != -1)
             {
-                found = _table[index] != null && IsEqualKey(item, _table[index].Info);
+                found = _table[index] != null && IsEqualKey(key, _table[index].Info.GetHashCode());
                 if (!found)
                 {
                     previous = index;
                     if (_table[index] == null)
-                    {
                         index = -1;
-                    }
                     else
-                    {
                         index = _table[index].Next;
-                    }
                 }
             }
             return index;
         }
 
+        public bool Find(int key, ref T item)
+        {
+            var index = IndexOf(key, out int previous);
+            var result = index != -1;
+            if (result)
+                item = _table[index].Info;
+            return result;
+        }
+
         public bool Add(T item)
         {
-            int index = IndexOf(item, out int previous);
+            int index = IndexOf(item.GetHashCode(), out int previous);
             var result = Count != Size && index == -1;
             if (result)
             {
@@ -107,13 +111,12 @@ namespace Hashing
                     _table[previous].Next = index;
                 }
             }
-            DebugPrint();
             return result;
         }
 
-        public bool Delete(T item)
+        public bool Delete(int key)
         {
-            int index = IndexOf(item, out int previous);
+            int index = IndexOf(key, out int previous);
             bool result = Count > 0 && index != -1;
             if (result)
             {
@@ -123,7 +126,6 @@ namespace Hashing
                 _table[index] = null;
                 
             }
-            DebugPrint();
             return result;
         }
     }
