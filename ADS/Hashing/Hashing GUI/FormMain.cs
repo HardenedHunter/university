@@ -10,6 +10,7 @@ namespace Hashing_GUI
 {
     public partial class FormMain : Form
     {
+        //Хеш-таблица
         private HashTable<CarInfo> _table;
 
         public FormMain()
@@ -18,11 +19,14 @@ namespace Hashing_GUI
             Setup();
         }
 
+        /// <summary>
+        /// Настройка DataGridView
+        /// </summary>
         private void Setup()
         {
             _table = new HashTable<CarInfo>();
 
-            dgvHashTable.ColumnCount = 4;
+            dgvHashTable.ColumnCount = 5;
             dgvHashTable.Columns[0].Name = "№";
             dgvHashTable.Columns[0].Width = 30;
             dgvHashTable.Columns[1].Name = "Номер";
@@ -31,6 +35,8 @@ namespace Hashing_GUI
             dgvHashTable.Columns[2].Width = 100;
             dgvHashTable.Columns[3].Name = "Владелец";
             dgvHashTable.Columns[3].Width = 190;
+            dgvHashTable.Columns[4].Name = "Next";
+            dgvHashTable.Columns[4].Width = 35;
 
             int width = 0;
             foreach (DataGridViewColumn column in dgvHashTable.Columns)
@@ -38,6 +44,9 @@ namespace Hashing_GUI
             dgvHashTable.Width = width + dgvHashTable.ColumnCount - 1;
         }
 
+        /// <summary>
+        /// Очистка DataGridView и самой хеш-таблицы
+        /// </summary>
         private void ClearTable()
         {
             dgvHashTable.Rows.Clear();
@@ -57,57 +66,19 @@ namespace Hashing_GUI
                 if (tableCell != null)
                 {
                     var (number, model, owner) = tableCell.Info;
-                    dgvHashTable.Rows.Add(i, number, model, owner); 
+                    dgvHashTable.Rows.Add(i, number, model, owner, tableCell.Next); 
                 }
                 i++; 
             }
         }
 
         /// <summary>
-        /// Выбор файла на жестком диске для открытия.
-        /// </summary>
-        /// <param name="filename">Имя файла.</param>
-        /// <returns>Был ли выбран файл.</returns>
-        private bool ChooseFileToOpen(ref string filename)
-        {
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = @"txt files (*.txt)|*.txt",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            var result = openFileDialog.ShowDialog() == DialogResult.OK;
-            if (result) filename = openFileDialog.FileName;
-            return result;
-        }
-
-        /// <summary>
-        /// Выбор файла на жестком диске для сохранения.
-        /// </summary>
-        /// <param name="filename">Имя файла.</param>
-        /// <returns>Был ли выбран файл.</returns>
-        private bool ChooseFileToSave(ref string filename)
-        {
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = @"txt files (*.txt)|*.txt",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            var result = saveFileDialog.ShowDialog() == DialogResult.OK;
-            if (result) filename = saveFileDialog.FileName;
-            return result;
-        }
-
-        /// <summary>
-        /// Заполнение дерева из текстового файла.
+        /// Заполнение таблицы из текстового файла.
         /// </summary>
         private void FillTableFromFile()
         {
             var filename = "";
-            if (ChooseFileToOpen(ref filename))
+            if (FileUtils.ChooseFileToOpen(ref filename))
             {
                 ClearTable();
                 using (var reader = new StreamReader(File.OpenRead(filename)))
@@ -126,22 +97,25 @@ namespace Hashing_GUI
             }
         }
 
+        /// <summary>
+        /// Сохранение таблицы в текстовый файл
+        /// </summary>
         private void SaveTableToFile()
         {
             var filename = "";
-            if (ChooseFileToSave(ref filename))
+            if (FileUtils.ChooseFileToSave(ref filename))
             {
                 using (var writer = new StreamWriter(File.Create(filename)))
                 {
                     foreach (var tableCell in _table.Data)
                     {
-                        tableCell? .Info.WriteAsText(writer);
+                        tableCell?.Info.WriteAsText(writer);
                     }
                 }
             }
         }
 
-        private void ButtonFill_Click(object sender, EventArgs e)
+        private void ButtonOpen_Click(object sender, EventArgs e)
         {
             try
             {

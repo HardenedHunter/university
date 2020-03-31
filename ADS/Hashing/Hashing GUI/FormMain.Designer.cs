@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvHashTable = new System.Windows.Forms.DataGridView();
-            this.ButtonFill = new System.Windows.Forms.Button();
+            this.ButtonOpen = new System.Windows.Forms.Button();
             this.ButtonAdd = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.ButtonFind = new System.Windows.Forms.Button();
@@ -56,22 +56,22 @@
             this.dgvHashTable.Location = new System.Drawing.Point(18, 17);
             this.dgvHashTable.Name = "dgvHashTable";
             this.dgvHashTable.RowHeadersVisible = false;
-            this.dgvHashTable.Size = new System.Drawing.Size(403, 364);
+            this.dgvHashTable.Size = new System.Drawing.Size(439, 364);
             this.dgvHashTable.TabIndex = 0;
             // 
-            // ButtonFill
+            // ButtonOpen
             // 
-            this.ButtonFill.Location = new System.Drawing.Point(446, 304);
-            this.ButtonFill.Name = "ButtonFill";
-            this.ButtonFill.Size = new System.Drawing.Size(121, 34);
-            this.ButtonFill.TabIndex = 1;
-            this.ButtonFill.Text = "Заполнить из файла";
-            this.ButtonFill.UseVisualStyleBackColor = true;
-            this.ButtonFill.Click += new System.EventHandler(this.ButtonFill_Click);
+            this.ButtonOpen.Location = new System.Drawing.Point(494, 302);
+            this.ButtonOpen.Name = "ButtonOpen";
+            this.ButtonOpen.Size = new System.Drawing.Size(121, 34);
+            this.ButtonOpen.TabIndex = 1;
+            this.ButtonOpen.Text = "Открыть файл";
+            this.ButtonOpen.UseVisualStyleBackColor = true;
+            this.ButtonOpen.Click += new System.EventHandler(this.ButtonOpen_Click);
             // 
             // ButtonAdd
             // 
-            this.ButtonAdd.Location = new System.Drawing.Point(446, 205);
+            this.ButtonAdd.Location = new System.Drawing.Point(494, 203);
             this.ButtonAdd.Name = "ButtonAdd";
             this.ButtonAdd.Size = new System.Drawing.Size(121, 34);
             this.ButtonAdd.TabIndex = 2;
@@ -81,7 +81,7 @@
             // 
             // ButtonDelete
             // 
-            this.ButtonDelete.Location = new System.Drawing.Point(446, 155);
+            this.ButtonDelete.Location = new System.Drawing.Point(494, 153);
             this.ButtonDelete.Name = "ButtonDelete";
             this.ButtonDelete.Size = new System.Drawing.Size(121, 34);
             this.ButtonDelete.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             // ButtonFind
             // 
-            this.ButtonFind.Location = new System.Drawing.Point(446, 106);
+            this.ButtonFind.Location = new System.Drawing.Point(494, 104);
             this.ButtonFind.Name = "ButtonFind";
             this.ButtonFind.Size = new System.Drawing.Size(121, 34);
             this.ButtonFind.TabIndex = 3;
@@ -101,7 +101,7 @@
             // 
             // TextBoxCarNumber
             // 
-            this.TextBoxCarNumber.Location = new System.Drawing.Point(446, 71);
+            this.TextBoxCarNumber.Location = new System.Drawing.Point(494, 69);
             this.TextBoxCarNumber.Name = "TextBoxCarNumber";
             this.TextBoxCarNumber.Size = new System.Drawing.Size(121, 20);
             this.TextBoxCarNumber.TabIndex = 4;
@@ -109,7 +109,7 @@
             // LabelCarNumber
             // 
             this.LabelCarNumber.AutoSize = true;
-            this.LabelCarNumber.Location = new System.Drawing.Point(453, 55);
+            this.LabelCarNumber.Location = new System.Drawing.Point(501, 53);
             this.LabelCarNumber.Name = "LabelCarNumber";
             this.LabelCarNumber.Size = new System.Drawing.Size(105, 13);
             this.LabelCarNumber.TabIndex = 5;
@@ -117,7 +117,7 @@
             // 
             // ButtonSave
             // 
-            this.ButtonSave.Location = new System.Drawing.Point(446, 255);
+            this.ButtonSave.Location = new System.Drawing.Point(494, 253);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(121, 34);
             this.ButtonSave.TabIndex = 6;
@@ -129,14 +129,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 398);
+            this.ClientSize = new System.Drawing.Size(648, 398);
             this.Controls.Add(this.ButtonSave);
             this.Controls.Add(this.LabelCarNumber);
             this.Controls.Add(this.TextBoxCarNumber);
             this.Controls.Add(this.ButtonFind);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.ButtonAdd);
-            this.Controls.Add(this.ButtonFill);
+            this.Controls.Add(this.ButtonOpen);
             this.Controls.Add(this.dgvHashTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -151,7 +151,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvHashTable;
-        private System.Windows.Forms.Button ButtonFill;
+        private System.Windows.Forms.Button ButtonOpen;
         private System.Windows.Forms.Button ButtonAdd;
         private System.Windows.Forms.Button ButtonDelete;
         private System.Windows.Forms.Button ButtonFind;

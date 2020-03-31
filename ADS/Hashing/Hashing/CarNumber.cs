@@ -36,9 +36,7 @@ namespace Hashing
         public CarNumber(string source)
         {
             if (!TryStrToCarNumber(source, out var tmpSeries, out var tmpNumberCode, out var tmpRegionCode))
-            {
                 throw new ArgumentException("Строка не может быть преобразована в номер автомобиля.");
-            }
 
             Series = tmpSeries;
             RegionCode = tmpRegionCode;
@@ -52,6 +50,10 @@ namespace Hashing
             Series = series;
         }
 
+        /// <summary>
+        /// Вычисление значения ключа для хеш-таблицы
+        /// </summary>
+        /// <returns>Ключ</returns>
         public override int GetHashCode()
         {
             var result = 0;
@@ -62,9 +64,14 @@ namespace Hashing
             return Math.Abs(result);
         }
 
+        /// <summary>
+        /// Преобразование номера в строку, формат:
+        /// буква, 3 цифры, 2 буквы, 2 цифры
+        /// </summary>
+        /// <returns>Номер в виде строки</returns>
         public override string ToString()
         {
-            return $"{Series[0]}{NumToStr(NumberCode, 3)}{Series[1]}{Series[2]}{NumToStr(RegionCode, 2)}";
+            return Series[0] + NumToStr(NumberCode, 3) + Series[1] + Series[2] + NumToStr(RegionCode, 2);
         }
 
         /// <summary>

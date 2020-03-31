@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+// ReSharper disable CommentTypo
 
 // ReSharper disable StringLiteralTypo
 
@@ -7,12 +8,8 @@ namespace Hashing
 {
     public class CarInfo
     {
+        //Модель автомобиля
         private string _model;
-        
-        private string _owner;
-        
-        public readonly CarNumber Number;
-
         public string Model
         {
             get => _model;
@@ -24,6 +21,8 @@ namespace Hashing
             }
         }
         
+        //Владелец автомобиля (ФИО)
+        private string _owner;
         public string Owner
         {
             get => _owner;
@@ -35,6 +34,9 @@ namespace Hashing
             }
         }
 
+        //Номер автомобиля
+        public readonly CarNumber Number;
+
         public CarInfo(CarNumber number, string model, string owner)
         {
             Model = model;
@@ -42,6 +44,13 @@ namespace Hashing
             Number = number;
         }
 
+        /// <summary>
+        /// Деконструкция объекта, используется для
+        /// более простого получения всех полей.
+        /// </summary>
+        /// <param name="number">Номер</param>
+        /// <param name="model">Модель</param>
+        /// <param name="owner">Владелец</param>
         public void Deconstruct(out CarNumber number, out string model, out string owner)
         {
             number = Number;
@@ -59,20 +68,23 @@ namespace Hashing
             return $"{Number} {_model} {_owner}";
         }
 
+        /// <summary>
+        /// Запись информации об автомобиле в текстовый файл
+        /// </summary>
+        /// <param name="writer">Объект, производящий запись</param>
         public void WriteAsText(StreamWriter writer)
         {
             writer.WriteLine($"Номер: {Number}");
             writer.WriteLine($"Марка: {_model}");
             writer.WriteLine($"Владелец: {_owner}");
         }
-        
-        public void WriteToConsole()
-        {
-            Console.WriteLine($"Номер: {Number}");
-            Console.WriteLine($"Марка: {_model}");
-            Console.WriteLine($"Владелец: {_owner}");
-        }
 
+        /// <summary>
+        /// Попытка считать информацию об автомобиле из текстового файла
+        /// </summary>
+        /// <param name="reader">Объект, производящий считывание</param>
+        /// <param name="carInfo">Информация об автомобиле</param>
+        /// <returns>Успешно ли была прочитана информация</returns>
         public static bool TryReadAsText(StreamReader reader, out CarInfo carInfo)
         {
             string tmpModel = "", tmpOwner = "";

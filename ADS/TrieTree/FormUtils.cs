@@ -49,15 +49,15 @@ namespace TrieTree
         /// <summary>
         /// Заполнение TreeView из сильно ветвящегося дерева.
         /// </summary>
-        /// <param name="inNode">Текущее обрабатываемое звено.</param>
+        /// <param name="node">Текущее обрабатываемое звено.</param>
         /// <param name="viewNodes">Текущий заполняемый сегмент TreeView.</param>
         /// <param name="index">Индекс заполняемого сегмента.</param>
-        public static void FillTreeView(TreeNode inNode, TreeNodeCollection viewNodes, int index)
+        public static void FillTreeView(TreeNode node, TreeNodeCollection viewNodes, int index)
         {
-            if (inNode.IsWord)
+            if (node.IsWord)
                 viewNodes[index].Text += '*';
             var counter = 0;
-            foreach (var child in inNode.Children)
+            foreach (var child in node.Children)
             {
                 viewNodes[index].Nodes.Add(child.Key.ToString());
                 FillTreeView(child.Value, viewNodes[index].Nodes, counter);

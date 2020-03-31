@@ -7,16 +7,17 @@ namespace Hashing
 {
     public class HashTable<T>
     {
+        //Сама таблица для хранения элементов
         private readonly TableCell<T>[] _table;
 
         //Размер таблицы
-        private const int DefaultSize = 211;
+        private const int DefaultSize = 101;
         public int Size { get; set; }
         
         //Количество элементов
         public int Count { get; private set; }
 
-        //Перечислитель элементов (включает пустые ячейки)
+        //Перечислитель элементов (включая "пустые" ячейки)
         public IEnumerable<TableCell<T>> Data => _table;
 
         public HashTable(int size = DefaultSize)
@@ -26,16 +27,30 @@ namespace Hashing
             _table = new TableCell<T>[Size];
         }
 
+        /// <summary>
+        /// Вычисление хеш-функции по ключу
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>Значение хеш-функции</returns>
         private int HashFunction(int key)
         {
             return key % Size;
         }
 
+        /// <summary>
+        /// Проверка двух ключей на равенство
+        /// </summary>
+        /// <param name="first">Ключ</param>
+        /// <param name="second">Ключ</param>
+        /// <returns>Ранвны ли два ключа</returns>
         private static bool IsEqualKey(int first, int second)
         {
             return first == second;
         }
 
+        /// <summary>
+        /// Очистка таблицы
+        /// </summary>
         public void Clear()
         {
             for (var i = 0; i < Size; i++)
@@ -45,21 +60,12 @@ namespace Hashing
             Count = 0;
         }
 
-        public void DebugConsolePrint()
-        {
-            Console.WriteLine("Table:");
-            for (int i = 0; i < Size; i++)
-            {
-                Console.Write($"[{i}] ");
-                if (_table[i] != null)
-                    Console.WriteLine(_table[i].Info + " " + _table[i].Next);
-                else
-                    Console.WriteLine("____");
-            }
-
-            Console.WriteLine("\n");
-        }
-
+        /// <summary>
+        /// Нахождение номера элемента по ключу
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <param name="previous">Номер предыдущего элемента в цепочке (если он есть, иначе -1)</param>
+        /// <returns>Индекс элемента</returns>
         public int IndexOf(int key, out int previous)
         {
             int index = HashFunction(key);
@@ -80,6 +86,12 @@ namespace Hashing
             return index;
         }
 
+        /// <summary>
+        /// Нахождение элемента по ключу
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <param name="item">Элемент</param>
+        /// <returns>Был ли найден элемент</returns>
         public bool Find(int key, ref T item)
         {
             var index = IndexOf(key, out int previous);
@@ -89,6 +101,11 @@ namespace Hashing
             return result;
         }
 
+        /// <summary>
+        /// Добавление элемента в хеш-таблицу
+        /// </summary>
+        /// <param name="item">Элемент</param>
+        /// <returns>Был ли добавлен элемент (false при переполнении)</returns>
         public bool Add(T item)
         {
             int index = IndexOf(item.GetHashCode(), out int previous);
@@ -114,6 +131,11 @@ namespace Hashing
             return result;
         }
 
+        /// <summary>
+        /// Удаление элемента из хеш-таблицы по ключу
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <returns>Был ли удален элемент (false, если элемент не был найден)</returns>
         public bool Delete(int key)
         {
             int index = IndexOf(key, out int previous);

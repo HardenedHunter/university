@@ -3,11 +3,13 @@ using System.Windows.Forms;
 using Hashing;
 // ReSharper disable LocalizableElement
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CommentTypo
 
 namespace Hashing_GUI
 {
     public partial class FormAddCarInfo : Form
     {
+        //Функция, которая выполнится при успешном заполнении формы
         public Action<CarInfo> OnSubmit { get; }
 
         public FormAddCarInfo(Action<CarInfo> onSubmit)
