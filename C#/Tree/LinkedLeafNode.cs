@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+// ReSharper disable CommentTypo
+// ReSharper disable InvalidXmlDocComment
 
 namespace Tree
 {

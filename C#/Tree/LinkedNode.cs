@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+// ReSharper disable CommentTypo
 
 namespace Tree
 {
@@ -72,7 +73,6 @@ namespace Tree
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e);
                             DeleteChild(key);
                         }
                         if (left.IsOverflow())
@@ -226,8 +226,8 @@ namespace Tree
         /// <summary>
         /// Добавление ключа и связанного с ним потомка.
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="child"></param>
+        /// <param name="key">Ключ.</param>
+        /// <param name="child">Потомок.</param>
         private void InsertChild(T key, Node<T> child)
         {
             int location = Keys.IndexInSorted(key);

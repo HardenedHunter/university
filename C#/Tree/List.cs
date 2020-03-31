@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+// ReSharper disable CommentTypo
 
 namespace Tree
 {
@@ -33,13 +34,12 @@ namespace Tree
             Clear();
         }
 
-        //NOT IMPLEMENTED
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        //TESTED
+        /// <summary>
+        /// Индекс элемента в упорядоченном списке. Если элемент отсутствует,
+        /// возвращает -index-1, где index - позиция, где находился бы этот элемент
+        /// </summary>
+        /// <param name="item">Элемент</param>
+        /// <returns>Позицию элемента, либо -index-1, если элемент отсутствует.</returns>
         public int IndexInSorted(T item)
         {
             var indirect = _head;
@@ -54,14 +54,20 @@ namespace Tree
             return -index - 1;
         }
 
-        //TESTED
+        /// <summary>
+        /// Очистка списка.
+        /// </summary>
         public void Clear()
         {
             _head = null;
             Count = 0;
         }
 
-        //TESTED
+        /// <summary>
+        /// Удаление элемента из списка.
+        /// </summary>
+        /// <param name="item">Элемент.</param>
+        /// <returns>Был ли удален элемент.</returns>
         public bool Remove(T item)
         {
             var indirect = new ListNode<T>(next: _head);
@@ -79,7 +85,10 @@ namespace Tree
             return result;
         }
 
-        //TESTED
+        /// <summary>
+        /// Удаление элемента по указанному индексу.
+        /// </summary>
+        /// <param name="index">Индекс элемента.</param>
         public void RemoveAt(int index)
         {
             if ((uint)index >= (uint)Count) throw new ArgumentOutOfRangeException();
@@ -95,7 +104,9 @@ namespace Tree
             Count--;
         }
 
-        //TESTED
+        /// <summary>
+        /// Печать списка в консоль.
+        /// </summary>
         public void Print()
         {
             foreach (var item in this)
@@ -105,7 +116,12 @@ namespace Tree
             Console.WriteLine();
         }
 
-        //TESTED
+        /// <summary>
+        /// Добавление звена в список.
+        /// </summary>
+        /// <param name="listNode">Звено, к которому происходит присоединение.</param>
+        /// <param name="item">Элемент, содержащийся в новом звене.</param>
+        /// <returns>Добавленное звено.</returns>
         private ListNode<T> AddNode(ref ListNode<T> listNode, T item)
         {
             Count++;
@@ -114,7 +130,11 @@ namespace Tree
             return result;
         }
 
-        //TESTED
+        /// <summary>
+        /// Получение звена по индексу.
+        /// </summary>
+        /// <param name="index">Индекс звена.</param>
+        /// <returns>Звено.</returns>
         private ListNode<T> GetNodeByIndex(int index)
         {
             if ((uint) index >= (uint) Count) throw new ArgumentOutOfRangeException();
@@ -125,7 +145,11 @@ namespace Tree
             return indirect;
         }
 
-        //TESTED
+        /// <summary>
+        /// Вставка элемента в список на заданный индекс.
+        /// </summary>
+        /// <param name="index">Заданный индекс.</param>
+        /// <param name="item">Элемент.</param>
         public void Insert(int index, T item)
         {
             if ((uint)index > (uint)Count) throw new ArgumentOutOfRangeException();
@@ -140,13 +164,21 @@ namespace Tree
             }
         }
 
-        //TESTED
+        /// <summary>
+        /// Проверка на содеражние в списке заданного элемента.
+        /// </summary>
+        /// <param name="item">Заданный элемент.</param>
+        /// <returns>Содержит ли список заданный элемент.</returns>
         public bool Contains(T item)
         {
             return IndexOf(item) != -1;
         }
 
-        //TESTED
+        /// <summary>
+        /// Индекс заданного элемента в списке.
+        /// </summary>
+        /// <param name="item">Заданный элемент.</param>
+        /// <returns>Индекс элемента.</returns>
         public int IndexOf(T item)
         {
             var indirect = _head;
@@ -159,13 +191,21 @@ namespace Tree
             return indirect == null ? -1 : current;
         }
 
-        //TESTED
+        /// <summary>
+        /// Добавление заданного элемента в список.
+        /// </summary>
+        /// <param name="item">Заданный элемент.</param>
         public void Add(T item)
         {
             Insert(Count, item);
         }
 
-        //TESTED
+        /// <summary>
+        /// Получение части списка с заданного индекса.
+        /// </summary>
+        /// <param name="index">Заданный индекс.</param>
+        /// <param name="count">Количество элементов.</param>
+        /// <returns></returns>
         public List<T> GetRange(int index, int count)
         {
             if (index < 0 || count < 0) throw new ArgumentOutOfRangeException();
@@ -180,7 +220,10 @@ namespace Tree
             return list;
         }
 
-        //TESTED
+        /// <summary>
+        /// Добавление в список элементов из заданной коллекции.
+        /// </summary>
+        /// <param name="collection">Заданная коллекция.</param>
         public void AddRange(IEnumerable<T> collection)
         {
             foreach (T item in collection)
@@ -189,7 +232,11 @@ namespace Tree
             }
         }
 
-        //TESTED
+        /// <summary>
+        /// Получение элемента по заданному индексу.
+        /// </summary>
+        /// <param name="index">Заданный индекс.</param>
+        /// <returns></returns>
         public T this[int index]
         {
             get => GetNodeByIndex(index).Info;
@@ -200,12 +247,23 @@ namespace Tree
             }
         }
 
-        //TESTED
-        #region IEnumerator and IEnumerable
-        public void Dispose()
+        /// <summary>
+        /// Копирует все элементы коллекции в массив, начиная с заданного индекса.
+        /// </summary>
+        /// <param name="array">Заданный массив.</param>
+        /// <param name="arrayIndex">Заданный индекс.</param>
+        public void CopyTo(T[] array, int arrayIndex)
         {
-
+            if (array.Length - arrayIndex < this.Count) throw new ArgumentOutOfRangeException();
+            foreach (var item in this)
+            {
+                array[arrayIndex] = item;
+                arrayIndex++;
+            }
         }
+
+        #region IEnumerator and IEnumerable
+        public void Dispose() { }
 
         object IEnumerator.Current => Current;
 
@@ -237,8 +295,6 @@ namespace Tree
 
         public IEnumerator<T> GetEnumerator()
         {
-            //Analog of "-1" for arrays, since MoveNext()
-            //is called BEFORE yielding the fist element
             _position = new ListNode<T>(next: _head);
             return this;
         }
