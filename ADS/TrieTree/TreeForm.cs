@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 // ReSharper disable CommentTypo
+// ReSharper disable LocalizableElement
+// ReSharper disable StringLiteralTypo
 
 namespace TrieTree
 {
     public partial class TreeForm : Form
     {
+        //Trie-дерево
         private Tree _tree;
 
         public TreeForm()
@@ -65,8 +68,16 @@ namespace TrieTree
             if (ending.Length > 0 && TrieTreeView.Nodes.Count > 0)
             {
                 var list = _tree.GetWordsWithEnding(ending);
-                var formResult = new FormResult(list);
-                formResult.Show();
+                if (list.Count > 0)
+                {
+                    var formResult = new FormResult(list);
+                    formResult.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Слова с заданным окончанием не найдены.", "", MessageBoxButtons.OK);
+                }
+                
             }
         }
     }

@@ -1,27 +1,23 @@
 ﻿using System.Collections.Generic;
-
 // ReSharper disable CommentTypo
 
 namespace TrieTree
 {
     class TreeNode
     {
-        // Указатели на ячейки-потомки.
-        private Dictionary<char, TreeNode> _children;
+        // Символы и соответствующие указатели на ячейки-потомки.
+        public Dictionary<char, TreeNode> Children { get; }
 
         // Проверка на пустоту.
-        public bool IsEmpty => _children.Count == 0;
+        public bool IsEmpty => Children.Count == 0;
 
         // Проверка на конец слова в этой ячейке
         public bool IsWord { get; private set; }
 
-        // Указатели на ячейки-потомки.
-        public Dictionary<char, TreeNode> Children => _children;
-
         /// Конструктор
         public TreeNode()
         {
-            _children = new Dictionary<char, TreeNode>();
+            Children = new Dictionary<char, TreeNode>();
             IsWord = false;
         }
 
@@ -38,9 +34,9 @@ namespace TrieTree
             else
             {
                 char letter = word[word.Length - 1 - index];
-                if (!_children.ContainsKey(letter))
-                    _children.Add(letter, new TreeNode());
-                _children[letter].AddWord(ref word, index + 1);
+                if (!Children.ContainsKey(letter))
+                    Children.Add(letter, new TreeNode());
+                Children[letter].AddWord(ref word, index + 1);
             }
         }
 
@@ -53,7 +49,7 @@ namespace TrieTree
             var result = new List<string>();
             if (IsWord)
                 result.Add("");
-            foreach (var pair in _children)
+            foreach (var pair in Children)
             {
                 var tmp = pair.Value.GetAllWords();
                 foreach (string word in tmp)
@@ -69,7 +65,7 @@ namespace TrieTree
         /// </summary>
         public void Clear()
         {
-            _children.Clear();
+            Children.Clear();
         }
 
         /// <summary>
@@ -84,8 +80,8 @@ namespace TrieTree
             if (ending.Length != currentIndex)
             {
                 result = new List<string>();
-                // ending.Length - 1 - currentIndex, так как слова нужно искать с конца
-                // (дерево содержит перевёрнутые слова из файла)
+                // Передается ending.Length - 1 - currentIndex, так как слова нужно
+                // искать с конца (дерево содержит перевёрнутые слова из файла)
                 var currentLetter = ending[ending.Length - 1 - currentIndex];
                 if (Children.ContainsKey(currentLetter))
                 {

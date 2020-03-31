@@ -59,7 +59,9 @@
             this.Controls.Add(this.ButtonClose);
             this.Controls.Add(this.ListViewWords);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormResult";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Результат";
             this.ResumeLayout(false);
 

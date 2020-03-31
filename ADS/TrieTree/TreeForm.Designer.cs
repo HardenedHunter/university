@@ -38,7 +38,7 @@ namespace TrieTree
             this.ButtonClear = new System.Windows.Forms.Button();
             this.ButtonTask = new System.Windows.Forms.Button();
             this.LabelEnding = new System.Windows.Forms.Label();
-            this.TextBoxEnding = new System.Windows.Forms.RichTextBox();
+            this.TextBoxEnding = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // TrieTreeView
@@ -81,7 +81,7 @@ namespace TrieTree
             // LabelEnding
             // 
             this.LabelEnding.AutoSize = true;
-            this.LabelEnding.Location = new System.Drawing.Point(233, 521);
+            this.LabelEnding.Location = new System.Drawing.Point(230, 522);
             this.LabelEnding.Name = "LabelEnding";
             this.LabelEnding.Size = new System.Drawing.Size(95, 13);
             this.LabelEnding.TabIndex = 5;
@@ -89,11 +89,10 @@ namespace TrieTree
             // 
             // TextBoxEnding
             // 
-            this.TextBoxEnding.Location = new System.Drawing.Point(216, 537);
+            this.TextBoxEnding.Location = new System.Drawing.Point(216, 538);
             this.TextBoxEnding.Name = "TextBoxEnding";
-            this.TextBoxEnding.Size = new System.Drawing.Size(174, 22);
-            this.TextBoxEnding.TabIndex = 6;
-            this.TextBoxEnding.Text = "";
+            this.TextBoxEnding.Size = new System.Drawing.Size(174, 20);
+            this.TextBoxEnding.TabIndex = 7;
             // 
             // TreeForm
             // 
@@ -107,6 +106,7 @@ namespace TrieTree
             this.Controls.Add(this.ButtonFill);
             this.Controls.Add(this.TrieTreeView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "TreeForm";
             this.Text = "Сильно ветвящееся дерево";
             this.ResumeLayout(false);
@@ -121,7 +121,7 @@ namespace TrieTree
         private Button ButtonClear;
         private Button ButtonTask;
         private Label LabelEnding;
-        private RichTextBox TextBoxEnding;
+        private TextBox TextBoxEnding;
     }
 }
 
