@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 // ReSharper disable CommentTypo
+// ReSharper disable InvalidXmlDocComment
 
 namespace Tree
 {
+    //Класс "Внутреннее звено", основа – линейный список
     public class LinkedNode<T> : Node<T> where T: IComparable
     {
         public List<Node<T>> Children;

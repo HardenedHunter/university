@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace Tree
 {
+    //Класс "Листьевое звено", основа – линейный список
     public class LinkedLeafNode<T> : Node<T> where T : IComparable
     {
         /// <summary>
@@ -54,15 +55,6 @@ namespace Tree
             int location = Keys.IndexInSorted(key);
             int insertIndex = location >= 0 ? location : -location - 1;
             Keys.Insert(insertIndex, key);
-            // if (_root.IsOverflow())
-            // {
-            //     Node<T> sibling = Split();
-            //     LinkedNode<T> newRoot = new LinkedNode<T>(Factor);
-            //     newRoot.Keys.Add(sibling.GetFirstLeafKey());
-            //     newRoot.Children.Add(this);
-            //     newRoot.Children.Add(sibling);
-            //     _root = newRoot;
-            // }
         }
 
         /// <summary>

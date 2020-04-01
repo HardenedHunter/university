@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Drawing;
 using Tree;
 
 namespace Tests
