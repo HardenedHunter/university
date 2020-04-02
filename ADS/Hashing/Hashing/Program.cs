@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Hashing
+﻿namespace Hashing
 {
     class Program
     {

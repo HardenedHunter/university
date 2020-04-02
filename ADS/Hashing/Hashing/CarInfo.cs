@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 // ReSharper disable CommentTypo
-
 // ReSharper disable StringLiteralTypo
 
 namespace Hashing
@@ -58,9 +57,13 @@ namespace Hashing
             owner = Owner;
         }
 
-        public override int GetHashCode()
+        /// <summary>
+        /// Возвращает ключ (номер автомобиля)
+        /// </summary>
+        /// <returns>Ключ</returns>
+        public string GetKey()
         {
-            return Number.GetHashCode();
+            return Number.ToString();
         }
 
         public override string ToString()

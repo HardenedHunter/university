@@ -6,24 +6,24 @@ namespace TrieTree
     class TreeNode
     {
         // Символы и соответствующие указатели на ячейки-потомки.
-        public Dictionary<char, TreeNode> Children { get; }
-
-        // Проверка на пустоту.
-        public bool IsEmpty => Children.Count == 0;
+        public TreeNode[] Children { get; }
 
         // Проверка на конец слова в этой ячейке
         public bool IsWord { get; private set; }
 
+        //Кол-во букв в алфавите
+        public static int LetterCount = 26;
+
         /// Конструктор
         public TreeNode()
         {
-            Children = new Dictionary<char, TreeNode>();
+            Children = new TreeNode[LetterCount];
             IsWord = false;
         }
 
         /// <summary>
         /// Добавить слово в поддерево с заданного индекса.
-        /// Слова добавляются в перевенутом виде!
+        /// Слова добавляются в перевернутом виде!
         /// </summary>
         /// <param name="word">Слово</param>
         /// <param name="index">Индекс текущей буквы</param>
@@ -34,9 +34,9 @@ namespace TrieTree
             else
             {
                 char letter = word[word.Length - 1 - index];
-                if (!Children.ContainsKey(letter))
-                    Children.Add(letter, new TreeNode());
-                Children[letter].AddWord(ref word, index + 1);
+                if (Children[letter - 'a'] == null)
+                    Children[letter - 'a'] = new TreeNode();
+                Children[letter - 'a'].AddWord(ref word, index + 1);
             }
         }
 
@@ -49,12 +49,15 @@ namespace TrieTree
             var result = new List<string>();
             if (IsWord)
                 result.Add("");
-            foreach (var pair in Children)
+            for (int i = 0; i < LetterCount; i++)
             {
-                var tmp = pair.Value.GetAllWords();
-                foreach (string word in tmp)
+                if (Children[i] != null)
                 {
-                    result.Add(pair.Key + word);
+                    var tmp = Children[i].GetAllWords();
+                    foreach (var word in tmp)
+                    {
+                        result.Add((char)('a' + i) + word);
+                    }
                 }
             }
             return result;
@@ -65,7 +68,10 @@ namespace TrieTree
         /// </summary>
         public void Clear()
         {
-            Children.Clear();
+            for (int i = 0; i < LetterCount; i++)
+            {
+                Children[i] = null;
+            }
         }
 
         /// <summary>
@@ -83,9 +89,9 @@ namespace TrieTree
                 // Передается ending.Length - 1 - currentIndex, так как слова нужно
                 // искать с конца (дерево содержит перевёрнутые слова из файла)
                 var currentLetter = ending[ending.Length - 1 - currentIndex];
-                if (Children.ContainsKey(currentLetter))
+                if (Children[currentLetter - 'a'] != null)
                 {
-                    var tmp = Children[currentLetter].GetWordsWithEnding(ending, currentIndex + 1);
+                    var tmp = Children[currentLetter - 'a'].GetWordsWithEnding(ending, currentIndex + 1);
                     foreach (var word in tmp)
                     {
                         result.Add(currentLetter + word);

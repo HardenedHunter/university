@@ -30,16 +30,18 @@ namespace TrieTree
         /// Заполнение дерева из текстового файла.
         /// </summary>
         /// <param name="tree">Дерево.</param>
-        private void FillTreeFromFile(Tree tree)
+        private bool FillTreeFromFile(Tree tree)
         {
             var filename = "";
-            if (FormUtils.ChooseFile(ref filename))
+            bool result = FormUtils.ChooseFile(ref filename);
+            if (result)
             {
                 ClearTree();
                 var words = FormUtils.GetWordsFromFile(filename);
                 foreach (var word in words)
                     tree.AddWord(word);
             }
+            return result;
         }
 
         private void ButtonClear_Click(object sender, EventArgs e)
@@ -51,10 +53,12 @@ namespace TrieTree
         {
             try
             {
-                FillTreeFromFile(_tree);
-                TrieTreeView.Nodes.Add("Слова (перевёрнутые)");
-                FormUtils.FillTreeView(_tree.Root, TrieTreeView.Nodes, 0);
-                TrieTreeView.ExpandAll();
+                if (FillTreeFromFile(_tree))
+                {
+                    TrieTreeView.Nodes.Add("Слова (перевёрнутые)");
+                    FormUtils.FillTreeView(_tree.Root, TrieTreeView.Nodes, 0);
+                    TrieTreeView.ExpandAll();
+                }
             }
             catch (Exception exception)
             {

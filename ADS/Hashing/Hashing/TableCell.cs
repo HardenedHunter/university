@@ -1,11 +1,11 @@
 ﻿namespace Hashing
 {
-    public class TableCell<T>
+    public class TableCell
     {
-        public T Info { get; set; }
+        public CarInfo Info { get; set; }
         public int Next { get; set; }
 
-        public TableCell(T info, int next = -1)
+        public TableCell(CarInfo info, int next = -1)
         {
             Info = info;
             Next = next;

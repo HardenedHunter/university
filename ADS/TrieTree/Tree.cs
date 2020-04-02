@@ -33,7 +33,7 @@ namespace TrieTree
         /// <param name="word">Слово</param>
         public void AddWord(string word)
         {
-            if (!WordUtils.IsRussian(word))
+            if (!WordUtils.IsWord(word))
                 throw new ArgumentOutOfRangeException("Ошибка! Некорректное слово.");
             Root.AddWord(ref word, 0);
         }

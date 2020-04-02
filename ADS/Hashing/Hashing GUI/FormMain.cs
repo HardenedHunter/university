@@ -11,7 +11,7 @@ namespace Hashing_GUI
     public partial class FormMain : Form
     {
         //Хеш-таблица
-        private HashTable<CarInfo> _table;
+        private HashTable _table;
 
         public FormMain()
         {
@@ -24,7 +24,7 @@ namespace Hashing_GUI
         /// </summary>
         private void Setup()
         {
-            _table = new HashTable<CarInfo>();
+            _table = new HashTable();
 
             dgvHashTable.ColumnCount = 5;
             dgvHashTable.Columns[0].Name = "№";
@@ -144,7 +144,7 @@ namespace Hashing_GUI
                 else
                 {
                     CarInfo carInfo = null;
-                    if (!_table.Find(number.GetHashCode(), ref carInfo))
+                    if (!_table.Find(key, ref carInfo))
                         MessageBox.Show("Данные не найдены.", "Ошибка", MessageBoxButtons.OK);
                     else
                         MessageBox.Show($"Номер: {number}\nМарка: {carInfo.Model}\nВладелец: {carInfo.Owner}", 
@@ -163,7 +163,7 @@ namespace Hashing_GUI
                     MessageBox.Show("Номер введён некорректно. Повторите ввод.", "Ошибка", MessageBoxButtons.OK);
                 else
                 {
-                    if (!_table.Delete(number.GetHashCode()))
+                    if (!_table.Delete(key))
                         MessageBox.Show("Данные не найдены.", "Ошибка", MessageBoxButtons.OK);
                     else
                     {

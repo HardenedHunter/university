@@ -8,29 +8,27 @@ namespace TrieTree
     {
         /// <summary>
         /// Проверка, что слово состоит
-        /// только из русских букв.
+        /// только букв.
         /// </summary>
         /// <param name="word">Проверяемое слово.</param>
         /// <returns></returns>
-        public static bool IsRussian(string word)
+        public static bool IsWord(string word)
         {
-            bool result = true;
-            foreach (char letter in word)
-            {
-                if (!(result = IsRussian(letter)))
-                    break;
-            }
+            int length = word.Length;
+            bool result = word.Length > 0;
+            for (var i = 0; i < length && result; i++)
+                result = IsLetter(word[i]);
             return result;
         }
 
         /// <summary>
-        /// Проверка, что символ является русской буквой
+        /// Проверка, что символ является буквой
         /// </summary>
-        /// <param name="letter"></param>
+        /// <param name="symbol">Символ</param>
         /// <returns></returns>
-        public static bool IsRussian(char letter)
+        public static bool IsLetter(char symbol)
         {
-            return (letter >= 'а') && (letter <= 'я') || (letter == 'ё');
+            return (symbol >= 'a') && (symbol <= 'z');
         }
 
         /// <summary>

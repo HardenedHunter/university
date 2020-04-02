@@ -126,6 +126,8 @@
             this.Controls.Add(this.LabelSource);
             this.Controls.Add(this.TextBoxResult);
             this.Controls.Add(this.TextBoxSource);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormMain";
             this.Text = "Алгоритм с возвратом";
             this.ResumeLayout(false);

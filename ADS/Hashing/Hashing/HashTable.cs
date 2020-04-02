@@ -1,40 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 // ReSharper disable CommentTypo
 
 namespace Hashing
 {
-    public class HashTable<T>
+    public class HashTable
     {
-        //Сама таблица для хранения элементов
-        private readonly TableCell<T>[] _table;
+        //Таблица для хранения элементов
+        private readonly TableCell[] _table;
 
         //Размер таблицы
-        private const int DefaultSize = 101;
+        private const int DefaultSize = 111;
         public int Size { get; set; }
         
         //Количество элементов
         public int Count { get; private set; }
 
         //Перечислитель элементов (включая "пустые" ячейки)
-        public IEnumerable<TableCell<T>> Data => _table;
+        public IEnumerable<TableCell> Data => _table;
 
         public HashTable(int size = DefaultSize)
         {
             Count = 0;
             Size = size;
-            _table = new TableCell<T>[Size];
+            _table = new TableCell[Size];
         }
 
         /// <summary>
         /// Вычисление хеш-функции по ключу
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">Ключ</param>
         /// <returns>Значение хеш-функции</returns>
-        private int HashFunction(int key)
+        private int HashFunction(string key)
         {
-            return key % Size;
+            key = key.Trim().ToLower();
+            var result = 0;
+            var length = key.Length;
+            for (int i = 0; i < length; i++)
+                result += key[i] * (int)Math.Pow(31, length - i - 1);
+            return Math.Abs(result) % Size;
         }
 
         /// <summary>
@@ -43,9 +49,10 @@ namespace Hashing
         /// <param name="first">Ключ</param>
         /// <param name="second">Ключ</param>
         /// <returns>Ранвны ли два ключа</returns>
-        private static bool IsEqualKey(int first, int second)
+        private static bool IsEqualKey(string first, string second)
         {
-            return first == second;
+            //Сравнение без учёта регистра
+            return string.Equals(first, second, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -66,14 +73,14 @@ namespace Hashing
         /// <param name="key">Ключ</param>
         /// <param name="previous">Номер предыдущего элемента в цепочке (если он есть, иначе -1)</param>
         /// <returns>Индекс элемента</returns>
-        public int IndexOf(int key, out int previous)
+        public int IndexOf(string key, out int previous)
         {
             int index = HashFunction(key);
             previous = -1;
             bool found = false;
             while (!found && index != -1)
             {
-                found = _table[index] != null && IsEqualKey(key, _table[index].Info.GetHashCode());
+                found = _table[index] != null && IsEqualKey(key, _table[index].Info.GetKey());
                 if (!found)
                 {
                     previous = index;
@@ -92,7 +99,7 @@ namespace Hashing
         /// <param name="key">Ключ</param>
         /// <param name="item">Элемент</param>
         /// <returns>Был ли найден элемент</returns>
-        public bool Find(int key, ref T item)
+        public bool Find(string key, ref CarInfo item)
         {
             var index = IndexOf(key, out int previous);
             var result = index != -1;
@@ -106,15 +113,15 @@ namespace Hashing
         /// </summary>
         /// <param name="item">Элемент</param>
         /// <returns>Был ли добавлен элемент (false при переполнении)</returns>
-        public bool Add(T item)
+        public bool Add(CarInfo item)
         {
-            int index = IndexOf(item.GetHashCode(), out int previous);
+            int index = IndexOf(item.GetKey(), out int previous);
             var result = Count != Size && index == -1;
             if (result)
             {
                 Count++;
                 if (_table[previous] == null)
-                    _table[previous] = new TableCell<T>(item);
+                    _table[previous] = new TableCell(item);
                 else
                 {
                     index = previous;
@@ -124,7 +131,7 @@ namespace Hashing
                         index = (index % Size) + 1;
                     } while (_table[index] != null);
 
-                    _table[index] = new TableCell<T>(item);
+                    _table[index] = new TableCell(item);
                     _table[previous].Next = index;
                 }
             }
@@ -136,7 +143,7 @@ namespace Hashing
         /// </summary>
         /// <param name="key">Ключ</param>
         /// <returns>Был ли удален элемент (false, если элемент не был найден)</returns>
-        public bool Delete(int key)
+        public bool Delete(string key)
         {
             int index = IndexOf(key, out int previous);
             bool result = Count > 0 && index != -1;

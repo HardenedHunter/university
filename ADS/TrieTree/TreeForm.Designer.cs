@@ -54,7 +54,7 @@ namespace TrieTree
             this.ButtonFill.Name = "ButtonFill";
             this.ButtonFill.Size = new System.Drawing.Size(174, 25);
             this.ButtonFill.TabIndex = 1;
-            this.ButtonFill.Text = "Заполнить";
+            this.ButtonFill.Text = "Открыть файл";
             this.ButtonFill.UseVisualStyleBackColor = true;
             this.ButtonFill.Click += new System.EventHandler(this.ButtonFill_Click);
             // 

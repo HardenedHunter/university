@@ -30,7 +30,7 @@ namespace TrieTree
         /// Чтение из файла слов, записанных в одну строку через пробел.
         /// </summary>
         /// <param name="filename">Имя файла.</param>
-        /// <returns>Массив прочитанных слов.</returns>
+        /// <returns>Список прочитанных слов.</returns>
         public static List<string> GetWordsFromFile(string filename)
         {
             string content = File.ReadAllText(filename);
@@ -38,7 +38,7 @@ namespace TrieTree
             var words = content.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             for (var i = 0; i < words.Length; ++i)
             {
-                if (WordUtils.IsRussian(words[i] = words[i].Trim()))
+                if (WordUtils.IsWord(words[i] = words[i].Trim()))
                     result.Add(words[i]);
                 else
                     throw new ArgumentException("Ошибка! Недопустимое слово.");
@@ -56,12 +56,15 @@ namespace TrieTree
         {
             if (node.IsWord)
                 viewNodes[index].Text += '*';
-            var counter = 0;
-            foreach (var child in node.Children)
+            var letterCounter = 0;
+            for (int i = 0; i < TreeNode.LetterCount; i++)
             {
-                viewNodes[index].Nodes.Add(child.Key.ToString());
-                FillTreeView(child.Value, viewNodes[index].Nodes, counter);
-                counter++;
+                if (node.Children[i] != null)
+                {
+                    viewNodes[index].Nodes.Add(Convert.ToChar('a' + i).ToString());
+                    FillTreeView(node.Children[i], viewNodes[index].Nodes, letterCounter);
+                    letterCounter++;
+                }
             }
         }
     }

@@ -12,3 +12,17 @@ C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\
 C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\bin\Debug\Hashing.exe.config
 C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csproj.CopyComplete
 C:\Users\Hardened\Documents\GitHub\university\ADS\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.FormAddCarInfo.resources
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\bin\Debug\Hashing GUI.exe.config
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\bin\Debug\Hashing GUI.exe
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\bin\Debug\Hashing GUI.pdb
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\bin\Debug\Hashing.exe
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\bin\Debug\Hashing.pdb
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\bin\Debug\Hashing.exe.config
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csprojAssemblyReference.cache
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.FormAddCarInfo.resources
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.FormMain.resources
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing_GUI.Properties.Resources.resources
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csproj.GenerateResource.cache
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing GUI.csproj.CopyComplete
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing GUI.exe
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Hashing\Hashing GUI\obj\Debug\Hashing GUI.pdb

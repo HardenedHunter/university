@@ -7,3 +7,12 @@ C:\Users\Hardened\Documents\GitHub\university\ADS\Backtracking\Backtracking\obj\
 C:\Users\Hardened\Documents\GitHub\university\ADS\Backtracking\Backtracking\obj\Debug\Backtracking.csproj.GenerateResource.cache
 C:\Users\Hardened\Documents\GitHub\university\ADS\Backtracking\Backtracking\obj\Debug\Backtracking.exe
 C:\Users\Hardened\Documents\GitHub\university\ADS\Backtracking\Backtracking\obj\Debug\Backtracking.pdb
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\bin\Debug\Backtracking.exe.config
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\bin\Debug\Backtracking.exe
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\bin\Debug\Backtracking.pdb
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\obj\Debug\Backtracking.csprojAssemblyReference.cache
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\obj\Debug\Backtracking.FormMain.resources
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\obj\Debug\Backtracking.Properties.Resources.resources
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\obj\Debug\Backtracking.csproj.GenerateResource.cache
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\obj\Debug\Backtracking.exe
+C:\Users\Hardened\YandexDisk\2 курс\Пр. по Стр. и Алг\2 семестр\Задачи\Backtracking\Backtracking\obj\Debug\Backtracking.pdb
