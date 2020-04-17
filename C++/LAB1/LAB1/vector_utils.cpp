@@ -1,6 +1,7 @@
 // ReSharper disable StringLiteralTypo
 // ReSharper disable CppClangTidyClangDiagnosticInvalidSourceEncoding
 // ReSharper disable IdentifierTypo
+
 #include "vector_utils.h"
 #include <algorithm>
 #include <iostream>
