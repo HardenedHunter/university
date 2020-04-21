@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Tree_GUI
@@ -16,7 +13,9 @@ namespace Tree_GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            var view = new View();
+            var presenter = new Presenter(view);
+            Application.Run(view);
         }
     }
 }

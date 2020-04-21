@@ -2,8 +2,11 @@ C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\bin\Debug\Tree GUI.exe
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\bin\Debug\Tree GUI.exe
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\bin\Debug\Tree GUI.pdb
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree GUI.csprojAssemblyReference.cache
-C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree_GUI.FormMain.resources
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree_GUI.Properties.Resources.resources
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree GUI.csproj.GenerateResource.cache
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree GUI.exe
 C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree GUI.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\bin\Debug\Tree.dll
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\bin\Debug\Tree.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree_GUI.View.resources
+C:\Users\Hardened\Documents\GitHub\university\C#\Tree GUI\obj\Debug\Tree GUI.csproj.CopyComplete

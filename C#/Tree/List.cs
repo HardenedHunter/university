@@ -34,6 +34,11 @@ namespace Tree
             Clear();
         }
 
+        public override string ToString()
+        {
+            return string.Join(" ", this);
+        }
+
         /// <summary>
         /// Индекс элемента в упорядоченном списке. Если элемент отсутствует,
         /// возвращает -index-1, где index - позиция, где находился бы этот элемент

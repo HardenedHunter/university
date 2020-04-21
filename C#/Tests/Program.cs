@@ -7,56 +7,60 @@ namespace Tests
 {
     class Program
     {
-        static void PrintWrapper(Node<int> node)
+        static void PrintWrapper(LinkedTree<int> tree)
         {
-            PrintTree(node);
+            PrintTree(tree);
+            Console.WriteLine("Level: " + tree.Level);
             Console.WriteLine();
         }
 
-        static void PrintTree(Node<int> node)
+        static void PrintTree(LinkedTree<int> tree)
+        {
+            PrintNode(tree._root);
+        }
+
+        static void PrintNode(Node<int> node)
         {
             node.Keys.Print();
             if (node is LinkedNode<int> tmp)
                 foreach (var tmpChild in tmp.Children)
-                {
-                    PrintTree(tmpChild);
-                }
+                    PrintNode(tmpChild);
         }
 
         static void Main(string[] args)
         {
-            var tree =  new LinkedTree<int>(2);
+            var tree = new LinkedTree<int>(2);
             tree.Add(1);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(2);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(3);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(4);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(5);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(6);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(7);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(8);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(9);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Add(10);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
 
             tree.Remove(1);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Remove(2);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Remove(5);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Remove(6);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             tree.Remove(3);
-            PrintWrapper(tree._root);
+            PrintWrapper(tree);
             Console.WriteLine();
         }
     }
