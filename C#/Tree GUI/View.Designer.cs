@@ -101,7 +101,6 @@
             this.Controls.Add(this.buttonAdd);
             this.Name = "View";
             this.Text = "Б+ дерево";
-            this.Load += new System.EventHandler(this.View_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();

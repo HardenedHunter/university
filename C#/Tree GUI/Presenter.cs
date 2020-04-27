@@ -1,9 +1,6 @@
 ﻿// ReSharper disable CommentTypo
 
 using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Threading;
-using System.Windows.Forms;
 using Tree;
 
 namespace Tree_GUI

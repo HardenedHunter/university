@@ -20,11 +20,7 @@ namespace Tree_GUI
             InitializeComponent();
             _canvas = panelCanvas.CreateGraphics();
             _canvas.Clip = new Region(new Rectangle(0, 0, panelCanvas.Width, panelCanvas.Height));
-        }
-
-        private void Setup()
-        {
-            _canvas.Clear(Color.BlueViolet);
+            _canvas.Clear(Color.Violet);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -44,7 +40,7 @@ namespace Tree_GUI
 
         private void View_Paint(object sender, PaintEventArgs e)
         {
-            // Setup();
+            
         }
 
         public void DrawTree(Action<Graphics> draw)
@@ -71,38 +67,5 @@ namespace Tree_GUI
                 return rv;
             }
         }
-
-        private void View_Load(object sender, EventArgs e)
-        {
-            Setup();
-        }
-
-        // protected void Page_Load(object sender, EventArgs e)
-        // {
-        //     var image = new Bitmap(800, 600);
-        //     try
-        //     {
-        //         var graph = Graphics.FromImage(image);
-        //         graph.FillRectangle(Brushes.White, new Rectangle(new Point(0, 0), image.Size));
-        //         for (int col = 0; col < image.Width; col += 100)
-        //         {
-        //             graph.DrawLine(Pens.Black, new Point(col, 0), new Point(col, image.Height));
-        //         }
-        //         for (int row = 0; row < image.Height; row += 30)
-        //         {
-        //             graph.DrawLine(Pens.Black, new Point(0, row), new Point(image.Width, row));
-        //         }
-        //         graph.DrawRectangle(Pens.Black, new Rectangle(0, 0, image.Width - 1, image.Height - 1));
-        //
-        //         Response.Clear();
-        //         Response.ContentType = "image/jpeg";
-        //         image.Save(Response.OutputStream, ImageFormat.Jpeg);
-        //         Response.End();
-        //     }
-        //     finally
-        //     {
-        //         image.Dispose();
-        //     }
-        // }
     }
 }

@@ -35,12 +35,12 @@ namespace Tree
 
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            var font = new Font("Courier New", 24);
+            var font = new Font("Courier New", 36);
             var symbolSize = g.MeasureString("_", font, new SizeF(), StringFormat.GenericTypographic);
             float dividerWidth = font.Size / 2;
             float blockWidth = symbolSize.Width * (4 * Factor - 3);
 
-            using (var p = new Pen(Color.SeaGreen, 0))
+            using (var p = new Pen(Color.SeaGreen, 3))
             {
                 // g.ClipBounds.Width
                 float xMiddle = g.ClipBounds.Width / 2;
