@@ -51,16 +51,30 @@ namespace Tests
             tree.Add(10);
             PrintWrapper(tree);
 
+            tree.Remove(10);
+            PrintWrapper(tree);
+            tree.Remove(9);
+            PrintWrapper(tree);
             tree.Remove(1);
             PrintWrapper(tree);
             tree.Remove(2);
             PrintWrapper(tree);
-            tree.Remove(5);
+            tree.Remove(3);
             PrintWrapper(tree);
             tree.Remove(6);
             PrintWrapper(tree);
-            tree.Remove(3);
+            tree.Remove(4);
             PrintWrapper(tree);
+            // tree.Remove(7);
+            // PrintWrapper(tree);
+
+
+
+
+            // tree.Remove(6);
+            // PrintWrapper(tree);
+            // tree.Remove(3);
+            // PrintWrapper(tree);
             Console.WriteLine();
         }
     }

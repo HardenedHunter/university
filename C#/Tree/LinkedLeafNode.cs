@@ -64,7 +64,7 @@ namespace Tree
         public override T GetFirstLeafKey()
         {
             return Keys[0];
-        }
+         }
 
         /// <summary>
         /// Слияние двух узлов.

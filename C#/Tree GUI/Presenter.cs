@@ -50,6 +50,25 @@ namespace Tree_GUI
         private void OnClear(object sender, EventArgs e)
         {
             _tree.Clear();
+            // RefreshView();
+
+            _tree.Add(1);
+            _tree.Add(2);
+            _tree.Add(3);
+            _tree.Add(4);
+            _tree.Add(5);
+            _tree.Add(6);
+            _tree.Add(7);
+            _tree.Add(8);
+            _tree.Add(9);
+            _tree.Add(10);
+            _tree.Remove(10);
+            _tree.Remove(9);
+            _tree.Remove(1);
+            _tree.Remove(2);
+            _tree.Remove(3);
+            _tree.Remove(6);
+            // _tree.Remove(8);
             RefreshView();
         }
 

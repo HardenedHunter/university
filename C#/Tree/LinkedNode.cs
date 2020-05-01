@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
+
 // ReSharper disable CommentTypo
 // ReSharper disable InvalidXmlDocComment
 
 namespace Tree
 {
     //Класс "Внутреннее звено", основа – линейный список
-    public class LinkedNode<T> : Node<T> where T: IComparable
+    public class LinkedNode<T> : Node<T> where T : IComparable
     {
         public List<Node<T>> Children;
-        public int Factor { get;}
+        public int Factor { get; }
 
         /// <summary>
         /// Конструктор.
@@ -39,6 +40,7 @@ namespace Tree
         /// </returns>
         public override Node<T> Remove(T key)
         {
+            //Выбор потомка, которому нужно передать удаление
             Node<T> child = GetChild(key);
             child.Remove(key);
             if (child.IsUnderFlow())
@@ -59,9 +61,13 @@ namespace Tree
                 {
                     if (childLeftSibling != null && childLeftSibling.Keys.Count >= Factor)
                     {
-                        T borrowed = childLeftSibling.Keys[Keys.Count - 1];
+                        T borrowed = childLeftSibling.Keys[childLeftSibling.Keys.Count - 1];
                         child.Keys.Add(borrowed);
                         childLeftSibling.Keys.Remove(borrowed);
+                        // T newSeparator = childLeftSibling.Keys[childLeftSibling.Keys.Count - 1];
+                        // int location = Keys.IndexInSorted(newSeparator);
+                        // if (location < 0)
+                        //     Keys[-location - 2] = newSeparator;
                     }
                     else
                     {
@@ -69,26 +75,45 @@ namespace Tree
                         Node<T> right = childLeftSibling != null ? child : childRightSibling;
                         left.Merge(right);
                         //Deletes duplicates
-                        try
-                        {
-                            DeleteChild(right.GetFirstLeafKey());
-                        }
-                        catch (Exception e)
+                        // if (right.)
+                        //Проверить через if вместо try
+                        //Удаление всегда по индексу child'a?
+                        //right никогда не null
+                        // if (Keys.IndexOf(key) >= 0 )
+                        // {
+                        //     DeleteChild(key);
+                        // }
+                        if (right.Keys.Count == 0 && Keys.Contains(key))
                         {
                             DeleteChild(key);
                         }
+                        else
+                        {
+                            DeleteChild(right.GetFirstLeafKey());
+                        }
+
+                        // try
+                        // {
+                        //     //Есть ещё случай, когда 7-пусто-8. Exception не создаётся, но все равно ничего не удаляет
+                        //     DeleteChild(right.GetFirstLeafKey());
+                        // }
+                        // catch (Exception e)
+                        // {
+                        //     DeleteChild(key);
+                        // }
                         if (left.IsOverflow())
                         {
                             Node<T> sibling = left.Split();
                             InsertChild(sibling.GetFirstLeafKey(), sibling);
                         }
+
                         return left;
                     }
                 }
-                
             }
+
             int updateIndex = Keys.IndexOf(key);
-            if (updateIndex >= 0) Keys[updateIndex] =  Children[updateIndex + 1].GetFirstLeafKey();
+            if (updateIndex >= 0) Keys[updateIndex] = Children[updateIndex + 1].GetFirstLeafKey();
             return null;
         }
 
@@ -117,6 +142,7 @@ namespace Tree
         public override void Merge(Node<T> sibling)
         {
             LinkedNode<T> node = (LinkedNode<T>) sibling;
+            //Спускает Separator сверху
             Keys.Add(node.GetFirstLeafKey());
             Keys.AddRange(node.Keys);
             Children.AddRange(node.Children);
@@ -215,14 +241,17 @@ namespace Tree
         /// Удаление ключа и связанного с ним потомка.
         /// </summary>
         /// <param name="key">Ключ.</param>
-        private void DeleteChild(T key)
+        private bool DeleteChild(T key)
         {
             int index = Keys.IndexOf(key);
-            if (index >= 0)
+            bool result = index >= 0;
+            if (result)
             {
                 Keys.RemoveAt(index);
                 Children.RemoveAt(index + 1);
             }
+
+            return result;
         }
 
         /// <summary>
