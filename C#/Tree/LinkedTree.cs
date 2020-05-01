@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Linq;
 
 // ReSharper disable CommentTypo
 
 namespace Tree
 {
-    public class LinkedTree<T> : ITree<T> where T : IComparable
+    public class LinkedTree<T> : ITree<T>, IEnumerator<T> where T : IComparable
     {
         //Показатель ветвления дерева по умолчанию
         private const int DefaultFactor = 2;
@@ -23,7 +25,7 @@ namespace Tree
         public int Level { get; private set; }
 
         //Количество элементов
-        public int Count { get; }
+        public int Count => this.Count();
 
         //Показатель ветвления
         public int Factor { get; }
@@ -33,7 +35,6 @@ namespace Tree
 
         //Элементы дерева
         public IEnumerable<T> Nodes => this;
-
 
         public LinkedTree(int factor = DefaultFactor)
         {
@@ -56,7 +57,7 @@ namespace Tree
             }
 
             _root.Add(node);
-            
+
             if (_root.IsOverflow())
             {
                 Level++;
@@ -84,7 +85,7 @@ namespace Tree
                 _root = newRoot;
             }
         }
-        
+
         /// <summary>
         /// Проверка на содержание в дереве переданного элемента
         /// </summary>
@@ -92,8 +93,17 @@ namespace Tree
         /// <returns></returns>
         public bool Contains(T node)
         {
-            return false;
-            // return _root.Contains(node);
+            bool result = false;
+            using (IEnumerator<T> enumerator = GetEnumerator())
+            {
+                while (enumerator.MoveNext() && !result)
+                {
+                    if (Current != null)
+                        result = Current.CompareTo(node) == 0;
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -103,16 +113,6 @@ namespace Tree
         {
             _root = null;
             Level = 0;
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         public void Draw(Graphics g)
@@ -182,5 +182,64 @@ namespace Tree
                 }
             }
         }
+
+        #region IEnumerator and IEnumerable
+
+        private LinkedLeafNode<T> _currentNode;
+        private int _currentNodePosition;
+
+        void IDisposable.Dispose()
+        {
+        }
+
+        object IEnumerator.Current => Current;
+
+        public T Current
+        {
+            get
+            {
+                try
+                {
+                    return _currentNode.Keys[_currentNodePosition];
+                }
+                catch (Exception)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
+
+        bool IEnumerator.MoveNext()
+        {
+            if (_currentNodePosition >= _currentNode.Keys.Count - 1)
+            {
+                _currentNode = _currentNode.Next;
+                _currentNodePosition = 0;
+            }
+            else
+                _currentNodePosition++;
+
+            return _currentNode != null;
+        }
+
+        void IEnumerator.Reset()
+        {
+            _currentNode = _root?.GetFirstLeaf();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            _currentNode = new LinkedLeafNode<T>(Factor);
+            _currentNode.Next = _root?.GetFirstLeaf();
+            _currentNodePosition = 0;
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion IEnumerator and IEnumerable
     }
 }

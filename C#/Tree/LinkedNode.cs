@@ -194,6 +194,15 @@ namespace Tree
         }
 
         /// <summary>
+        /// Возвращает самый первый (т.е. самый левый) лист в поддереве
+        /// </summary>
+        /// <returns>Лист дерева.</returns>
+        public override LinkedLeafNode<T> GetFirstLeaf()
+        {
+            return Children[0].GetFirstLeaf();
+        }
+
+        /// <summary>
         /// По ключу находит потомка, в котором может находиться
         /// переданный ключ. Для подробностей реализации см.
         /// описание метода IndexInSorted в классе List.

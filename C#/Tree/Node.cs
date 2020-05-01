@@ -8,6 +8,7 @@ namespace Tree
         public abstract Node<T> Remove(T key);
         public abstract void Add(T key);
         public abstract T GetFirstLeafKey();
+        public abstract LinkedLeafNode<T> GetFirstLeaf();
         public abstract void Merge(Node<T> sibling);
         public abstract Node<T> Split();
         public abstract bool IsOverflow();

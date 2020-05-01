@@ -2,11 +2,14 @@
 
 namespace Tree
 {
-    class TreeException : Exception
+    public class TreeException : Exception
     {
-        public TreeException(string message): base(message)
+        public TreeException(string message) : base(message)
         {
-            
+        }
+
+        public TreeException()
+        {
         }
     }
 }

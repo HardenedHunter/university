@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+
 // ReSharper disable CommentTypo
 // ReSharper disable InvalidXmlDocComment
 
@@ -12,6 +13,7 @@ namespace Tree
         /// Указатель на следующий лист (на брата).
         /// </summary>
         public LinkedLeafNode<T> Next;
+
         /// <summary>
         /// Параметр ветвления (вместимости) узла.
         /// </summary>
@@ -43,6 +45,7 @@ namespace Tree
             {
                 Keys.RemoveAt(location);
             }
+
             return this;
         }
 
@@ -64,7 +67,16 @@ namespace Tree
         public override T GetFirstLeafKey()
         {
             return Keys[0];
-         }
+        }
+
+        /// <summary>
+        /// Возвращает самый первый (т.е. самый левый) лист в поддереве
+        /// </summary>
+        /// <returns>Лист дерева.</returns>
+        public override LinkedLeafNode<T> GetFirstLeaf()
+        {
+            return this;
+        }
 
         /// <summary>
         /// Слияние двух узлов.
