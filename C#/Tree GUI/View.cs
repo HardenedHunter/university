@@ -14,13 +14,13 @@ namespace Tree_GUI
         public event EventHandler<EventArgs> AddNode;
         public event EventHandler<EventArgs> DeleteNode;
         public event EventHandler<EventArgs> Clear;
+        public event EventHandler<EventArgs> Reload;
 
         public View()
         {
             InitializeComponent();
             _canvas = panelCanvas.CreateGraphics();
             _canvas.Clip = new Region(new Rectangle(0, 0, panelCanvas.Width, panelCanvas.Height));
-            _canvas.Clear(Color.Violet);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -38,9 +38,9 @@ namespace Tree_GUI
             Clear?.Invoke(this, EventArgs.Empty);
         }
 
-        private void View_Paint(object sender, PaintEventArgs e)
+        private void panelCanvas_Paint(object sender, PaintEventArgs e)
         {
-            
+            Reload?.Invoke(this, EventArgs.Empty);
         }
 
         public void DrawTree(Action<Graphics> draw)

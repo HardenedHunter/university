@@ -22,7 +22,8 @@ namespace Tree
         }
     }
 
-    public class List<T> : IList<T>, IEnumerator<T> where T: IComparable
+
+    public class List<T> : IExtendedCollection<T> where T: IComparable
     {
         private ListNode<T> _head;
         private ListNode<T> _position;
@@ -211,7 +212,7 @@ namespace Tree
         /// <param name="index">Заданный индекс.</param>
         /// <param name="count">Количество элементов.</param>
         /// <returns></returns>
-        public List<T> GetRange(int index, int count)
+        public IExtendedCollection<T> GetRange(int index, int count)
         {
             if (index < 0 || count < 0) throw new ArgumentOutOfRangeException();
             if (Count < count + index) throw new ArgumentException();
@@ -251,7 +252,7 @@ namespace Tree
                 indirect.Info = value;
             }
         }
-
+        
         /// <summary>
         /// Копирует все элементы коллекции в массив, начиная с заданного индекса.
         /// </summary>

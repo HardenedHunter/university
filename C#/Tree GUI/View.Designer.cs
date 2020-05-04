@@ -53,6 +53,7 @@
             this.panelCanvas.Size = new System.Drawing.Size(826, 548);
             this.panelCanvas.TabIndex = 0;
             this.panelCanvas.TabStop = true;
+            this.panelCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.panelCanvas_Paint);
             // 
             // textBoxAdd
             // 
@@ -92,6 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1019, 572);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.textBoxDelete);
@@ -101,7 +103,6 @@
             this.Controls.Add(this.buttonAdd);
             this.Name = "View";
             this.Text = "Б+ дерево";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 

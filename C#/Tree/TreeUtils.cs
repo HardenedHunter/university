@@ -12,7 +12,7 @@ namespace Tree
 
         public static ITree<T> ArrayTreeConstructor<T>(int factor) where T : IComparable
         {
-            throw new NotImplementedException();
+            return new ArrayTree<T>(factor);
         }
 
         public static ITree<T> LinkedTreeConstructor<T>(int factor) where T: IComparable

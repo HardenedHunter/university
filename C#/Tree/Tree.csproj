@@ -42,18 +42,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayInternalNode.cs" />
+    <Compile Include="ArrayLeafNode.cs" />
+    <Compile Include="ArrayNodeFactory.cs" />
+    <Compile Include="IExtendedCollection.cs" />
+    <Compile Include="InternalNode.cs" />
+    <Compile Include="ArrayList.cs" />
     <Compile Include="ImmutableTreeException.cs" />
-    <Compile Include="InternalArrayNode.cs" />
-    <Compile Include="LinkedLeafNode.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="LinkedNode.cs" />
-    <Compile Include="ArrayTree.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="ITree.cs" />
+    <Compile Include="ITreeNodeFactory.cs" />
+    <Compile Include="LeafNode.cs" />
+    <Compile Include="LinkedInternalNode.cs" />
+    <Compile Include="LinkedLeafNode.cs" />
+    <Compile Include="LinkedNodeFactory.cs" />
     <Compile Include="LinkedTree.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tree.cs" />
+    <Compile Include="ArrayTree.cs" />
     <Compile Include="TreeException.cs" />
+    <Compile Include="TreeNode.cs" />
     <Compile Include="TreeUtils.cs" />
     <Compile Include="ImmutableTree.cs" />
   </ItemGroup>

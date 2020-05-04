@@ -1,60 +1,16 @@
-﻿//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//
-//namespace Tree
-//{
-//    class ArrayTree<T>: ITree<T>
-//    {
-//        public IEnumerator<T> GetEnumerator()
-//        {
-//            throw new System.NotImplementedException();
-//        }
-//        IEnumerator IEnumerable.GetEnumerator()
-//        {
-//            return GetEnumerator();
-//        }
-//
-//
-//        //Settings
-//        private const int DefaultBranchingFactor = 5;
-//        private const int MinBranchingFactor = 3;
-//
-//        private Node<T> _root;
-//
-//        public int Factor { get; }
-//        public int Count { get; private set; }
-//        public bool IsEmpty { get; set; }
-//        public IEnumerable<T> Nodes { get; set; }
-//
-//        public ArrayTree(int factor = DefaultBranchingFactor)
-//        {
-//            if (factor < MinBranchingFactor)
-//                throw new ArgumentOutOfRangeException(); //TODO REPLACE
-//            Factor = factor;
-//            Clear();
-//        }
-//
-//        public void Add(T node)
-//        {
-//            _root.Add(node);
-//        }
-//
-//
-//        public bool Contains(T node)
-//        {
-//            return _root.Contains(node);
-//        }
-//
-//        public void Remove(T node)
-//        {
-//            _root.Remove(node);
-//        }
-//
-//        public void Clear()
-//        {
-//            _root = null;
-//            Count = 0;
-//        }
-//    }
-//}
+﻿using System;
+
+namespace Tree
+{
+    public class ArrayTree<T> : Tree<T> where T : IComparable
+    {
+        public ArrayTree(int factor = DefaultFactor)
+        {
+            if (factor < MinFactor)
+                throw new ArgumentOutOfRangeException();
+            Factor = factor;
+            Factory = new ArrayNodeFactory<T>();
+            Clear();
+        }
+    }
+}

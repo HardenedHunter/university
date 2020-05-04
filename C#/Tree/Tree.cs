@@ -1,0 +1,281 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Text;
+using System.Linq;
+
+// ReSharper disable CommentTypo
+
+namespace Tree
+{
+    //Класс "Б+ дерево"
+    public abstract class Tree<T> : ITree<T>, IEnumerator<T> where T : IComparable
+    {
+        //Показатель ветвления дерева по умолчанию
+        protected const int DefaultFactor = 2;
+
+        //Минимально возможный показатель ветвления дерева
+        protected const int MinFactor = 2;
+
+        //Корень дерева TODO private
+        public TreeNode<T> _root;
+
+        //Количество уровней
+        public int Level { get; private set; }
+
+        //Количество элементов
+        public int Count => this.Count();
+
+        //Показатель ветвления
+        public int Factor { get; protected set; }
+
+        //Проверка на пустоту
+        public bool IsEmpty => Level == 0;
+
+        //Фабрика для производства звеньев дерева
+        protected ITreeNodeFactory<T> Factory;
+
+        //Элементы дерева
+        public IEnumerable<T> Nodes => this;
+
+        /// <summary>
+        /// Добавление элемента в дерево
+        /// </summary>
+        /// <param name="node">Элемент</param>
+        public void Add(T node)
+        {
+            if (_root == null)
+            {
+                Level++;
+                _root = Factory.CreateLeafNode(Factor);
+            }
+
+            _root.Add(node);
+
+            if (_root.IsOverflow())
+            {
+                Level++;
+                var sibling = _root.Split();
+                var newRoot = Factory.CreateInternalNode(Factor);
+                newRoot.Keys.Add(sibling.GetFirstLeafKey());
+                newRoot.Children.Add(_root);
+                newRoot.Children.Add(sibling);
+                _root = newRoot;
+            }
+        }
+
+        /// <summary>
+        /// Удаление элемента из дерева
+        /// </summary>
+        /// <param name="node">Удаляемый элемент</param>
+        public void Remove(T node)
+        {
+            if (_root == null) return;
+
+            var newRoot = _root.Remove(node);
+            if (_root.IsUnderFlow())
+            {
+                Level--;
+                _root = newRoot;
+            }
+        }
+
+        /// <summary>
+        /// Проверка на содержание в дереве переданного элемента
+        /// </summary>
+        /// <param name="node">Искомый элемент</param>
+        /// <returns></returns>
+        public bool Contains(T node)
+        {
+            bool result = false;
+            using (IEnumerator<T> enumerator = GetEnumerator())
+            {
+                while (enumerator.MoveNext() && !result)
+                {
+                    if (Current != null)
+                        result = Current.CompareTo(node) == 0;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Очистка дерева
+        /// </summary>
+        public void Clear()
+        {
+            _root = null;
+            Level = 0;
+        }
+
+        public void Draw(Graphics g)
+        {
+            //сделать так, чтобы шрифт подстраивался под размер самого большого уровня
+            g.Clear(Color.White);
+            if (_root == null || _root.Keys.Count == 0) return;
+
+            g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+            var font = new Font("Courier New", 24, FontStyle.Bold);
+            var symbolSize = g.MeasureString("_", font, new SizeF(), StringFormat.GenericTypographic);
+            float dividerWidth = font.Size / 2;
+            float blockWidth = symbolSize.Width * (4 * Factor - 3);
+
+            float xMiddle = g.ClipBounds.Width / 2;
+            float xCord = xMiddle;
+            float yCord = symbolSize.Width * 2;
+
+            int counterCurrent = 1;
+            int counterNext = 0;
+            int watched = 0;
+
+
+            var queue = new Queue<TreeNode<T>>();
+            queue.Enqueue(_root);
+
+            var lineQueue = new Queue<int>();
+
+            //Цикл for по уровням
+            var p = new Pen(Color.SeaGreen, 2);
+            var fillBrush = new SolidBrush(Color.FromArgb(238, 255, 238));
+            var textBrush = new SolidBrush(Color.SeaGreen);
+            while (queue.Count > 0)
+            {
+                //Get the tree node
+                var tmp = queue.Dequeue();
+
+                string keys = tmp.Keys.ToString();
+
+                watched++;
+                
+                g.FillRectangle(fillBrush, xCord, yCord, blockWidth, symbolSize.Height);
+                g.DrawRectangle(p, xCord, yCord, blockWidth, symbolSize.Height);
+                g.DrawString(keys, font, textBrush, xCord, yCord, StringFormat.GenericTypographic);
+
+                xCord += blockWidth + symbolSize.Width;
+
+                if (tmp is InternalNode<T> linked)
+                {
+                    counterNext += linked.Children.Count;
+
+                    lineQueue.Enqueue(linked.Children.Count);
+
+
+                    foreach (var child in linked.Children)
+                    {
+                        queue.Enqueue(child);
+                    }
+
+                    //Конец уровня
+                    if (watched == counterCurrent)
+                    {
+                        float nextLevelWidth = counterNext * blockWidth + (counterNext - 1) * symbolSize.Width;
+                        float x = xMiddle - nextLevelWidth / 2 + blockWidth / 2;
+                        float y = yCord + symbolSize.Height * 2.5f;
+                        if (queue.Count > 0)
+                        {
+                            float xTop = xCord - (blockWidth + symbolSize.Width) * counterCurrent;
+                            float yTop = yCord + symbolSize.Height;
+                            float xBot = x;
+                            float yBot = y;
+
+                            int i = 1;
+                            while (lineQueue.Count > 0)
+                            {
+                                g.DrawLine(p, xTop + blockWidth / 2, yTop, xBot + blockWidth / 2, yBot);
+                                if (i % lineQueue.Peek() == 0)
+                                {
+                                    i = 0;
+                                    lineQueue.Dequeue();
+                                    xTop += blockWidth + symbolSize.Width;
+                                }
+
+                                xBot += blockWidth + symbolSize.Width;
+                                i++;
+                            }
+
+                            // for (int i = 1; i < queue.Count + 1; i++)
+                            // {
+                            //     
+                            //     
+                            // }
+                        }
+
+                        xCord = x;
+                        yCord += symbolSize.Height * 2.5f;
+                        watched = 0;
+                        counterCurrent = counterNext;
+                        counterNext = 0;
+                    }
+
+                    //сделай числа как 0001 0002 и тд и ограничение на ввод
+                }
+            }
+
+            p.Dispose();
+            fillBrush.Dispose();
+            textBrush.Dispose();
+        }
+
+        #region IEnumerator and IEnumerable
+
+        private LeafNode<T> _currentNode;
+        private int _currentNodePosition;
+
+        void IDisposable.Dispose()
+        {
+        }
+
+        object IEnumerator.Current => Current;
+
+        public T Current
+        {
+            get
+            {
+                try
+                {
+                    return _currentNode.Keys[_currentNodePosition];
+                }
+                catch (Exception)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
+
+        bool IEnumerator.MoveNext()
+        {
+            if (_currentNodePosition >= _currentNode.Keys.Count - 1)
+            {
+                _currentNode = _currentNode.Next;
+                _currentNodePosition = 0;
+            }
+            else
+                _currentNodePosition++;
+
+            return _currentNode != null;
+        }
+
+        void IEnumerator.Reset()
+        {
+            _currentNode = _root?.GetFirstLeaf();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            _currentNode = Factory.CreateLeafNode(Factor);
+            _currentNode.Next = _root?.GetFirstLeaf();
+            _currentNodePosition = 0;
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion IEnumerator and IEnumerable
+    }
+}
