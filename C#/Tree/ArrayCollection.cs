@@ -8,7 +8,11 @@ using System.Linq;
 
 namespace Tree
 {
-    public class ArrayList<T> : IExtendedCollection<T> where T : IComparable
+    /// <summary>
+    /// Класс "Коллекция элементов на основе массива"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ArrayCollection<T> : IExtendedCollection<T> where T : IComparable
     {
         private const int DefaultCapacity = 10;
         private int _position;
@@ -50,14 +54,14 @@ namespace Tree
 
         public bool IsReadOnly => false;
 
-        public ArrayList(int capacity)
+        public ArrayCollection(int capacity)
         {
             if (capacity <= 0) throw new ArgumentOutOfRangeException();
             _items = new T[capacity];
             Count = 0;
         }
 
-        public ArrayList()
+        public ArrayCollection()
         {
             _items = new T[DefaultCapacity];
             Count = 0;
@@ -201,8 +205,9 @@ namespace Tree
         /// <param name="collection">Заданная коллекция.</param>
         public void AddRange(IEnumerable<T> collection)
         {
-            if (collection.Count() + Count > Capacity)
-                throw new ArgumentOutOfRangeException();
+            EnsureCapacity(Count + collection.Count());
+            // if (collection.Count() + Count > Capacity)
+            //     throw new ArgumentOutOfRangeException();
             foreach (T item in collection)
             {
                 Add(item);
@@ -222,10 +227,10 @@ namespace Tree
                 throw new ArgumentOutOfRangeException();
             }
         
-            ArrayList<T> list = new ArrayList<T>(count);
-            Array.Copy(_items, index, list._items, 0, count);
-            list.Count = count;
-            return list;
+            ArrayCollection<T> collection = new ArrayCollection<T>(count);
+            Array.Copy(_items, index, collection._items, 0, count);
+            collection.Count = count;
+            return collection;
         }
 
         /// <summary>

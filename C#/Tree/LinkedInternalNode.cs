@@ -1,7 +1,12 @@
 ﻿using System;
+// ReSharper disable CommentTypo
 
 namespace Tree
 {
+    /// <summary>
+    /// Класс "Внутреннее звено на основе линейного списка"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class LinkedInternalNode<T> : InternalNode<T> where T : IComparable
     {    
         /// <summary>
@@ -14,8 +19,8 @@ namespace Tree
         /// </param>
         public LinkedInternalNode(int factor)
         {
-            Keys = new ArrayList<T>();
-            Children = new ArrayList<TreeNode<T>>();
+            Keys = new LinkedCollection<T>();
+            Children = new LinkedCollection<TreeNode<T>>();
             Factor = factor;
             Factory = new LinkedNodeFactory<T>();
         }

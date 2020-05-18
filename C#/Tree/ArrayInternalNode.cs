@@ -3,6 +3,10 @@
 
 namespace Tree
 {
+    /// <summary>
+    /// Класс "Внутреннее звено на основе массива"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ArrayInternalNode<T> : InternalNode<T> where T : IComparable
     {
         /// <summary>
@@ -15,8 +19,8 @@ namespace Tree
         /// </param>
         public ArrayInternalNode(int factor)
         {
-            Keys = new ArrayList<T>();
-            Children = new ArrayList<TreeNode<T>>();
+            Keys = new ArrayCollection<T>();
+            Children = new ArrayCollection<TreeNode<T>>();
             Factor = factor;
             Factory = new ArrayNodeFactory<T>();
         }

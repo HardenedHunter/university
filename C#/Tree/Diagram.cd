@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tree.ArrayCollection&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEoAAEAgACAABBAUGACABAQCABAAQAAEqAgAgABUIAA=</HashCode>
+      <FileName>ArrayCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.69" Collapsed="true" />
+  </Class>
+  <Class Name="Tree.ArrayInternalNode&lt;T&gt;" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArrayInternalNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.ArrayLeafNode&lt;T&gt;" Collapsed="true">
+    <Position X="1.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArrayLeafNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.ArrayNodeFactory&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArrayNodeFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.325" Collapsed="true" />
+  </Class>
+  <Class Name="Tree.ArrayTree&lt;T&gt;" Collapsed="true">
+    <Position X="3.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArrayTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.ImmutableTree&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="6.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAJgAABAACAAAhAAAAAABAQAAAAAAAAFAAAAAABQAAA=</HashCode>
+      <FileName>ImmutableTree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.135" />
+  </Class>
+  <Class Name="Tree.ImmutableTreeException" Collapsed="true">
+    <Position X="7.25" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ImmutableTreeException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.InternalNode&lt;T&gt;" Collapsed="true">
+    <Position X="6.75" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEIAAARAAAAEgAQEIAIEBAgAAAAAAUAQAAAAAAAAAAA=</HashCode>
+      <FileName>InternalNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.LeafNode&lt;T&gt;" Collapsed="true">
+    <Position X="2" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AkIAAABAAAAEAAQEIAAABAAAAAAAAUAQAAAAAAAAAAA=</HashCode>
+      <FileName>LeafNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.LinkedInternalNode&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkedInternalNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.LinkedLeafNode&lt;T&gt;" Collapsed="true">
+    <Position X="3.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkedLeafNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.LinkedNodeFactory&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkedNodeFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.525" Collapsed="true" />
+  </Class>
+  <Class Name="Tree.LinkedTree&lt;T&gt;" Collapsed="true">
+    <Position X="1.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkedTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.ListCollectionNode&lt;T&gt;" Collapsed="true">
+    <Position X="16.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>LinkedCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.LinkedCollection&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEoAAEAAACAAADAUCACABAQAAEAAAAAEiAgQgABdIAA=</HashCode>
+      <FileName>LinkedCollection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_head" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.219" Collapsed="true" />
+  </Class>
+  <Class Name="Tree.Tree&lt;T&gt;" Collapsed="true">
+    <Position X="2" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>GAJgAABAAAAQAjAAIAGABAQAAEAAAAANgAARAABQAAA=</HashCode>
+      <FileName>Tree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.575" />
+  </Class>
+  <Class Name="Tree.TreeException" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TreeException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.TreeNode&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAAAAAAEAAQECAAABAAAAAAAAUAQAAAAAAAAAAA=</HashCode>
+      <FileName>TreeNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tree.TreeUtils" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAEAAAA=</HashCode>
+      <FileName>TreeUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree.ArrayTreeCreator&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArrayTreeCreator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.362" Collapsed="true" />
+  </Class>
+  <Class Name="Tree.LinkedTreeCreator&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkedTreeCreator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Tree.IExtendedCollection&lt;T&gt;" Collapsed="true">
+    <Position X="12.75" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAEAAA=</HashCode>
+      <FileName>IExtendedCollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tree.ITree&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAJgAABAAAAAAgAAAAAABAQAAAAAAAABAAAAAABQAAA=</HashCode>
+      <FileName>ITree.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tree.ITreeNodeFactory&lt;T&gt;" Collapsed="true">
+    <Position X="12.75" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITreeNodeFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tree.ITreeCreator&lt;T&gt;" Collapsed="true">
+    <Position X="10.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITreeCreator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

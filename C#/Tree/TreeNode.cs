@@ -1,7 +1,12 @@
 ﻿using System;
+// ReSharper disable CommentTypo
 
 namespace Tree
 {
+    /// <summary>
+    /// Класс "Звено дерева"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class TreeNode<T> : IComparable where T : IComparable
     {
         public IExtendedCollection<T> Keys;

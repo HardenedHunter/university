@@ -1,11 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 // ReSharper disable CommentTypo
 
 namespace Tree
 {
+    /// <summary>
+    /// Интерфейс для Б+ дерева
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface ITree<T> : IEnumerable<T>
     {
         //Количество уровней

@@ -1,15 +1,18 @@
 ﻿// ReSharper disable CommentTypo
 
 using System;
+using System.Windows.Forms;
+using System.Xml.Serialization;
 using Tree;
-using TreeType = Tree.LinkedTree<int>;
+using static System.Int32;
 
 namespace Tree_GUI
 {
     class Presenter
     {
         private readonly IView _view;
-        private TreeType _arrayTree = new TreeType();
+        private ITree<int> _tree;
+        private ITreeCreator<int> _creator;
 
         public Presenter(IView view)
         {
@@ -17,50 +20,52 @@ namespace Tree_GUI
             _view.AddNode += OnAddNode;
             _view.DeleteNode += OnDeleteNode;
             _view.Clear += OnClear;
+            _view.ChangeFactor += OnChangeFactor;
             _view.Reload += OnReload;
+            _view.SelectLinked += OnSelectLinked;
+            _view.SelectArray += OnSelectArray;
+            _view.SortByEven += OnSortByEven;
+            _view.SortByOdd += OnSortByOdd;
+            _view.FillTestData += OnFillTestData;
+
+            _creator = new LinkedTreeCreator<int>();
+            _tree = _creator.CreateTree();
             RefreshView();
         }
 
         private void OnAddNode(object sender, EventArgs e)
         {
-            if (Int32.TryParse(_view.InputAdd, out int result))
+            if (TryParse(_view.InputAdd, out int result))
             {
-                _arrayTree.Add(result);
+                _tree.Add(result);
                 RefreshView();
             }
         }
 
         private void OnDeleteNode(object sender, EventArgs e)
         {
-            if (Int32.TryParse(_view.InputDelete, out int result))
+            if (TryParse(_view.InputDelete, out int result))
             {
-                _arrayTree.Remove(result);
+                _tree.Remove(result);
+                RefreshView();
+            }
+        }
+
+        private void OnChangeFactor(object sender, EventArgs e)
+        {
+            if (TryParse(_view.InputFactor, out int newFactor) && newFactor >= 2)
+            {
+                var newTree = _creator.CreateTree(newFactor);
+                foreach (var item in _tree)
+                    newTree.Add(item);
+                _tree = newTree;
                 RefreshView();
             }
         }
 
         private void OnClear(object sender, EventArgs e)
         {
-            _arrayTree.Clear();
-            // RefreshView();
-
-            _arrayTree.Add(1);
-            _arrayTree.Add(2);
-            _arrayTree.Add(3);
-            _arrayTree.Add(4);
-            _arrayTree.Add(5);
-            _arrayTree.Add(6);
-            _arrayTree.Add(7);
-            _arrayTree.Add(8);
-            _arrayTree.Add(9);
-            _arrayTree.Add(10);
-
-            // _arrayTree.Remove(10);
-            // _arrayTree.Remove(9);
-            // _arrayTree.Remove(1);
-            // _arrayTree.Remove(2);
-            // _arrayTree.Remove(3);
-            // _arrayTree.Remove(6);
+            _tree.Clear();
             RefreshView();
         }
 
@@ -69,9 +74,56 @@ namespace Tree_GUI
             RefreshView();
         }
 
+        private void OnSelectLinked(object sender, EventArgs e)
+        {
+            _creator = new LinkedTreeCreator<int>();
+            _tree = _creator.CreateTree(_tree.Factor);
+            RefreshView();
+        }
+
+        private void OnSelectArray(object sender, EventArgs e)
+        {
+            _creator = new ArrayTreeCreator<int>();
+            _tree = _creator.CreateTree(_tree.Factor);
+            RefreshView();
+        }
+
+        private void OnSortByOdd(object sender, EventArgs e)
+        {
+            var result = TreeUtils.FindAll(_tree, node => node % 2 != 0, _creator.CreateTree);
+            _tree = result;
+            RefreshView();
+        }
+
+        private void OnSortByEven(object sender, EventArgs e)
+        {
+            var result = TreeUtils.FindAll(_tree, node => node % 2 == 0, _creator.CreateTree);
+            _tree = result;
+            RefreshView();
+        }
+
+        private void OnFillTestData(object sender, EventArgs e)
+        {
+            _tree.Clear();
+            _tree.Add(1);
+            _tree.Add(2);
+            _tree.Add(3);
+            _tree.Add(4);
+            _tree.Add(5);
+            _tree.Add(6);
+            _tree.Add(7);
+            _tree.Add(8);
+            _tree.Add(9);
+            _tree.Add(10);
+            RefreshView();
+        }
+
         private void RefreshView()
         {
-            _view.DrawTree(_arrayTree.Draw);
+            if (_tree == null || _tree.IsEmpty)
+                _view.DrawEmpty();
+            else
+                _view.DrawTree(_tree.Draw);
         }
     }
 }

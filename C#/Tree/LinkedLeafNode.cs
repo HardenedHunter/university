@@ -3,6 +3,10 @@
 
 namespace Tree
 {
+    /// <summary>
+    /// Класс "Листьевое звено на основе линейного списка"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class LinkedLeafNode<T> : LeafNode<T> where T: IComparable
     {
         /// <summary>
@@ -15,7 +19,7 @@ namespace Tree
         /// </param>
         public LinkedLeafNode(int factor)
         {
-            Keys = new List<T>();
+            Keys = new LinkedCollection<T>();
             Factor = factor;
             Factory = new LinkedNodeFactory<T>();
         }

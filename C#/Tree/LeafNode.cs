@@ -110,7 +110,7 @@ namespace Tree
 
         /// <summary>
         /// Сравнение двух узлов, реализация интерфейса IComparable.
-        /// Необходимо, чтобы создать List<ArrayNode<T>>, так как в классе List
+        /// Необходимо, чтобы создать LinkedCollection<ArrayNode<T>>, так как в классе LinkedCollection
         /// стоит ограничение на тип Т: IComparable. В самой программе
         /// данный метод не вызывается.
         /// </summary>

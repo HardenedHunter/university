@@ -1,36 +1,44 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
 // ReSharper disable CommentTypo
 
 namespace Tree
 {
-    internal class ListNode<T>
+    /// <summary>
+    /// Класс "Звено линейного списка"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    internal class ListCollectionNode<T>
     {
         public T Info;
-        public ListNode<T> Next;
+        public ListCollectionNode<T> Next;
 
-        public ListNode(T info, ListNode<T> next)
+        public ListCollectionNode(T info, ListCollectionNode<T> next)
         {
             Info = info;
             Next = next;
         }
 
-        public ListNode(ListNode<T> next)
+        public ListCollectionNode(ListCollectionNode<T> next)
         {
             Next = next;
         }
     }
 
-
-    public class List<T> : IExtendedCollection<T> where T: IComparable
+    /// <summary>
+    /// Класс "Коллекция элементов на основе линейного списка"
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class LinkedCollection<T> : IExtendedCollection<T> where T : IComparable
     {
-        private ListNode<T> _head;
-        private ListNode<T> _position;
+        private ListCollectionNode<T> _head;
+        private ListCollectionNode<T> _position;
         public int Count { get; private set; }
         public bool IsReadOnly => false;
 
-        public List()
+        public LinkedCollection()
         {
             Clear();
         }
@@ -55,6 +63,7 @@ namespace Tree
                 indirect = indirect.Next;
                 index++;
             }
+
             if (indirect == null) return -Count - 1;
             if (item.CompareTo(indirect.Info) == 0) return index;
             return -index - 1;
@@ -76,7 +85,7 @@ namespace Tree
         /// <returns>Был ли удален элемент.</returns>
         public bool Remove(T item)
         {
-            var indirect = new ListNode<T>(next: _head);
+            var indirect = new ListCollectionNode<T>(next: _head);
             while (indirect.Next != null && !EqualityComparer<T>.Default.Equals(indirect.Next.Info, item))
                 indirect = indirect.Next;
             var result = indirect.Next != null;
@@ -88,6 +97,7 @@ namespace Tree
                     indirect.Next = indirect.Next.Next;
                 Count--;
             }
+
             return result;
         }
 
@@ -97,7 +107,7 @@ namespace Tree
         /// <param name="index">Индекс элемента.</param>
         public void RemoveAt(int index)
         {
-            if ((uint)index >= (uint)Count) throw new ArgumentOutOfRangeException();
+            if ((uint) index >= (uint) Count) throw new ArgumentOutOfRangeException();
             if (index == 0)
             {
                 _head = _head.Next;
@@ -107,6 +117,7 @@ namespace Tree
                 var indirect = GetNodeByIndex(index - 1);
                 indirect.Next = indirect.Next.Next;
             }
+
             Count--;
         }
 
@@ -119,20 +130,21 @@ namespace Tree
             {
                 Console.Write(item + " ");
             }
+
             Console.WriteLine();
         }
 
         /// <summary>
         /// Добавление звена в список.
         /// </summary>
-        /// <param name="listNode">Звено, к которому происходит присоединение.</param>
+        /// <param name="listCollectionNode">Звено, к которому происходит присоединение.</param>
         /// <param name="item">Элемент, содержащийся в новом звене.</param>
         /// <returns>Добавленное звено.</returns>
-        private ListNode<T> AddNode(ref ListNode<T> listNode, T item)
+        private ListCollectionNode<T> AddNode(ref ListCollectionNode<T> listCollectionNode, T item)
         {
             Count++;
-            var result = new ListNode<T>(item, listNode);
-            listNode = result;
+            var result = new ListCollectionNode<T>(item, listCollectionNode);
+            listCollectionNode = result;
             return result;
         }
 
@@ -141,7 +153,7 @@ namespace Tree
         /// </summary>
         /// <param name="index">Индекс звена.</param>
         /// <returns>Звено.</returns>
-        private ListNode<T> GetNodeByIndex(int index)
+        private ListCollectionNode<T> GetNodeByIndex(int index)
         {
             if ((uint) index >= (uint) Count) throw new ArgumentOutOfRangeException();
 
@@ -158,7 +170,7 @@ namespace Tree
         /// <param name="item">Элемент.</param>
         public void Insert(int index, T item)
         {
-            if ((uint)index > (uint)Count) throw new ArgumentOutOfRangeException();
+            if ((uint) index > (uint) Count) throw new ArgumentOutOfRangeException();
             if (index == 0)
             {
                 AddNode(ref _head, item);
@@ -194,6 +206,7 @@ namespace Tree
                 indirect = indirect.Next;
                 current++;
             }
+
             return indirect == null ? -1 : current;
         }
 
@@ -217,7 +230,7 @@ namespace Tree
             if (index < 0 || count < 0) throw new ArgumentOutOfRangeException();
             if (Count < count + index) throw new ArgumentException();
 
-            var list = new List<T>();
+            var list = new LinkedCollection<T>();
             for (int i = index; i < count + index; i++)
             {
                 list.Add(this[i]);
@@ -252,7 +265,7 @@ namespace Tree
                 indirect.Info = value;
             }
         }
-        
+
         /// <summary>
         /// Копирует все элементы коллекции в массив, начиная с заданного индекса.
         /// </summary>
@@ -269,7 +282,10 @@ namespace Tree
         }
 
         #region IEnumerator and IEnumerable
-        public void Dispose() { }
+
+        public void Dispose()
+        {
+        }
 
         object IEnumerator.Current => Current;
 
@@ -301,7 +317,7 @@ namespace Tree
 
         public IEnumerator<T> GetEnumerator()
         {
-            _position = new ListNode<T>(next: _head);
+            _position = new ListCollectionNode<T>(next: _head);
             return this;
         }
 
@@ -309,6 +325,7 @@ namespace Tree
         {
             return GetEnumerator();
         }
+
         #endregion IEnumerator and IEnumerable
     }
 }

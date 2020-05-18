@@ -10,7 +10,7 @@ namespace Tree
     {
         public IExtendedCollection<TreeNode<T>> Children;
         protected ITreeNodeFactory<T> Factory;
-        public int Factor { get; protected set;  }
+        public int Factor { get; protected set; }
 
         /// <summary>
         /// Рекурсивное удаление ключа из узла. Внутренние узлы
@@ -25,59 +25,30 @@ namespace Tree
         /// </returns>
         public override TreeNode<T> Remove(T key)
         {
-            //Выбор потомка, которому нужно передать удаление
             TreeNode<T> child = GetChild(key);
             child.Remove(key);
             if (child.IsUnderFlow())
             {
                 TreeNode<T> childLeftSibling = GetChildLeftSibling(key);
                 TreeNode<T> childRightSibling = GetChildRightSibling(key);
-                if (childRightSibling != null && childRightSibling.Keys.Count >= Factor)
-                {
-                    T borrowed = childRightSibling.Keys[0];
-                    child.Keys.Add(borrowed);
-                    childRightSibling.Keys.Remove(borrowed);
-                    T newSeparator = childRightSibling.Keys[0];
-                    int location = Keys.IndexInSorted(newSeparator);
-                    if (location < 0)
-                        Keys[-location - 2] = newSeparator;
-                }
-                else
-                {
-                    if (childLeftSibling != null && childLeftSibling.Keys.Count >= Factor)
-                    {
-                        T borrowed = childLeftSibling.Keys[childLeftSibling.Keys.Count - 1];
-                        child.Keys.Add(borrowed);
-                        childLeftSibling.Keys.Remove(borrowed);
-                    }
-                    else
-                    {
-                        TreeNode<T> left = childLeftSibling ?? child;
-                        TreeNode<T> right = childLeftSibling != null ? child : childRightSibling;
-                        left.Merge(right);
-                        //right никогда не null
-                        if (right.Keys.Count == 0 && Keys.Contains(key))
-                        {
-                            DeleteChild(key);
-                        }
-                        else
-                        {
-                            DeleteChild(right.GetFirstLeafKey());
-                        }
+                TreeNode<T> left = childLeftSibling ?? child;
+                TreeNode<T> right = childLeftSibling != null ? child : childRightSibling;
+                left.Merge(right);
+                
+                DeleteChild(right);
 
-                        if (left.IsOverflow())
-                        {
-                            TreeNode<T> sibling = left.Split();
-                            InsertChild(sibling.GetFirstLeafKey(), sibling);
-                        }
-
-                        return left;
-                    }
+                if (left.IsOverflow())
+                {
+                    TreeNode<T> sibling = left.Split();
+                    InsertChild(sibling.GetFirstLeafKey(), sibling);
                 }
+
+                return left;
             }
-
+            
             int updateIndex = Keys.IndexOf(key);
             if (updateIndex >= 0) Keys[updateIndex] = Children[updateIndex + 1].GetFirstLeafKey();
+
             return null;
         }
 
@@ -169,7 +140,7 @@ namespace Tree
         /// <summary>
         /// По ключу находит потомка, в котором может находиться
         /// переданный ключ. Для подробностей реализации см.
-        /// описание метода IndexInSorted в классе List/ArrayList.
+        /// описание метода IndexInSorted в классе LinkedCollection/ArrayCollection.
         /// </summary>
         /// <param name="key">Ключ.</param>
         /// <returns>Потомок.</returns>
@@ -211,20 +182,20 @@ namespace Tree
         }
 
         /// <summary>
-        /// Удаление ключа и связанного с ним потомка.
+        /// Удаление потомка и связанного с ним ключа.
         /// </summary>
         /// <param name="key">Ключ.</param>
-        private bool DeleteChild(T key)
+        private void DeleteChild(TreeNode<T> child)
         {
-            int index = Keys.IndexOf(key);
+            int index = Children.IndexOf(child);
+
             bool result = index >= 0;
             if (result)
             {
-                Keys.RemoveAt(index);
-                Children.RemoveAt(index + 1);
+                Keys.RemoveAt(index - 1);
+                Children.RemoveAt(index);
             }
 
-            return result;
         }
 
         /// <summary>
@@ -249,7 +220,7 @@ namespace Tree
 
         /// <summary>
         /// Сравнение двух узлов, реализация интерфейса IComparable.
-        /// Необходимо, чтобы создать List<LinkedNode<T>>, так как
+        /// Необходимо, чтобы создать LinkedCollection<LinkedNode<T>>, так как
         /// стоит ограничение на тип Т: IComparable. В самой программе
         /// данный метод не вызывается.
         /// </summary>

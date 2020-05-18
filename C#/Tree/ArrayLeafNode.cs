@@ -15,7 +15,7 @@ namespace Tree
         /// </param>
         public ArrayLeafNode(int factor)
         {
-            Keys = new ArrayList<T>();
+            Keys = new ArrayCollection<T>();
             Factor = factor;
             Factory = new ArrayNodeFactory<T>();
         }

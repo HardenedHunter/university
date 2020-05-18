@@ -18,8 +18,8 @@ namespace Tree
         //Минимально возможный показатель ветвления дерева
         protected const int MinFactor = 2;
 
-        //Корень дерева TODO private
-        public TreeNode<T> _root;
+        //Корень дерева
+        private TreeNode<T> _root;
 
         //Количество уровней
         public int Level { get; private set; }
@@ -28,7 +28,7 @@ namespace Tree
         public int Count => this.Count();
 
         //Показатель ветвления
-        public int Factor { get; protected set; }
+        public int Factor { get; set; }
 
         //Проверка на пустоту
         public bool IsEmpty => Level == 0;
@@ -110,21 +110,27 @@ namespace Tree
             Level = 0;
         }
 
+        /// <summary>
+        /// Отрисовка дерева на форме, обход в ширину через очередь
+        /// </summary>
+        /// <param name="g"></param>
         public void Draw(Graphics g)
         {
-            //сделать так, чтобы шрифт подстраивался под размер самого большого уровня
             g.Clear(Color.White);
             if (_root == null || _root.Keys.Count == 0) return;
 
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
-
-            var font = new Font("Courier New", 24, FontStyle.Bold);
+            var font = new Font("Courier New", 16, FontStyle.Bold);
             var symbolSize = g.MeasureString("_", font, new SizeF(), StringFormat.GenericTypographic);
-            float dividerWidth = font.Size / 2;
-            float blockWidth = symbolSize.Width * (4 * Factor - 3);
+
+            int blockPadding = 4;
+            int symbolsWidthPerItem = 2;
+            float blockDividerWidth = symbolSize.Width * 2;
+            float blockWidth = symbolSize.Width * (2 * Factor - 1) * symbolsWidthPerItem +
+                               symbolSize.Width * (2 * Factor - 2);
 
             float xMiddle = g.ClipBounds.Width / 2;
-            float xCord = xMiddle;
+            float xCord = xMiddle - blockWidth / 2;
             float yCord = symbolSize.Width * 2;
 
             int counterCurrent = 1;
@@ -137,26 +143,29 @@ namespace Tree
 
             var lineQueue = new Queue<int>();
 
-            //Цикл for по уровням
             var p = new Pen(Color.SeaGreen, 2);
             var fillBrush = new SolidBrush(Color.FromArgb(238, 255, 238));
             var textBrush = new SolidBrush(Color.SeaGreen);
             while (queue.Count > 0)
             {
-                //Get the tree node
-                var tmp = queue.Dequeue();
+                var tmpNode = queue.Dequeue();
 
-                string keys = tmp.Keys.ToString();
+                string[] tmpArray = tmpNode.Keys.Select(FormatItem).ToArray();
+                string keys = string.Join(" ", tmpArray);
 
                 watched++;
+
+                g.FillRectangle(fillBrush, xCord - blockPadding, yCord - blockPadding, blockWidth + blockPadding * 2,
+                    symbolSize.Height + blockPadding * 2);
                 
-                g.FillRectangle(fillBrush, xCord, yCord, blockWidth, symbolSize.Height);
-                g.DrawRectangle(p, xCord, yCord, blockWidth, symbolSize.Height);
+                g.DrawRectangle(p, xCord - blockPadding, yCord - blockPadding, blockWidth + blockPadding * 2,
+                    symbolSize.Height + blockPadding * 2);
+                
                 g.DrawString(keys, font, textBrush, xCord, yCord, StringFormat.GenericTypographic);
 
-                xCord += blockWidth + symbolSize.Width;
+                xCord += blockWidth + blockDividerWidth;
 
-                if (tmp is InternalNode<T> linked)
+                if (tmpNode is InternalNode<T> linked)
                 {
                     counterNext += linked.Children.Count;
 
@@ -171,15 +180,15 @@ namespace Tree
                     //Конец уровня
                     if (watched == counterCurrent)
                     {
-                        float nextLevelWidth = counterNext * blockWidth + (counterNext - 1) * symbolSize.Width;
-                        float x = xMiddle - nextLevelWidth / 2 + blockWidth / 2;
-                        float y = yCord + symbolSize.Height * 2.5f;
+                        float nextLevelWidth = counterNext * blockWidth + (counterNext - 1) * blockDividerWidth;
+                        float x = xMiddle - nextLevelWidth / 2;
+                        float y = yCord + symbolSize.Height * 4f;
                         if (queue.Count > 0)
                         {
-                            float xTop = xCord - (blockWidth + symbolSize.Width) * counterCurrent;
-                            float yTop = yCord + symbolSize.Height;
-                            float xBot = x;
-                            float yBot = y;
+                            float xTop = xCord - (blockWidth + blockDividerWidth) * counterCurrent + blockPadding / 2;
+                            float yTop = yCord + symbolSize.Height + blockPadding;
+                            float xBot = x + blockPadding / 2;
+                            float yBot = y - blockPadding;
 
                             int i = 1;
                             while (lineQueue.Count > 0)
@@ -189,34 +198,37 @@ namespace Tree
                                 {
                                     i = 0;
                                     lineQueue.Dequeue();
-                                    xTop += blockWidth + symbolSize.Width;
+                                    xTop += blockWidth + blockDividerWidth;
                                 }
 
-                                xBot += blockWidth + symbolSize.Width;
+                                xBot += blockWidth + blockDividerWidth;
                                 i++;
                             }
-
-                            // for (int i = 1; i < queue.Count + 1; i++)
-                            // {
-                            //     
-                            //     
-                            // }
                         }
 
                         xCord = x;
-                        yCord += symbolSize.Height * 2.5f;
+                        yCord = y;
                         watched = 0;
                         counterCurrent = counterNext;
                         counterNext = 0;
                     }
-
-                    //сделай числа как 0001 0002 и тд и ограничение на ввод
                 }
             }
 
             p.Dispose();
             fillBrush.Dispose();
             textBrush.Dispose();
+        }
+
+        private string FormatItem(T item)
+        {
+            if (item is int number)
+            {
+                if (number < 10 && number > 0)
+                    return $"0{number}";
+            }
+
+            return item.ToString();
         }
 
         #region IEnumerator and IEnumerable
