@@ -27,6 +27,7 @@ namespace Tree_GUI
             _view.SortByEven += OnSortByEven;
             _view.SortByOdd += OnSortByOdd;
             _view.FillTestData += OnFillTestData;
+            _view.MakeImmutable += OnMakeImmutable;
 
             _creator = new LinkedTreeCreator<int>();
             _tree = _creator.CreateTree();
@@ -37,8 +38,15 @@ namespace Tree_GUI
         {
             if (TryParse(_view.InputAdd, out int result))
             {
-                _tree.Add(result);
-                RefreshView();
+                try
+                {
+                    _tree.Add(result);
+                    RefreshView();
+                }
+                catch (ImmutableTreeException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
             }
         }
 
@@ -46,8 +54,15 @@ namespace Tree_GUI
         {
             if (TryParse(_view.InputDelete, out int result))
             {
-                _tree.Remove(result);
-                RefreshView();
+                try
+                {
+                    _tree.Remove(result);
+                    RefreshView();
+                }
+                catch (ImmutableTreeException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
             }
         }
 
@@ -65,8 +80,15 @@ namespace Tree_GUI
 
         private void OnClear(object sender, EventArgs e)
         {
-            _tree.Clear();
-            RefreshView();
+            try
+            {
+                _tree.Clear();
+                RefreshView();
+            }
+            catch (ImmutableTreeException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
         private void OnReload(object sender, EventArgs e)
@@ -104,18 +126,31 @@ namespace Tree_GUI
 
         private void OnFillTestData(object sender, EventArgs e)
         {
-            _tree.Clear();
-            _tree.Add(1);
-            _tree.Add(2);
-            _tree.Add(3);
-            _tree.Add(4);
-            _tree.Add(5);
-            _tree.Add(6);
-            _tree.Add(7);
-            _tree.Add(8);
-            _tree.Add(9);
-            _tree.Add(10);
-            RefreshView();
+            try
+            {
+                _tree.Clear();
+                _tree.Add(1);
+                _tree.Add(2);
+                _tree.Add(3);
+                _tree.Add(4);
+                _tree.Add(5);
+                _tree.Add(6);
+                _tree.Add(7);
+                _tree.Add(8);
+                _tree.Add(9);
+                _tree.Add(10);
+                RefreshView();
+            }
+            catch (ImmutableTreeException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+           
+        }
+
+        private void OnMakeImmutable(object sender, EventArgs e)
+        {
+            _tree = new ImmutableTree<int>(_tree);
         }
 
         private void RefreshView()

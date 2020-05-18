@@ -23,6 +23,7 @@ namespace Tree_GUI
         public event EventHandler<EventArgs> SortByEven;
         public event EventHandler<EventArgs> SortByOdd;
         public event EventHandler<EventArgs> FillTestData;
+        public event EventHandler<EventArgs> MakeImmutable;
 
         public View()
         {
@@ -122,6 +123,11 @@ namespace Tree_GUI
         private void buttonDataSet_Click(object sender, EventArgs e)
         {
             FillTestData?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void buttonMakeImmutable_Click(object sender, EventArgs e)
+        {
+            MakeImmutable?.Invoke(this, EventArgs.Empty);
         }
 
         private void panelCanvas_Paint(object sender, PaintEventArgs e)

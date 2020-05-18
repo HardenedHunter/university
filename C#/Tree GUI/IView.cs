@@ -15,6 +15,7 @@ namespace Tree_GUI
         event EventHandler<EventArgs> SortByEven;
         event EventHandler<EventArgs> SortByOdd;
         event EventHandler<EventArgs> FillTestData;
+        event EventHandler<EventArgs> MakeImmutable;
 
         void DrawTree(Action<Graphics> draw);
         void DrawEmpty();

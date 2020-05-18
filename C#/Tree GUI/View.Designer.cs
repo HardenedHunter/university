@@ -39,12 +39,13 @@
             this.groupBoxImplementation = new System.Windows.Forms.GroupBox();
             this.groupBoxMainFunctions = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxFactor = new System.Windows.Forms.TextBox();
             this.buttonFactor = new System.Windows.Forms.Button();
+            this.textBoxFactor = new System.Windows.Forms.TextBox();
             this.buttonSortEven = new System.Windows.Forms.Button();
             this.buttonSortOdd = new System.Windows.Forms.Button();
             this.groupBoxUtils = new System.Windows.Forms.GroupBox();
             this.buttonDataSet = new System.Windows.Forms.Button();
+            this.buttonMakeImmutable = new System.Windows.Forms.Button();
             this.groupBoxImplementation.SuspendLayout();
             this.groupBoxMainFunctions.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -162,13 +163,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Степень ветвления";
             // 
-            // textBoxFactor
-            // 
-            this.textBoxFactor.Location = new System.Drawing.Point(21, 25);
-            this.textBoxFactor.Name = "textBoxFactor";
-            this.textBoxFactor.Size = new System.Drawing.Size(128, 20);
-            this.textBoxFactor.TabIndex = 0;
-            // 
             // buttonFactor
             // 
             this.buttonFactor.Location = new System.Drawing.Point(21, 51);
@@ -178,6 +172,13 @@
             this.buttonFactor.Text = "Изменить";
             this.buttonFactor.UseVisualStyleBackColor = true;
             this.buttonFactor.Click += new System.EventHandler(this.buttonFactor_Click);
+            // 
+            // textBoxFactor
+            // 
+            this.textBoxFactor.Location = new System.Drawing.Point(21, 25);
+            this.textBoxFactor.Name = "textBoxFactor";
+            this.textBoxFactor.Size = new System.Drawing.Size(128, 20);
+            this.textBoxFactor.TabIndex = 0;
             // 
             // buttonSortEven
             // 
@@ -201,12 +202,13 @@
             // 
             // groupBoxUtils
             // 
+            this.groupBoxUtils.Controls.Add(this.buttonMakeImmutable);
             this.groupBoxUtils.Controls.Add(this.buttonDataSet);
             this.groupBoxUtils.Controls.Add(this.buttonSortOdd);
             this.groupBoxUtils.Controls.Add(this.buttonSortEven);
             this.groupBoxUtils.Location = new System.Drawing.Point(949, 438);
             this.groupBoxUtils.Name = "groupBoxUtils";
-            this.groupBoxUtils.Size = new System.Drawing.Size(168, 132);
+            this.groupBoxUtils.Size = new System.Drawing.Size(168, 158);
             this.groupBoxUtils.TabIndex = 15;
             this.groupBoxUtils.TabStop = false;
             this.groupBoxUtils.Text = "Утилиты";
@@ -221,12 +223,22 @@
             this.buttonDataSet.UseVisualStyleBackColor = true;
             this.buttonDataSet.Click += new System.EventHandler(this.buttonDataSet_Click);
             // 
+            // buttonMakeImmutable
+            // 
+            this.buttonMakeImmutable.Location = new System.Drawing.Point(21, 118);
+            this.buttonMakeImmutable.Name = "buttonMakeImmutable";
+            this.buttonMakeImmutable.Size = new System.Drawing.Size(128, 23);
+            this.buttonMakeImmutable.TabIndex = 16;
+            this.buttonMakeImmutable.Text = "Запретить изменения";
+            this.buttonMakeImmutable.UseVisualStyleBackColor = true;
+            this.buttonMakeImmutable.Click += new System.EventHandler(this.buttonMakeImmutable_Click);
+            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1145, 593);
+            this.ClientSize = new System.Drawing.Size(1145, 653);
             this.Controls.Add(this.groupBoxUtils);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxMainFunctions);
@@ -265,6 +277,7 @@
         private System.Windows.Forms.Button buttonSortOdd;
         private System.Windows.Forms.GroupBox groupBoxUtils;
         private System.Windows.Forms.Button buttonDataSet;
+        private System.Windows.Forms.Button buttonMakeImmutable;
     }
 }
 
