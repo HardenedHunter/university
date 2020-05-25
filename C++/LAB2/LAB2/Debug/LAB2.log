@@ -1,0 +1,8 @@
+﻿  LAB2.cpp
+C:\Users\Hardened\Documents\GitHub\university\C++\LAB2\LAB2\LAB2.cpp(16,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  catalog.cpp
+  client.cpp
+  render_utils.cpp
+C:\Users\Hardened\Documents\GitHub\university\C++\LAB2\LAB2\render_utils.cpp(270,22): warning C4101: e: неиспользованная локальная переменная
+  Создание кода...
+  LAB2.vcxproj -> C:\Users\Hardened\Documents\GitHub\university\C++\LAB2\Debug\LAB2.exe

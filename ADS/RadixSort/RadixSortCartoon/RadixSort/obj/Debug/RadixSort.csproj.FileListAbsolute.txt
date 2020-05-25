@@ -24,3 +24,12 @@ C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSortCartoon\RadixSort\obj
 C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.csproj.GenerateResource.cache
 C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.exe
 C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\bin\Debug\RadixSort.exe.config
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\bin\Debug\RadixSort.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\bin\Debug\RadixSort.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.csprojAssemblyReference.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.FormMain.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.Properties.Resources.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.csproj.GenerateResource.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\RadixSort\RadixSortCartoon\RadixSort\obj\Debug\RadixSort.pdb

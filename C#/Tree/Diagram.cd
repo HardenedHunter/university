@@ -137,7 +137,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tree.TreeUtils" Collapsed="true">
-    <Position X="14" Y="2.5" Width="1.5" />
+    <Position X="10.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAEAAAA=</HashCode>
       <FileName>TreeUtils.cs</FileName>
