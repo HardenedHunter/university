@@ -22,8 +22,8 @@ public:
 	int size() const;
 	void shrink(int size);
 
-	template <typename E>
-	vector<Client> binary_search(const E& target, bool less(const Client& client, const E& elem), bool less_binary(const Client& client, const Client& other)) const;
+	void sort(bool predicate(const Client& client, const Client& other));
+	vector<Client> binary_search(function<bool(const Client&)> predicate) const;
 	vector<Client> linear_search(function<bool(const Client&)> predicate) const;
 
 	friend std::ostream& operator<<(std::ostream& out, const Catalog& catalog);

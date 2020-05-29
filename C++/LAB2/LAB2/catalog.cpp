@@ -7,6 +7,7 @@
 #include <iterator>
 
 using namespace std;
+// typedef 
 
 bool Catalog::add(const Client& client)
 {
@@ -72,20 +73,33 @@ vector<Client> Catalog::linear_search(function<bool(const Client&)> predicate) c
 	return result;
 }
 
-template <typename E>
-vector<Client> Catalog::binary_search(const E& target, bool less(const Client& client, const E& elem),
-                                      bool less_binary(const Client& client, const Client& other)) const
+template <class ForwardIterator, class T>
+ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, function<bool(const T&)> predicate)
+{
+	int count;
+	count = distance(first, last);
+	while (count > 0)
+	{
+		ForwardIterator it = first;
+		int step = count / 2;
+		advance(it, step);
+		if (predicate(*it))
+		{
+			first = ++it;
+			count -= step + 1;
+		}
+		else count = step;
+	}
+	return first;
+}
+
+
+vector<Client> Catalog::binary_search(function<bool(const Client&)> predicate) const
 {
 	vector<Client> result;
-	partial_sort_copy(clients_.begin(), clients_.end(), result.begin(), result.end(), less_binary);
-	auto low = lower_bound(result.begin(), result.end(), target, less);
-	auto up = upper_bound(result.begin(), result.end(), target, [less](const Client& client, const E& elem)
-	{
-		return !less(client, elem);
-	});
-
-	auto begin = result.begin();
-	for_each(low, up, [begin](const Client& client) { *begin++ = client; });
+	const auto low = lower_bound(clients_.begin(), clients_.end(), predicate);
+	const auto up = upper_bound(clients_.begin(), clients_.end(), predicate);
+	for_each(low, up, [&result](const Client& client) { result.emplace_back(client); });
 
 	return result;
 }
@@ -126,6 +140,11 @@ void Catalog::shrink(int size)
 	if (size < 0)
 		throw out_of_range("Недопустимое значение.");
 	clients_.resize(size);
+}
+
+void Catalog::sort(bool predicate(const Client& client, const Client& other))
+{
+	std::sort(clients_.begin(), clients_.end(), predicate);
 }
 
 std::ostream& operator<<(std::ostream& out, const Catalog& catalog)
