@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="catalog.cpp" />
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="console_utils.cpp" />
     <ClCompile Include="LAB2.cpp" />
     <ClCompile Include="render_utils.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="catalog.h" />
     <ClInclude Include="client.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="console_utils.h" />
     <ClInclude Include="render_utils.h" />
   </ItemGroup>

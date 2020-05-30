@@ -144,7 +144,6 @@ namespace business_logic
 		return time.tm_year + 1900;
 	}
 
-
 	Client::Client() : contract_id(0), installation_fee(0), subscription_fee(0)
 	{
 	}
@@ -209,28 +208,6 @@ namespace business_logic
 		out << "Плата за установку: " << c.installation_fee << endl;
 		out << "Ежемесячная оплата: " << c.subscription_fee << endl;
 		return out;
-	}
-
-	string read_value(istream& in)
-	{
-		const string delimiter = ":";
-		string source;
-		getline(in, source);
-		const unsigned int pos = source.find(delimiter);
-		if (pos == string::npos)
-			throw runtime_error("Не удалось считать информацию из файла.");
-		string result = source.substr(pos + delimiter.length(), source.length());
-		return trim(result);
-	}
-
-	string get_value(string& source, const string& delimiter)
-	{
-		unsigned int pos = source.find(delimiter);
-		if (pos == string::npos)
-			pos = source.length();
-		string result = source.substr(0, pos);
-		source.erase(0, pos + delimiter.length());
-		return trim(result);
 	}
 
 	std::istream& operator>>(istream& in, Address& address)

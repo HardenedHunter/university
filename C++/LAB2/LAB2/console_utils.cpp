@@ -25,7 +25,7 @@ namespace console_utils
 	{
 		return ltrim(rtrim(s, symbols), symbols);
 	}
-	
+
 	bool is_correct_filename(const string& filename)
 	{
 		string invalid_characters = "\\/:?*<>|";
@@ -48,7 +48,7 @@ namespace console_utils
 	{
 		return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
 	}
-	
+
 	bool is_containing_only_letters(const string& s)
 	{
 		bool correct = s.length() > 0;
@@ -63,7 +63,7 @@ namespace console_utils
 	{
 		return c >= '0' && c <= '9';
 	}
-	
+
 	bool is_phone_number(const string& s)
 	{
 		bool correct = s.length() == 11;
@@ -73,7 +73,7 @@ namespace console_utils
 		}
 		return correct;
 	}
-	
+
 	string input_string(const string& message, bool predicate(const string& s))
 	{
 		string rv;
@@ -86,7 +86,7 @@ namespace console_utils
 		}
 		return rv;
 	}
-	
+
 	string input_filename(const string& message)
 	{
 		return input_string(message, is_correct_filename);
@@ -115,5 +115,27 @@ namespace console_utils
 		}
 		while (!correct || rv < min || rv > max);
 		return rv;
+	}
+
+	string read_value(istream& in)
+	{
+		const string delimiter = ":";
+		string source;
+		getline(in, source);
+		const unsigned int pos = source.find(delimiter);
+		if (pos == string::npos)
+			throw runtime_error("Не удалось считать информацию из файла.");
+		string result = source.substr(pos + delimiter.length(), source.length());
+		return trim(result);
+	}
+
+	string get_value(string& source, const string& delimiter)
+	{
+		unsigned int pos = source.find(delimiter);
+		if (pos == string::npos)
+			pos = source.length();
+		string result = source.substr(0, pos);
+		source.erase(0, pos + delimiter.length());
+		return trim(result);
 	}
 }

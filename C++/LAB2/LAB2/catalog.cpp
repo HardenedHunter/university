@@ -5,8 +5,31 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <utility>
 
 using namespace std;
+
+Catalog::Catalog()
+{
+	clients_ = container();
+	version_ = 0;
+}
+
+Catalog::Catalog(container clients)
+{
+	clients_ = std::move(clients);
+	version_ = 0;
+}
+
+int Catalog::get_version() const
+{
+	return version_;
+}
+
+void Catalog::reset_version()
+{
+	version_ = 0;
+}
 
 bool Catalog::add(const Client& client)
 {
@@ -14,7 +37,10 @@ bool Catalog::add(const Client& client)
 	if (!result)
 		cout << "Абонент с номером контракта " << client.contract_id << " уже есть в базе." << endl;
 	else
+	{
 		clients_.emplace_back(client);
+		version_++;
+	}
 	return result;
 }
 
@@ -50,6 +76,7 @@ void Catalog::update(const Client& client)
 	if (it == clients_.end())
 		throw std::invalid_argument("Абонент не найден в базе.");
 	*it = client;
+	version_++;
 }
 
 bool Catalog::remove(int id)
@@ -58,7 +85,10 @@ bool Catalog::remove(int id)
 	                          [&id](Client& other) { return id == other.contract_id; });
 	const bool result = it != clients_.end();
 	if (result)
+	{
 		clients_.erase(it, clients_.end());
+		version_++;
+	}
 	return result;
 }
 
@@ -75,6 +105,7 @@ container Catalog::linear_search(function<bool(const Client&)> predicate) const
 void Catalog::clear()
 {
 	clients_.clear();
+	version_++;
 }
 
 int Catalog::size() const
@@ -87,6 +118,7 @@ void Catalog::shrink(int size)
 	if (size < 0)
 		throw out_of_range("Недопустимое значение.");
 	clients_.resize(size);
+	version_++;
 }
 
 void Catalog::sort(bool predicate(const Client& client, const Client& other))

@@ -65,13 +65,5 @@ namespace business_logic
 	istream& operator>>(istream& in, Date& date);
 	istream& operator>>(istream& in, Client& client);
 
-
-	// int compare(const T& lvalue, const T& rvalue)
-	// {
-	// 	return 0;
-	// }
-
-
 	int compare(const string& lvalue, const string& rvalue);
-
 }

@@ -27,8 +27,9 @@ namespace console_utils
 	//Ввод числа в заданном диапазоне
 	int input_number(const string& message, int min, int max);
 
-	//Сохранить имя последнего используемого файла
-	// void config_save_filename(string filename);
+	//Чтение информации из потока
+	string read_value(istream& in);
 
-	
+	//Парсинг строки
+	string get_value(string& source, const string& delimiter);
 }

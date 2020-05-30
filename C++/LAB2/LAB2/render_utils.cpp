@@ -9,12 +9,13 @@
 
 #include "catalog.h"
 #include "console_utils.h"
+#include "config.h"
 
 using namespace console_utils;
 
 int render_utils::render_menu()
 {
-	const int menu_size = 11;
+	const int menu_size = 8;
 
 	cout << endl;
 	cout << "1: Посмотреть содержимое справочника." << endl;
@@ -25,9 +26,6 @@ int render_utils::render_menu()
 	cout << "6: Очистить справочник." << endl;
 	cout << "7: Добавить данные из файла." << endl;
 	cout << "8: Сохранить данные в файл." << endl;
-	cout << "9: Найти среднее арифметическое чисел в контейнере." << endl;
-	cout << "10: Вывод контейнера в консоль." << endl;
-	cout << "11: Вывод контейнера в файл." << endl;
 	cout << "0: Exit" << endl;
 	const int choice = input_number("", 0, menu_size);
 	cout << endl;
@@ -63,7 +61,8 @@ int render_algorithm_menu()
 
 void render_utils::render()
 {
-	Catalog catalog;
+	Config config;
+	Catalog catalog = config.load();
 	int choice = -1;
 	while (choice != 0)
 	{
@@ -86,11 +85,11 @@ void render_utils::render()
 			break;
 		case 8: render_save_to_file(catalog);
 			break;
-		case 9: cout << "321";
-			break;
 		default: break;
 		}
 	}
+	if (catalog.get_version() != 0)
+		config.save(catalog);
 }
 
 container search_surname(Catalog catalog, const bool use_binary_search = false)
@@ -98,7 +97,10 @@ container search_surname(Catalog catalog, const bool use_binary_search = false)
 	const string surname = input_string("Введите фамилию абонента", is_containing_only_letters);
 	if (use_binary_search)
 	{
-		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.surname, rvalue.surname) < 0; });
+		catalog.sort([](const Client& lvalue, const Client& rvalue)
+		{
+			return compare(lvalue.surname, rvalue.surname) < 0;
+		});
 		const function<string(const Client&)> get_info = [](const Client& client) { return client.surname; };
 		return catalog.binary_search(surname, get_info);
 	}
@@ -113,7 +115,10 @@ container search_district(Catalog catalog, bool use_binary_search = false)
 	const string district = input_string("Введите район проживания", is_containing_only_letters);
 	if (use_binary_search)
 	{
-		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.address.district, rvalue.address.district) < 0; });
+		catalog.sort([](const Client& lvalue, const Client& rvalue)
+		{
+			return compare(lvalue.address.district, rvalue.address.district) < 0;
+		});
 		const function<string(const Client&)> get_info = [](const Client& client) { return client.address.district; };
 		return catalog.binary_search(district, get_info);
 	}
@@ -128,7 +133,10 @@ container search_contract_date(Catalog catalog, bool use_binary_search = false)
 	Date date = Date::read_date("Введите дату заключения договора");
 	if (use_binary_search)
 	{
-		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.contract_date, rvalue.contract_date) < 0; });
+		catalog.sort([](const Client& lvalue, const Client& rvalue)
+		{
+			return compare(lvalue.contract_date, rvalue.contract_date) < 0;
+		});
 		const function<Date(const Client&)> get_info = [](const Client& client) { return client.contract_date; };
 		return catalog.binary_search(date, get_info);
 	}
@@ -143,7 +151,10 @@ container search_last_payment_date(Catalog catalog, bool use_binary_search = fal
 	Date date = Date::read_date("Введите дату последнего платежа");
 	if (use_binary_search)
 	{
-		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.last_payment_date, rvalue.last_payment_date) < 0; });
+		catalog.sort([](const Client& lvalue, const Client& rvalue)
+		{
+			return compare(lvalue.last_payment_date, rvalue.last_payment_date) < 0;
+		});
 		const function<Date(const Client&)> get_info = [](const Client& client) { return client.last_payment_date; };
 		return catalog.binary_search(date, get_info);
 	}
@@ -179,7 +190,7 @@ void render_utils::render_search(const Catalog& catalog)
 		{
 			const bool use_binary_search = render_algorithm_menu() == 1;
 			result = search_function(catalog, use_binary_search);
-			
+
 			if (result.empty())
 			{
 				cout << endl << "Ничего не найдено." << endl;
