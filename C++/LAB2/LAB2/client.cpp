@@ -4,6 +4,7 @@
 #include <chrono>
 #include <iostream>
 #include <string>
+#include <ctime>
 #include "console_utils.h"
 
 using namespace std;
@@ -69,14 +70,50 @@ namespace business_logic
 		return {year, month, day};
 	}
 
-	// bool Date::operator==(const Date& lvalue, const Date& rvalue)
+	// int compare(const Date& lvalue, const Date& rvalue)
 	// {
-	// 	return lvalue.year = rvalue.year && lvalue.day == rvalue.day && lvalue.month == rvalue.month;
+	// 	if (lvalue.year != rvalue.year)
+	// 	{
+	// 		if (lvalue.year > rvalue.year)
+	// 			return 1;
+	// 		return -1;
+	// 	}
+	// 	if (lvalue.month != rvalue.month)
+	// 	{
+	// 		if (lvalue.month > rvalue.month)
+	// 			return 1;
+	// 		return -1;
+	// 	}
+	// 	if (lvalue.day != rvalue.day)
+	// 	{
+	// 		if (lvalue.day > rvalue.day)
+	// 			return 1;
+	// 		return -1;
+	// 	}
+	//
+	// 	return 0;
+	// }
+	//
+	// int compare(const string& lvalue, const string& rvalue)
+	// {
+	// 	return lvalue.compare(rvalue);
 	// }
 
 	bool Date::operator==(const Date& rvalue) const
 	{
 		return year == rvalue.year && day == rvalue.day && month == rvalue.month;
+	}
+
+	bool operator<(const Date& lvalue, const Date& rvalue)
+	{
+		bool result = lvalue.year < rvalue.year;
+		if (!result && lvalue.year == rvalue.year)
+		{
+			result = lvalue.month < rvalue.month;
+			if (!result && lvalue.month == rvalue.month)
+				result = lvalue.day < rvalue.day;
+		}
+		return result;
 	}
 
 	bool Date::is_leap(const int year)
@@ -237,5 +274,34 @@ namespace business_logic
 		string tmp;
 		getline(in, tmp);
 		return in;
+	}
+
+	int compare(const string& lvalue, const string& rvalue)
+	{
+		return lvalue.compare(rvalue);
+	}
+
+	int compare(const Date& lvalue, const Date& rvalue)
+	{
+		if (lvalue.year != rvalue.year)
+		{
+			if (lvalue.year > rvalue.year)
+				return 1;
+			return -1;
+		}
+		if (lvalue.month != rvalue.month)
+		{
+			if (lvalue.month > rvalue.month)
+				return 1;
+			return -1;
+		}
+		if (lvalue.day != rvalue.day)
+		{
+			if (lvalue.day > rvalue.day)
+				return 1;
+			return -1;
+		}
+
+		return 0;
 	}
 }

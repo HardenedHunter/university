@@ -31,6 +31,7 @@ namespace business_logic
 		Date();
 		Date(int year, int month, int day);
 		static Date read_date(const string& message = "");
+		friend int compare(const Date& lvalue, const Date& rvalue);
 		bool operator==(const Date& rvalue) const;
 
 	private:
@@ -57,12 +58,20 @@ namespace business_logic
 		static Client read_client();
 	};
 
-	typedef Client value_type;
-
 	ostream& operator<<(ostream& out, const Address& a);
 	ostream& operator<<(ostream& out, const Date& d);
 	ostream& operator<<(ostream& out, const Client& c);
 	istream& operator>>(istream& in, Address& address);
 	istream& operator>>(istream& in, Date& date);
 	istream& operator>>(istream& in, Client& client);
+
+
+	// int compare(const T& lvalue, const T& rvalue)
+	// {
+	// 	return 0;
+	// }
+
+
+	int compare(const string& lvalue, const string& rvalue);
+
 }

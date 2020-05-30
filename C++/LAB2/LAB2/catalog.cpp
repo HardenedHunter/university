@@ -7,7 +7,6 @@
 #include <iterator>
 
 using namespace std;
-// typedef 
 
 bool Catalog::add(const Client& client)
 {
@@ -63,67 +62,15 @@ bool Catalog::remove(int id)
 	return result;
 }
 
-vector<Client> Catalog::linear_search(function<bool(const Client&)> predicate) const
+container Catalog::linear_search(function<bool(const Client&)> predicate) const
 {
-	vector<Client> result;
+	container result;
 	for_each(clients_.begin(), clients_.end(), [&](const Client& other)
 	{
 		if (predicate(other)) result.emplace_back(other);
 	});
 	return result;
 }
-
-template <class ForwardIterator, class T>
-ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, function<bool(const T&)> predicate)
-{
-	int count;
-	count = distance(first, last);
-	while (count > 0)
-	{
-		ForwardIterator it = first;
-		int step = count / 2;
-		advance(it, step);
-		if (predicate(*it))
-		{
-			first = ++it;
-			count -= step + 1;
-		}
-		else count = step;
-	}
-	return first;
-}
-
-
-vector<Client> Catalog::binary_search(function<bool(const Client&)> predicate) const
-{
-	vector<Client> result;
-	const auto low = lower_bound(clients_.begin(), clients_.end(), predicate);
-	const auto up = upper_bound(clients_.begin(), clients_.end(), predicate);
-	for_each(low, up, [&result](const Client& client) { result.emplace_back(client); });
-
-	return result;
-}
-
-// template <typename E>
-// std::forward_list<Exam> general_find(std::list<Exam>& exams, const E& elem, std::function<E(const Exam&)> get_info,
-// 	SearchingRezhim rezhim, bool sorted = false)
-// {
-// 	std::forward_list<Exam> result;
-// 	if (rezhim == SearchingRezhim::LIN)
-// 		std::for_each(exams.begin(), exams.end(), [&](const Exam& exam)
-// 			{ if (compare(elem, get_info(exam)) == 0) result.push_front(exam); });
-// 	else
-// 	{
-// 		if (!sorted)
-// 			exams.sort([&get_info](const Exam& left, const Exam& right) { return (compare(get_info(left), get_info(right)) < 0); });
-// 		std::list<Exam>::const_iterator low = std::lower_bound(exams.begin(), exams.end(), elem,
-// 			[&get_info](const Exam& exam, const E& elem) { return (compare(get_info(exam), elem) < 0); });
-// 		std::list<Exam>::const_iterator up = std::upper_bound(exams.begin(), exams.end(), elem,
-// 			[&get_info](const E& elem, const Exam& exam) { return (compare(elem, get_info(exam)) < 0); });
-// 		result.insert_after(result.before_begin(), low, up);
-// 	}
-// 	return result;
-// }
 
 void Catalog::clear()
 {

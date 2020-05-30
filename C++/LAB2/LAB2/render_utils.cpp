@@ -6,7 +6,6 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
-#include <algorithm>
 
 #include "catalog.h"
 #include "console_utils.h"
@@ -94,41 +93,60 @@ void render_utils::render()
 	}
 }
 
-vector<Client> search_surname(const Catalog& catalog, bool use_binary_search = false)
+container search_surname(Catalog catalog, const bool use_binary_search = false)
 {
 	const string surname = input_string("Введите фамилию абонента", is_containing_only_letters);
+	if (use_binary_search)
+	{
+		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.surname, rvalue.surname) < 0; });
+		const function<string(const Client&)> get_info = [](const Client& client) { return client.surname; };
+		return catalog.binary_search(surname, get_info);
+	}
 	return catalog.linear_search([&surname](const Client& client)
 	{
 		return client.surname == surname;
 	});
 }
 
-vector<Client> search_district(const Catalog& catalog, bool use_binary_search = false)
+container search_district(Catalog catalog, bool use_binary_search = false)
 {
 	const string district = input_string("Введите район проживания", is_containing_only_letters);
+	if (use_binary_search)
+	{
+		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.address.district, rvalue.address.district) < 0; });
+		const function<string(const Client&)> get_info = [](const Client& client) { return client.address.district; };
+		return catalog.binary_search(district, get_info);
+	}
 	return catalog.linear_search([&district](const Client& client)
 	{
 		return client.address.district == district;
 	});
 }
 
-vector<Client> search_contract_date(const Catalog& catalog, bool use_binary_search = false)
+container search_contract_date(Catalog catalog, bool use_binary_search = false)
 {
 	Date date = Date::read_date("Введите дату заключения договора");
 	if (use_binary_search)
 	{
-		// return catalog.binary_search(date, [date](const Client& client, const Date& date) { return })
+		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.contract_date, rvalue.contract_date) < 0; });
+		const function<Date(const Client&)> get_info = [](const Client& client) { return client.contract_date; };
+		return catalog.binary_search(date, get_info);
 	}
-	else
-		return catalog.linear_search([date](const Client& client)
-		{
-			return client.contract_date == date;
-		});
+	return catalog.linear_search([date](const Client& client)
+	{
+		return client.contract_date == date;
+	});
 }
 
-vector<Client> search_last_payment_date(const Catalog& catalog, bool use_binary_search = false)
+container search_last_payment_date(Catalog catalog, bool use_binary_search = false)
 {
 	Date date = Date::read_date("Введите дату последнего платежа");
+	if (use_binary_search)
+	{
+		catalog.sort([](const Client& lvalue, const Client& rvalue) { return compare(lvalue.last_payment_date, rvalue.last_payment_date) < 0; });
+		const function<Date(const Client&)> get_info = [](const Client& client) { return client.last_payment_date; };
+		return catalog.binary_search(date, get_info);
+	}
 	return catalog.linear_search([date](const Client& client)
 	{
 		return client.last_payment_date == date;
@@ -138,7 +156,7 @@ vector<Client> search_last_payment_date(const Catalog& catalog, bool use_binary_
 void render_utils::render_search(const Catalog& catalog)
 {
 	auto search_function = search_surname;
-	vector<Client> result;
+	container result;
 	int choice = -1;
 
 	while (choice != 0)
@@ -157,11 +175,11 @@ void render_utils::render_search(const Catalog& catalog)
 		default: break;
 		}
 
-		const bool use_binary_search = render_algorithm_menu() == 1;
-		result = search_function(catalog, use_binary_search);
-
 		if (choice > 0)
 		{
+			const bool use_binary_search = render_algorithm_menu() == 1;
+			result = search_function(catalog, use_binary_search);
+			
 			if (result.empty())
 			{
 				cout << endl << "Ничего не найдено." << endl;
@@ -177,12 +195,6 @@ void render_utils::render_search(const Catalog& catalog)
 		result.clear();
 	}
 }
-
-// void render_utils::render_algorithm()
-// {
-// }
-//
-
 
 void render_utils::render_print(const Catalog& catalog)
 {
@@ -250,7 +262,7 @@ void render_utils::render_add_from_file(Catalog& catalog)
 		try
 		{
 			in >> catalog;
-			cout << "Добавлено новых записей: " << catalog.size() - size << " ." << endl;
+			cout << "Добавлено новых записей: " << catalog.size() - size << "." << endl;
 		}
 		catch (exception&)
 		{

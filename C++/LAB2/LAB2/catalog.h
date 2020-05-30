@@ -4,13 +4,16 @@
 
 
 #include "client.h"
+#include <algorithm>
 
 using namespace business_logic;
+
+typedef vector<Client> container;
 
 class Catalog
 {
 private:
-	vector<Client> clients_;
+	container clients_;
 public:
 	bool add(const Client& client);
 	void print() const;
@@ -21,11 +24,26 @@ public:
 	void clear();
 	int size() const;
 	void shrink(int size);
-
 	void sort(bool predicate(const Client& client, const Client& other));
-	vector<Client> binary_search(function<bool(const Client&)> predicate) const;
-	vector<Client> linear_search(function<bool(const Client&)> predicate) const;
+
+	template<typename E>
+	container binary_search(const E& field, function<E(const Client&)> get_field) const;
+	
+	container linear_search(function<bool(const Client&)> predicate) const;
 
 	friend std::ostream& operator<<(std::ostream& out, const Catalog& catalog);
 	friend std::istream& operator>>(std::istream& in, Catalog& catalog);
 };
+
+template<typename E>
+container Catalog::binary_search(const E& field, function<E(const Client&)> get_field) const
+{
+	container result;
+	const auto low = lower_bound(clients_.begin(), clients_.end(), field,
+		[&](const Client& item, const E& f) { return compare(get_field(item), f) < 0; });
+	const auto up = upper_bound(clients_.begin(), clients_.end(), field,
+		[&](const E& f, const Client& item) { return compare(f, get_field(item)) < 0; });
+	for_each(low, up, [&result](const Client& client) { result.emplace_back(client); });
+
+	return result;
+}

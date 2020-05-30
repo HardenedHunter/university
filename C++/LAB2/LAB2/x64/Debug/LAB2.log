@@ -1,0 +1,3 @@
+﻿  render_utils.cpp
+c:\github\university\c++\lab2\lab2\render_utils.cpp(293): warning C4101: e: неиспользованная локальная переменная
+  LAB2.vcxproj -> C:\GitHub\university\C++\LAB2\x64\Debug\LAB2.exe
