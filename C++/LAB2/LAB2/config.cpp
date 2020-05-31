@@ -1,6 +1,9 @@
 #include "config.h"
 #include <iostream>
 #include <fstream>
+#include "client.h"
+
+using namespace business_logic;
 
 istream& operator>>(istream& in, Config& config)
 {
@@ -15,9 +18,9 @@ ostream& operator<<(ostream& out, const Config& config)
 	return out;
 }
 
-Catalog Config::load()
+Catalog<Client> Config::load()
 {
-	Catalog result;
+	Catalog<business_logic::Client> result;
 
 	ifstream cfg_in(config_filename);
 	try
@@ -58,7 +61,7 @@ Catalog Config::load()
 	return result;
 }
 
-void Config::save(const Catalog& catalog) const
+void Config::save(const Catalog<Client>& catalog) const
 {
 	ofstream db_out(filename);
 
@@ -68,7 +71,7 @@ void Config::save(const Catalog& catalog) const
 		db_out << catalog;
 		cout << "Сохранение прошло успешно." << endl;
 	}
-	catch (exception& e)
+	catch (exception&)
 	{
 		cout << "Ошибка при записи информации в файл." << endl;
 	}
@@ -83,7 +86,7 @@ void Config::create_config_file() const
 		cfg_out << *this;
 		cout << "Создан новый файл конфигурации." << endl;
 	}
-	catch (exception& e)
+	catch (exception&)
 	{
 		cout << "Ошибка при создании файла конфигурации." << endl;
 	}

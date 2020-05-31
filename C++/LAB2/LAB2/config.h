@@ -2,9 +2,11 @@
 #include <string>
 #include "console_utils.h"
 #include "catalog.h"
+#include "client.h"
 
 using namespace std;
 using namespace console_utils;
+using namespace business_logic;
 
 const string config_filename = "config.txt";
 const string db_filename = "db.txt";
@@ -12,8 +14,8 @@ const string db_filename = "db.txt";
 struct Config
 {
 	string filename;
-	Catalog load();
-	void save(const Catalog& catalog) const;
+	Catalog<Client> load();
+	void save(const Catalog<Client>& catalog) const;
 	void create_config_file() const;
 };
 

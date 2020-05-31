@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="catalog.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="console_utils.cpp" />

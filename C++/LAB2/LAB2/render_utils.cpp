@@ -2,16 +2,15 @@
 // ReSharper disable CppClangTidyClangDiagnosticInvalidSourceEncoding
 // ReSharper disable CppJoinDeclarationAndAssignment
 #include "render_utils.h"
-
 #include <fstream>
 #include <iostream>
-#include <iterator>
-
 #include "catalog.h"
 #include "console_utils.h"
 #include "config.h"
+#include "client.h"
 
 using namespace console_utils;
+using namespace business_logic;
 
 int render_utils::render_menu()
 {
@@ -62,7 +61,7 @@ int render_algorithm_menu()
 void render_utils::render()
 {
 	Config config;
-	Catalog catalog = config.load();
+	Catalog<Client> catalog = config.load();
 	int choice = -1;
 	while (choice != 0)
 	{
@@ -92,7 +91,7 @@ void render_utils::render()
 		config.save(catalog);
 }
 
-container search_surname(Catalog catalog, const bool use_binary_search = false)
+vector<Client> search_surname(Catalog<Client> catalog, const bool use_binary_search = false)
 {
 	const string surname = input_string("Введите фамилию абонента", is_containing_only_letters);
 	if (use_binary_search)
@@ -110,7 +109,7 @@ container search_surname(Catalog catalog, const bool use_binary_search = false)
 	});
 }
 
-container search_district(Catalog catalog, bool use_binary_search = false)
+vector<Client> search_district(Catalog<Client> catalog, bool use_binary_search = false)
 {
 	const string district = input_string("Введите район проживания", is_containing_only_letters);
 	if (use_binary_search)
@@ -128,7 +127,7 @@ container search_district(Catalog catalog, bool use_binary_search = false)
 	});
 }
 
-container search_contract_date(Catalog catalog, bool use_binary_search = false)
+vector<Client> search_contract_date(Catalog<Client> catalog, bool use_binary_search = false)
 {
 	Date date = Date::read_date("Введите дату заключения договора");
 	if (use_binary_search)
@@ -146,7 +145,7 @@ container search_contract_date(Catalog catalog, bool use_binary_search = false)
 	});
 }
 
-container search_last_payment_date(Catalog catalog, bool use_binary_search = false)
+vector<Client> search_last_payment_date(Catalog<Client> catalog, bool use_binary_search = false)
 {
 	Date date = Date::read_date("Введите дату последнего платежа");
 	if (use_binary_search)
@@ -164,10 +163,10 @@ container search_last_payment_date(Catalog catalog, bool use_binary_search = fal
 	});
 }
 
-void render_utils::render_search(const Catalog& catalog)
+void render_utils::render_search(const Catalog<Client>& catalog)
 {
 	auto search_function = search_surname;
-	container result;
+	vector<Client> result;
 	int choice = -1;
 
 	while (choice != 0)
@@ -207,12 +206,12 @@ void render_utils::render_search(const Catalog& catalog)
 	}
 }
 
-void render_utils::render_print(const Catalog& catalog)
+void render_utils::render_print(const Catalog<Client>& catalog)
 {
 	catalog.print();
 }
 
-void render_utils::render_add(Catalog& c)
+void render_utils::render_add(Catalog<Client>& c)
 {
 	const Client cl = Client::read_client();
 	try
@@ -225,7 +224,7 @@ void render_utils::render_add(Catalog& c)
 	}
 }
 
-void render_utils::render_update(Catalog& catalog)
+void render_utils::render_update(Catalog<Client>& catalog)
 {
 	const int id = input_number("Введите номер договора", 1, INT32_MAX);
 	if (!catalog.contains(id))
@@ -246,7 +245,7 @@ void render_utils::render_update(Catalog& catalog)
 	catalog.update(client);
 }
 
-void render_utils::render_remove(Catalog& catalog)
+void render_utils::render_remove(Catalog<Client>& catalog)
 {
 	const int id = input_number("Введите номер договора", 1, INT32_MAX);
 	if (catalog.remove(id))
@@ -255,13 +254,13 @@ void render_utils::render_remove(Catalog& catalog)
 		cout << "Абонент не найден в базе" << endl;
 }
 
-void render_utils::render_clear(Catalog& catalog)
+void render_utils::render_clear(Catalog<Client>& catalog)
 {
 	catalog.clear();
 	cout << "Справочник очищен." << endl;
 }
 
-void render_utils::render_add_from_file(Catalog& catalog)
+void render_utils::render_add_from_file(Catalog<Client>& catalog)
 {
 	const string filename = input_filename("Введите имя файла (с расширением)");
 	ifstream in(filename);
@@ -284,7 +283,7 @@ void render_utils::render_add_from_file(Catalog& catalog)
 	}
 }
 
-void render_utils::render_save_to_file(Catalog& catalog)
+void render_utils::render_save_to_file(Catalog<Client>& catalog)
 {
 	if (catalog.empty())
 		cout << "Справочник пуст." << endl;

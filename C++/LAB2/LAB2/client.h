@@ -8,7 +8,7 @@ namespace business_logic
 	struct Address
 	{
 	public:
-		std::string district; //*	
+		std::string district;
 		string street;
 		int house;
 
@@ -43,12 +43,12 @@ namespace business_logic
 	struct Client
 	{
 	public:
-		string surname; //*
+		string surname;
 		string phone;
 		Address address;
 		int contract_id;
-		Date contract_date; //*
-		Date last_payment_date; //*
+		Date contract_date;
+		Date last_payment_date;
 		int installation_fee;
 		int subscription_fee;
 

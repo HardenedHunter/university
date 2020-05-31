@@ -70,35 +70,6 @@ namespace business_logic
 		return {year, month, day};
 	}
 
-	// int compare(const Date& lvalue, const Date& rvalue)
-	// {
-	// 	if (lvalue.year != rvalue.year)
-	// 	{
-	// 		if (lvalue.year > rvalue.year)
-	// 			return 1;
-	// 		return -1;
-	// 	}
-	// 	if (lvalue.month != rvalue.month)
-	// 	{
-	// 		if (lvalue.month > rvalue.month)
-	// 			return 1;
-	// 		return -1;
-	// 	}
-	// 	if (lvalue.day != rvalue.day)
-	// 	{
-	// 		if (lvalue.day > rvalue.day)
-	// 			return 1;
-	// 		return -1;
-	// 	}
-	//
-	// 	return 0;
-	// }
-	//
-	// int compare(const string& lvalue, const string& rvalue)
-	// {
-	// 	return lvalue.compare(rvalue);
-	// }
-
 	bool Date::operator==(const Date& rvalue) const
 	{
 		return year == rvalue.year && day == rvalue.day && month == rvalue.month;
@@ -159,7 +130,6 @@ namespace business_logic
 			throw runtime_error("Название района может состоять только из букв.");
 		if (id <= 0)
 			throw runtime_error("Номер договора должен быть больше или равен 1.");
-		//contract Date should be less than or equal to payment Date
 		if (install_fee < 0)
 			throw runtime_error("Оплата за установку не может быть отрицательной.");
 		if (sub_fee < 0)

@@ -1,11 +1,16 @@
 ﻿  LAB2.cpp
 c:\github\university\c++\lab2\lab2\lab2.cpp(15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  catalog.cpp
-c:\github\university\c++\lab2\lab2\catalog.cpp(113): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+  client.cpp
   config.cpp
-c:\github\university\c++\lab2\lab2\config.cpp(71): warning C4101: e: неиспользованная локальная переменная
-c:\github\university\c++\lab2\lab2\config.cpp(86): warning C4101: e: неиспользованная локальная переменная
+c:\github\university\c++\lab2\lab2\catalog.h(184): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+  c:\github\university\c++\lab2\lab2\catalog.h(183): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  c:\github\university\c++\lab2\lab2\config.cpp(47): note: выполняется компиляция ссылки на экземпляр шаблон функции "int Catalog<business_logic::Client>::size(void) const"
+  c:\github\university\c++\lab2\lab2\config.cpp(22): note: выполняется компиляция ссылки на экземпляр шаблон класс "Catalog<business_logic::Client>"
   render_utils.cpp
-c:\github\university\c++\lab2\lab2\render_utils.cpp(304): warning C4101: e: неиспользованная локальная переменная
+c:\github\university\c++\lab2\lab2\render_utils.cpp(303): warning C4101: e: неиспользованная локальная переменная
+c:\github\university\c++\lab2\lab2\catalog.h(184): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+  c:\github\university\c++\lab2\lab2\catalog.h(183): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  c:\github\university\c++\lab2\lab2\render_utils.cpp(271): note: выполняется компиляция ссылки на экземпляр шаблон функции "int Catalog<business_logic::Client>::size(void) const"
+  c:\github\university\c++\lab2\lab2\render_utils.cpp(64): note: выполняется компиляция ссылки на экземпляр шаблон класс "Catalog<business_logic::Client>"
   Создание кода...
   LAB2.vcxproj -> C:\GitHub\university\C++\LAB2\x64\Debug\LAB2.exe

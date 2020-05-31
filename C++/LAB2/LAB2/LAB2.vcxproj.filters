@@ -27,9 +27,6 @@
     <ClCompile Include="render_utils.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="catalog.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="config.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
