@@ -1,0 +1,11 @@
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\bin\Debug\ExternalSorting.exe.config
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\bin\Debug\ExternalSorting.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\bin\Debug\ExternalSorting.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.csprojAssemblyReference.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.FormCreateFile.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.FormAddCountry.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.FormMain.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.Properties.Resources.resources
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.csproj.GenerateResource.cache
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.exe
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.pdb
