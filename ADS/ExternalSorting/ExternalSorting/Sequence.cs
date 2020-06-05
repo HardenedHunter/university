@@ -1,19 +1,23 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
 
 // ReSharper disable StringLiteralTypo
 
 namespace ExternalSorting
 {
+    //Класс, содержащий информацию о файле
     public class Sequence
     {
+        //Последний прочитанный элемент
         public Country Element { get; set; }
+
+        //Конец файла или нет
         public bool Eof { get; set; }
+
+        //Конец серии элементов или нет
         public bool Eor { get; set; }
 
-        private FileStream _file;
-
+        //Имя файла
         private string _fileName;
 
         public string FileName
@@ -27,44 +31,58 @@ namespace ExternalSorting
             }
         }
 
-        public Sequence(string fileName)
+        //Соответствующий файловый поток
+        private FileStream _fileStream;
+
+        //Компаратор для сортировки
+        private readonly Func<Country, Country, bool> _less;
+
+        public Sequence(string fileName, Func<Country, Country, bool> less)
         {
             FileName = fileName;
+            Element = null;
+            _less = less;
         }
 
+        ///Чтение следующего элемента
         public void ReadNext()
         {
-            Eof = _file.Position == _file.Length;
+            Eof = _fileStream.Position == _fileStream.Length;
             if (!Eof)
-                Element = Country.Read(_file);
+                Element = Country.Read(_fileStream);
         }
 
+        //Подготовить файл к чтению
         public void StartRead()
         {
-            _file = File.OpenRead(FileName);
+            _fileStream = File.OpenRead(FileName);
             ReadNext();
             Eor = Eof;
         }
 
+        //Подготовить файл к записи
         public void StartWrite()
         {
-            _file = File.Create(FileName);
+            _fileStream = File.Create(FileName);
         }
 
+        //Закрыть файловый поток
         public void Close()
         {
-            _file.Close();
+            _fileStream.Close();
         }
 
+        //Скопировать элемент из текущего файла в другой
         public void CopyTo(Sequence sequence)
         {
             sequence.Element = Element;
-            Country.Write(sequence._file, Element);
+            Country.Write(sequence._fileStream, Element);
             ReadNext();
-            Eor = Eof || string.Compare(Element.Name, sequence.Element.Name, StringComparison.Ordinal) < 0;
+            Eor = Eof || _less(Element, sequence.Element);
         }
 
-        public void CopyRun(Sequence sequence)
+        //Скопировать серию из элементов из текущего файла в другой
+        public void CopySeriesTo(Sequence sequence)
         {
             do
             {
@@ -72,6 +90,17 @@ namespace ExternalSorting
             } while (!Eor);
         }
 
+        //Скопировать серию с проверкой, что предыдущая и текущая серии идут подряд
+        public void CopySeriesBalanced(Sequence sequence)
+        {
+            Country previous = sequence.Element;
+            bool shouldRepeat = previous != null && _less(previous, Element);
+            CopySeriesTo(sequence);
+            if (shouldRepeat)
+                CopySeriesTo(sequence);
+        }
+
+        //Фаза распределения
         public void Distribute(Sequence first, Sequence second)
         {
             StartRead();
@@ -79,8 +108,8 @@ namespace ExternalSorting
             second.StartWrite();
             while (!Eof)
             {
-                CopyRun(first);
-                if (!Eof) CopyRun(second);
+                CopySeriesBalanced(first);
+                if (!Eof) CopySeriesBalanced(second);
             }
 
             Close();
@@ -88,6 +117,7 @@ namespace ExternalSorting
             second.Close();
         }
 
+        //Фаза слияния
         public int Merge(Sequence first, Sequence second)
         {
             StartWrite();
@@ -97,14 +127,14 @@ namespace ExternalSorting
             while (!first.Eof && !second.Eof)
             {
                 while (!first.Eor && !second.Eor)
-                    if (string.Compare(first.Element.Name, second.Element.Name, StringComparison.Ordinal) <= 0)
+                    if (_less(first.Element, second.Element))
                         first.CopyTo(this);
                     else
                         second.CopyTo(this);
                 if (!first.Eor)
-                    first.CopyRun(this);
+                    first.CopySeriesTo(this);
                 if (!second.Eor)
-                    second.CopyRun(this);
+                    second.CopySeriesTo(this);
 
                 first.Eor = first.Eof;
                 second.Eor = second.Eof;
@@ -113,13 +143,13 @@ namespace ExternalSorting
 
             while (!first.Eof)
             {
-                first.CopyRun(this);
+                first.CopySeriesTo(this);
                 count++;
             }
 
             while (!second.Eof)
             {
-                second.CopyRun(this);
+                second.CopySeriesTo(this);
                 count++;
             }
 
@@ -128,23 +158,6 @@ namespace ExternalSorting
             second.Close();
 
             return count;
-        }
-
-        public static void Sort(string fileName)
-        {
-            var origin = new Sequence(fileName);
-            var first = new Sequence("help1.bin");
-            var second = new Sequence("help2.bin");
-            int seriesCount;
-
-            do
-            {
-                origin.Distribute(first, second);
-                seriesCount = origin.Merge(first, second);
-            } while (seriesCount > 1);
-
-            File.Delete("help1.bin");
-            File.Delete("help2.bin");
         }
     }
 }

@@ -41,6 +41,9 @@ namespace ExternalSorting
                 width += column.Width;
             }
             dgvCountries.Width = width + dgvCountries.ColumnCount - 3;
+
+            UpdateFileName("origin.bin");
+            UpdateDataGrid(_fileName);
         }
 
         private void UpdateFileName(string fileName)
@@ -58,22 +61,27 @@ namespace ExternalSorting
                 Country.GovernmentSystemNames[(int) system]);
         }
 
+        private void UpdateDataGrid(string filename)
+        {
+            var stream = File.OpenRead(filename);
+            dgvCountries.Rows.Clear();
+            while (stream.Length != stream.Position)
+            {
+                var country = Country.Read(stream);
+                AddToDataGrid(country);
+            }
+
+            stream.Close();
+        }
+
         private void OpenFile(object sender, EventArgs e)
         {
             var filename = "";
 
             if (FileUtils.ChooseFileToOpen(ref filename))
             {
-                var stream = File.OpenRead(filename);
-                dgvCountries.Rows.Clear();
                 UpdateFileName(filename);
-                while (stream.Length != stream.Position)
-                {
-                    var country = Country.Read(stream);
-                    AddToDataGrid(country);
-                }
-
-                stream.Close();
+                UpdateDataGrid(filename);
             }
         }
 
@@ -103,7 +111,14 @@ namespace ExternalSorting
 
         private void Sort(object sender, EventArgs e)
         {
-            Sequence.Sort(_fileName);
+            FileSorter.Sort(_fileName, (left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal) < 0);
+            UpdateDataGrid("origin.bin");
         }
+
+        //        private static bool Less(Country left, Country right)
+        //        {
+        ////            return string.Compare(left.Name, right.Name, StringComparison.Ordinal) < 0;
+        //            return left.Area < right.Area;
+        //        }
     }
 }
