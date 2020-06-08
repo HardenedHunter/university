@@ -49,6 +49,12 @@
     <Compile Include="Country.cs" />
     <Compile Include="FileSorter.cs" />
     <Compile Include="FileUtils.cs" />
+    <Compile Include="FormSortOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSortOption.Designer.cs">
+      <DependentUpon>FormSortOption.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCreateFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,7 +75,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sequence.cs" />
+    <Compile Include="FileInfo.cs" />
+    <EmbeddedResource Include="FormSortOption.resx">
+      <DependentUpon>FormSortOption.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCreateFile.resx">
       <DependentUpon>FormCreateFile.cs</DependentUpon>
     </EmbeddedResource>
@@ -78,6 +87,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -87,6 +97,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

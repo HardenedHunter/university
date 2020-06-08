@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ExternalSorting
 {
-    public partial class FormCreateFile : Form
+    public partial class FormCreateFile : System.Windows.Forms.Form
     {
         //Функция, которая выполнится при успешном заполнении формы
         public Action<string> OnSubmit { get; }

@@ -40,9 +40,15 @@ namespace ExternalSorting
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 width += column.Width;
             }
+
             dgvCountries.Width = width + dgvCountries.ColumnCount - 3;
 
-            UpdateFileName("origin.bin");
+            string sourceFileName = "data.bin";
+            if (File.Exists(sourceFileName))
+                File.Delete(sourceFileName);
+            File.Copy($"../{sourceFileName}", sourceFileName);
+
+            UpdateFileName(sourceFileName);
             UpdateDataGrid(_fileName);
         }
 
@@ -102,7 +108,7 @@ namespace ExternalSorting
             var form = new FormAddCountry(country =>
             {
                 var fileStream = File.Open(_fileName, FileMode.Append, FileAccess.Write);
-                Country.Write(fileStream, country);
+                country.Write(fileStream);
                 fileStream.Close();
                 AddToDataGrid(country);
             });
@@ -111,14 +117,15 @@ namespace ExternalSorting
 
         private void Sort(object sender, EventArgs e)
         {
-            FileSorter.Sort(_fileName, (left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal) < 0);
-            UpdateDataGrid("origin.bin");
+            var form = new FormSortOption(governmentSystem =>
+            {
+                var sorter =
+                    new FileSorter((left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal) < 0,
+                        country => country.System == governmentSystem);
+                sorter.Sort(_fileName);
+                UpdateDataGrid(_fileName);
+            });
+            form.Show();
         }
-
-        //        private static bool Less(Country left, Country right)
-        //        {
-        ////            return string.Compare(left.Name, right.Name, StringComparison.Ordinal) < 0;
-        //            return left.Area < right.Area;
-        //        }
     }
 }

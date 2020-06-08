@@ -21,3 +21,4 @@ C:\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorti
 C:\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.csproj.CoreCompileInputs.cache
 C:\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.exe
 C:\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.pdb
+C:\Users\Hardened\Documents\GitHub\university\ADS\ExternalSorting\ExternalSorting\obj\Debug\ExternalSorting.FormSortOption.resources

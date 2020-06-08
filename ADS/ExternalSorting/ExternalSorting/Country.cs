@@ -107,12 +107,14 @@ namespace ExternalSorting
             System = system;
         }
 
-        public static void Write(FileStream fileStream, Country country)
+        ///Записать данные о стране в файловый поток
+        public void Write(FileStream fileStream)
         {
             var formatter = new BinaryFormatter();
-            formatter.Serialize(fileStream, country);
+            formatter.Serialize(fileStream, this);
         }
 
+        //Считать данные о стране из потока
         public static Country Read(FileStream fileStream)
         {
             if (fileStream.Position == fileStream.Length)

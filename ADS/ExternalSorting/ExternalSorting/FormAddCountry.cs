@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ExternalSorting
 {
-    public partial class FormAddCountry : Form
+    public partial class FormAddCountry : System.Windows.Forms.Form
     {
         //Функция, которая выполнится при успешном заполнении формы
         public Action<Country> OnSubmit { get; }
