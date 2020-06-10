@@ -172,6 +172,7 @@
             this.Controls.Add(this.labelCapital);
             this.Controls.Add(this.labelName);
             this.Name = "FormAddCountry";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавить страну";
             this.ResumeLayout(false);
             this.PerformLayout();
