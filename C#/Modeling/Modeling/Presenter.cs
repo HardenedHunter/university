@@ -7,19 +7,31 @@ namespace Modeling
     {
         private readonly IView _view;
 
-        private readonly SynchronizationContext _context;
+        private readonly HouseManagement _management;
 
         public Presenter(IView view)
         {
             _view = view;
-            _context = _view.Context;
-            var management = new HouseManagement();
-            management.Manage(_context);
+            _view.Start += OnStart;
+            _management = new HouseManagement();
+            _management.RequestAdded += OnRequestAdded;
+            _management.RequestProcessed += OnRequestProcessed;
         }
 
-        private void Render()
+        private void OnStart(object sender, EventArgs e)
         {
-            
+            var context = _view.Context;
+            _management.Manage(context);
+        }
+
+        private void OnRequestAdded(Request request)
+        {
+            _view.OnRequestAdded(request);
+        }
+
+        private void OnRequestProcessed(Request request)
+        {
+            _view.OnRequestProcessed(request);
         }
 
         ~Presenter()

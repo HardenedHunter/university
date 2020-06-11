@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading;
 
 // ReSharper disable CommentTypo
-
 // ReSharper disable StringLiteralTypo
 
 namespace Modeling
@@ -31,9 +29,9 @@ namespace Modeling
 
         public virtual void Process(Request request)
         {
-            Thread.Sleep(3000);
             lock (request)
             {
+                Thread.Sleep(3000);
                 request.IsCompleted = true;
             }
         }
@@ -60,100 +58,42 @@ namespace Modeling
         }
     }
 
-    public class Dispatcher : Employee
-    {
-        private readonly RequestHandler _handler;
-
-        private readonly Queue<Request> _requests;
-
-        public Dispatcher(string name, RequestHandler handler, Queue<Request> requests) : base(name)
-        {
-            _handler = handler;
-            _requests = requests;
-        }
-
-        public void ManageRequests(object context)
-        {
-            while (true)
-            {
-                CheckRequests();
-                Thread.Sleep(1000);
-            }
-        }
-
-        private void CheckRequests()
-        {
-            lock (_requests)
-            {
-                if (_requests.Count > 0)
-                {
-                    var request = _requests.Dequeue();
-                    if (!_handler.HandleRequest(request))
-                        _requests.Enqueue(request);
-                }
-            }
-        }
-    }
-
-    public class RequestGenerator
+    public class RequestCommittee
     {
         private readonly Queue<Request> _requests;
 
-        public RequestGenerator(Queue<Request> requests)
+        public event Action<Request> RequestAdded;
+
+        public RequestCommittee(Queue<Request> requests)
         {
             _requests = requests;
         }
 
-        public void GenerateRequests(object context)
+        public void Generate(object context)
         {
-            while (true)
+            var rand = new Random(193);
+            for (var i = 0;; i++)
             {
-                AddRequest();
-                Thread.Sleep(1000);
+                GenerateOne(context as SynchronizationContext, i);
+                Thread.Sleep(rand.Next(1000, 4000));
             }
         }
 
-        private void AddRequest()
+        private void GenerateOne(SynchronizationContext context, int requestId = 0)
         {
             lock (_requests)
             {
-                _requests.Enqueue(new Request());
+                var request = new PlumberRequest(requestId);
+                _requests.Enqueue(request);
+                context.Send(obj => RequestAdded?.Invoke(obj as Request), request);
             }
         }
     }
 
-    //Класс базового обработчика заявок
-    public abstract class RequestHandler
+
+    public class PlumberDepartment : ManagementDepartment
     {
-        protected Thread WorkerThread;
-        protected Employee Employee;
-        protected RequestHandler Next;
-
-        //Метод для связывания двух обработчиков
-        public RequestHandler SetNext(RequestHandler requestHandler)
-        {
-            Next = requestHandler;
-            return requestHandler;
-        }
-
-        protected abstract bool CanHandle(Request request);
-
-        public virtual bool HandleRequest(Request request)
-        {
-            if (!CanHandle(request))
-                return Next != null && Next.HandleRequest(request);
-
-            if (WorkerThread != null && WorkerThread.IsAlive)
-                return false;
-
-            WorkerThread = new Thread(() => Employee.Process(request));
-            return true;
-        }
-    }
-
-    public class PlumberHandler : RequestHandler
-    {
-        public PlumberHandler()
+        public PlumberDepartment()
         {
             Employee = new Plumber("Mario");
         }
@@ -164,9 +104,9 @@ namespace Modeling
         }
     }
 
-    public class ElectricianHandler : RequestHandler
+    public class ElectricianDepartment : ManagementDepartment
     {
-        public ElectricianHandler()
+        public ElectricianDepartment()
         {
             Employee = new Electrician("Tesla");
         }
@@ -177,11 +117,11 @@ namespace Modeling
         }
     }
 
-    public class JanitorHandler : RequestHandler
+    public class JanitorDepartment : ManagementDepartment
     {
-        public JanitorHandler()
+        public JanitorDepartment()
         {
-            Employee = new Janitor("Bob");
+            Employee = new Janitor("Johnny");
         }
 
         protected override bool CanHandle(Request request)
@@ -190,47 +130,63 @@ namespace Modeling
         }
     }
 
-    public class Request
+    public abstract class Request
     {
+        private int _requestId;
+
+        public int RequestId
+        {
+            get => _requestId;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("RequestId");
+                _requestId = value;
+            }
+        }
+
         public bool IsCompleted { get; set; }
 
-        public Request()
+        protected Request(int requestId)
         {
+            RequestId = requestId;
             IsCompleted = false;
         }
     }
 
     public class PlumberRequest : Request
     {
+        public PlumberRequest(int requestId) : base(requestId)
+        {
+        }
+
+        public override string ToString()
+        {
+            return $"Заявка №{RequestId} к сантехнику";
+        }
     }
 
     public class ElectricianRequest : Request
     {
+        public ElectricianRequest(int requestId) : base(requestId)
+        {
+        }
+
+        public override string ToString()
+        {
+            return $"Заявка №{RequestId} к электрику";
+        }
     }
 
     public class JanitorRequest : Request
     {
-    }
-
-    public class HouseManagement
-    {
-        private readonly Dispatcher _dispatcher;
-        private readonly RequestGenerator _generator;
-
-        public HouseManagement()
+        public JanitorRequest(int requestId) : base(requestId)
         {
-            var requests = new Queue<Request>();
-            _generator = new RequestGenerator(requests);
-            var requestChain = new PlumberHandler().SetNext(new ElectricianHandler()).SetNext(new JanitorHandler());
-            _dispatcher = new Dispatcher("John Doe", requestChain, requests);
         }
 
-        public void Manage(SynchronizationContext context)
+        public override string ToString()
         {
-            var generatorThread = new Thread(_generator.GenerateRequests);
-            var dispatcherThread = new Thread(_dispatcher.ManageRequests);
-            generatorThread.Start(context);
-            dispatcherThread.Start(context);
+            return $"Заявка №{RequestId} к уборщику";
         }
     }
 }
