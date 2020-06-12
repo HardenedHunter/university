@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 // ReSharper disable CommentTypo
@@ -7,9 +6,16 @@ using System.Threading;
 
 namespace Modeling
 {
+    //Сотрудник домоуправления
     public class Employee
     {
+        //Имя сотрудника
         private string _name;
+
+        //Соответствующий поток для сотрудника
+        private Thread _thread;
+
+        public event Action<Request, Employee> RequestFinished;
 
         public string Name
         {
@@ -22,171 +28,75 @@ namespace Modeling
             }
         }
 
+        //Занят этот сотрудник или нет
+        public bool IsBusy => _thread != null && _thread.IsAlive;
+
         public Employee(string name)
         {
             Name = name;
         }
 
-        public virtual void Process(Request request)
+        /// <summary>
+        /// Обработка сотрудником запроса
+        /// </summary>
+        /// <param name="request">Запрос</param>
+        /// <param name="context">Контекст синхронизации потоков</param>
+        /// <returns>Был запрос запущен в обработку или нет</returns>
+        public virtual bool Process(Request request, SynchronizationContext context)
         {
-            lock (request)
-            {
-                Thread.Sleep(3000);
-                request.IsCompleted = true;
-            }
+            bool canProcess = !IsBusy;
+            if (canProcess)
+                lock (request)
+                {
+                    _thread = new Thread(() =>
+                    {
+                        Thread.Sleep(8000);
+                        request.IsCompleted = true;
+                        context.Send(obj => RequestFinished?.Invoke(obj as Request, this), request);
+                    });
+                    _thread.Start();
+                }
+
+            return canProcess;
         }
     }
 
+    //Сантехник
     public class Plumber : Employee
     {
         public Plumber(string name) : base(name)
         {
         }
+
+        public override string ToString()
+        {
+            return $"Сантехник {Name}";
+        }
     }
 
+    //Электрик
     public class Electrician : Employee
     {
         public Electrician(string name) : base(name)
         {
         }
+
+        public override string ToString()
+        {
+            return $"Электрик {Name}";
+        }
     }
 
+    //Уборщик
     public class Janitor : Employee
     {
         public Janitor(string name) : base(name)
         {
         }
-    }
-
-    public class RequestCommittee
-    {
-        private readonly Queue<Request> _requests;
-
-        public event Action<Request> RequestAdded;
-
-        public RequestCommittee(Queue<Request> requests)
-        {
-            _requests = requests;
-        }
-
-        public void Generate(object context)
-        {
-            var rand = new Random(193);
-            for (var i = 0;; i++)
-            {
-                GenerateOne(context as SynchronizationContext, i);
-                Thread.Sleep(rand.Next(1000, 4000));
-            }
-        }
-
-        private void GenerateOne(SynchronizationContext context, int requestId = 0)
-        {
-            lock (_requests)
-            {
-                var request = new PlumberRequest(requestId);
-                _requests.Enqueue(request);
-                context.Send(obj => RequestAdded?.Invoke(obj as Request), request);
-            }
-        }
-    }
-
-
-    public class PlumberDepartment : ManagementDepartment
-    {
-        public PlumberDepartment()
-        {
-            Employee = new Plumber("Mario");
-        }
-
-        protected override bool CanHandle(Request request)
-        {
-            return request is PlumberRequest;
-        }
-    }
-
-    public class ElectricianDepartment : ManagementDepartment
-    {
-        public ElectricianDepartment()
-        {
-            Employee = new Electrician("Tesla");
-        }
-
-        protected override bool CanHandle(Request request)
-        {
-            return request is ElectricianRequest;
-        }
-    }
-
-    public class JanitorDepartment : ManagementDepartment
-    {
-        public JanitorDepartment()
-        {
-            Employee = new Janitor("Johnny");
-        }
-
-        protected override bool CanHandle(Request request)
-        {
-            return request is JanitorRequest;
-        }
-    }
-
-    public abstract class Request
-    {
-        private int _requestId;
-
-        public int RequestId
-        {
-            get => _requestId;
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("RequestId");
-                _requestId = value;
-            }
-        }
-
-        public bool IsCompleted { get; set; }
-
-        protected Request(int requestId)
-        {
-            RequestId = requestId;
-            IsCompleted = false;
-        }
-    }
-
-    public class PlumberRequest : Request
-    {
-        public PlumberRequest(int requestId) : base(requestId)
-        {
-        }
 
         public override string ToString()
         {
-            return $"Заявка №{RequestId} к сантехнику";
-        }
-    }
-
-    public class ElectricianRequest : Request
-    {
-        public ElectricianRequest(int requestId) : base(requestId)
-        {
-        }
-
-        public override string ToString()
-        {
-            return $"Заявка №{RequestId} к электрику";
-        }
-    }
-
-    public class JanitorRequest : Request
-    {
-        public JanitorRequest(int requestId) : base(requestId)
-        {
-        }
-
-        public override string ToString()
-        {
-            return $"Заявка №{RequestId} к уборщику";
+            return $"Уборщик {Name}";
         }
     }
 }

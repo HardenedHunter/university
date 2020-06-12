@@ -47,9 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="ElectricianDepartment.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="ViewTestSize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewTestSize.Designer.cs">
+      <DependentUpon>ViewTestSize.cs</DependentUpon>
+    </Compile>
     <Compile Include="HouseManagement.cs" />
-    <Compile Include="ManagementDepartment.cs" />
+    <Compile Include="JanitorDepartment.cs" />
+    <Compile Include="Department.cs" />
+    <Compile Include="PlumberDepartment.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestCommittee.cs" />
     <Compile Include="View.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +71,9 @@
     <Compile Include="Presenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ViewTestSize.resx">
+      <DependentUpon>ViewTestSize.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View.resx">
       <DependentUpon>View.cs</DependentUpon>
     </EmbeddedResource>

@@ -7,3 +7,4 @@ C:\Users\Hardened\Documents\GitHub\university\C#\Modeling\Modeling\obj\Debug\Mod
 C:\Users\Hardened\Documents\GitHub\university\C#\Modeling\Modeling\obj\Debug\Modeling.csproj.GenerateResource.cache
 C:\Users\Hardened\Documents\GitHub\university\C#\Modeling\Modeling\obj\Debug\Modeling.exe
 C:\Users\Hardened\Documents\GitHub\university\C#\Modeling\Modeling\obj\Debug\Modeling.pdb
+C:\Users\Hardened\Documents\GitHub\university\C#\Modeling\Modeling\obj\Debug\Modeling.ViewTestSize.resources

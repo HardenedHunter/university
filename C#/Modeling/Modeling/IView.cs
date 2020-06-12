@@ -7,10 +7,11 @@ namespace Modeling
     {
         SynchronizationContext Context { get; set; }
 
-        event EventHandler<EventArgs> Start;
-        event EventHandler<EventArgs> Stop;
+        event Action<int> Start;
 
         void OnRequestAdded(Request request);
         void OnRequestProcessed(Request request);
+        void OnRequestPostponed(Request request);
+        void OnRequestFinished(Request request, Employee employee);
     }
 }

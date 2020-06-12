@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace Modeling
 {
@@ -14,29 +13,21 @@ namespace Modeling
             _view = view;
             _view.Start += OnStart;
             _management = new HouseManagement();
-            _management.RequestAdded += OnRequestAdded;
-            _management.RequestProcessed += OnRequestProcessed;
+            _management.RequestAdded += _view.OnRequestAdded;
+            _management.RequestProcessed += _view.OnRequestProcessed;
+            _management.RequestPostponed += _view.OnRequestPostponed;
+            _management.RequestFinished += _view.OnRequestFinished;
         }
 
-        private void OnStart(object sender, EventArgs e)
+        private void OnStart(int size)
         {
             var context = _view.Context;
-            _management.Manage(context);
-        }
-
-        private void OnRequestAdded(Request request)
-        {
-            _view.OnRequestAdded(request);
-        }
-
-        private void OnRequestProcessed(Request request)
-        {
-            _view.OnRequestProcessed(request);
+            _management.Manage(size, context);
         }
 
         ~Presenter()
         {
-            Environment.Exit(0);
+            Environment.Exit(1);
         }
     }
 }

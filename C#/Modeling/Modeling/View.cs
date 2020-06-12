@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+
 // ReSharper disable StringLiteralTypo
 // ReSharper disable LocalizableElement
 
@@ -9,22 +10,33 @@ namespace Modeling
     public partial class View : Form, IView
     {
         public SynchronizationContext Context { get; set; }
-        public event EventHandler<EventArgs> Start;
-        public event EventHandler<EventArgs> Stop;
         
-        public void OnRequestAdded(Request request)
-        {
-            richTextBoxAdded.Text += $"Добавлено: {request}\n";
-        }
-
-        public void OnRequestProcessed(Request request)
-        {
-            richTextBoxHandled.Text += $"Обработано: {request}\n";
-        }
+        public event Action<int> Start;
 
         public View()
         {
             InitializeComponent();
+        }
+
+        public void OnRequestAdded(Request request)
+        {
+            richTextBoxCommittee.Text = $"Принято: {request}\n" + richTextBoxCommittee.Text;
+        }
+
+        public void OnRequestProcessed(Request request)
+        {
+            richTextBoxDispatcher.Text = $"Обработано: {request}\n" + richTextBoxDispatcher.Text;
+        }
+
+        public void OnRequestPostponed(Request request)
+        {
+            richTextBoxDispatcher.Text = $"Отложено:    {request}\n" + richTextBoxDispatcher.Text;
+        }
+
+        public void OnRequestFinished(Request request, Employee employee)
+        {
+            richTextBoxDepartments.Text =
+                $"{employee} выполнил(а) заявку №{request.RequestId}.\n" + richTextBoxDepartments.Text;
         }
 
         private void View_Load(object sender, EventArgs e)
@@ -34,12 +46,12 @@ namespace Modeling
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            Start?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void buttonStop_Click(object sender, EventArgs e)
-        {
-            Stop?.Invoke(this, EventArgs.Empty);
+            var view = new ViewTestSize(size =>
+            {
+                buttonStart.Enabled = false;
+                Start?.Invoke(size);
+            });
+            view.Show();
         }
     }
 }
