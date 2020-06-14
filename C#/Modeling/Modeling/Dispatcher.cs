@@ -15,8 +15,12 @@ namespace Modeling
         //Очередь заявок населения
         private readonly Queue<Request> _requests;
 
+        //Счётчик удачно обработанных заявок
+        public int RequestCounter { get; set; }
+
         public event Action<Request> RequestProcessed;
         public event Action<Request> RequestPostponed;
+        public event Action SimulationFinished;
 
         public Dispatcher(Department departments, Queue<Request> requests)
         {
@@ -27,15 +31,19 @@ namespace Modeling
         /// <summary>
         /// Обработка заявок.
         /// </summary>
+        /// <param name="size">Ожидаемое количество заявок от населения</param>
         /// <param name="context">Контекст синхронизации потоков</param>
-        public void Manage(object context)
+        public void Manage(int size, object context)
         {
+            RequestCounter = 0;
+            var syncContext = context as SynchronizationContext;
             var rand = new Random(83);
-            while (true)
+            while (RequestCounter < size)
             {
-                CheckRequests(context as SynchronizationContext);
+                CheckRequests(syncContext);
                 Thread.Sleep(rand.Next(1000, 4000));
             }
+            syncContext?.Send(obj => SimulationFinished?.Invoke(), null);
         }
 
         /// <summary>
@@ -55,6 +63,7 @@ namespace Modeling
                 if (_departments.HandleRequest(request, context))
                 {
                     context.Send(obj => RequestProcessed?.Invoke(obj as Request), request);
+                    RequestCounter++;
                 }
                 else
                 {

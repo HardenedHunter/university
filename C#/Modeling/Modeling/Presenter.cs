@@ -17,6 +17,7 @@ namespace Modeling
             _management.RequestProcessed += _view.OnRequestProcessed;
             _management.RequestPostponed += _view.OnRequestPostponed;
             _management.RequestFinished += _view.OnRequestFinished;
+            _management.SimulationFinished += _view.OnSimulationFinished;
         }
 
         private void OnStart(int size)

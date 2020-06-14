@@ -10,12 +10,17 @@ namespace Modeling
     public partial class View : Form, IView
     {
         public SynchronizationContext Context { get; set; }
-        
+
         public event Action<int> Start;
 
         public View()
         {
             InitializeComponent();
+        }
+
+        public void OnSimulationFinished()
+        {
+            buttonStart.Enabled = true;
         }
 
         public void OnRequestAdded(Request request)
@@ -30,7 +35,7 @@ namespace Modeling
 
         public void OnRequestPostponed(Request request)
         {
-            richTextBoxDispatcher.Text = $"Отложено:    {request}\n" + richTextBoxDispatcher.Text;
+            richTextBoxDispatcher.Text = $"Отложено:     {request}\n" + richTextBoxDispatcher.Text;
         }
 
         public void OnRequestFinished(Request request, Employee employee)
@@ -44,10 +49,18 @@ namespace Modeling
             Context = SynchronizationContext.Current;
         }
 
+        private void ClearTextBoxes()
+        {
+            richTextBoxCommittee.Clear();
+            richTextBoxDepartments.Clear();
+            richTextBoxDispatcher.Clear();
+        }
+
         private void buttonStart_Click(object sender, EventArgs e)
         {
             var view = new ViewTestSize(size =>
             {
+                ClearTextBoxes();
                 buttonStart.Enabled = false;
                 Start?.Invoke(size);
             });

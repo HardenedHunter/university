@@ -34,6 +34,9 @@ namespace Modeling
         //Заявка успешно выполнена
         public event Action<Request, Employee> RequestFinished;
 
+        //Симуляция работы домоуправления завершена, все потоки закончили работу
+        public event Action SimulationFinished;
+
         public HouseManagement()
         {
             _requests = new Queue<Request>();
@@ -47,6 +50,7 @@ namespace Modeling
             _dispatcher = new Dispatcher(_departments, _requests);
             _dispatcher.RequestProcessed += request => RequestProcessed?.Invoke(request);
             _dispatcher.RequestPostponed += request => RequestPostponed?.Invoke(request);
+            _dispatcher.SimulationFinished += () => SimulationFinished?.Invoke();
         }
 
         /// <summary>
@@ -57,7 +61,7 @@ namespace Modeling
         public void Manage(int testSize, SynchronizationContext context)
         {
             var committeeThread = new Thread(syncContext => _committee.Generate(testSize, syncContext));
-            var dispatcherThread = new Thread(_dispatcher.Manage);
+            var dispatcherThread = new Thread(syncContext => _dispatcher.Manage(testSize, syncContext));
             committeeThread.Start(context);
             dispatcherThread.Start(context);
         }
