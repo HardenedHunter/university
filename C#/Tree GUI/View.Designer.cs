@@ -44,8 +44,8 @@
             this.buttonSortEven = new System.Windows.Forms.Button();
             this.buttonSortOdd = new System.Windows.Forms.Button();
             this.groupBoxUtils = new System.Windows.Forms.GroupBox();
-            this.buttonDataSet = new System.Windows.Forms.Button();
             this.buttonMakeImmutable = new System.Windows.Forms.Button();
+            this.buttonDataSet = new System.Windows.Forms.Button();
             this.groupBoxImplementation.SuspendLayout();
             this.groupBoxMainFunctions.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -156,7 +156,7 @@
             // 
             this.groupBox1.Controls.Add(this.buttonFactor);
             this.groupBox1.Controls.Add(this.textBoxFactor);
-            this.groupBox1.Location = new System.Drawing.Point(949, 234);
+            this.groupBox1.Location = new System.Drawing.Point(949, 240);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(168, 90);
             this.groupBox1.TabIndex = 12;
@@ -213,16 +213,6 @@
             this.groupBoxUtils.TabStop = false;
             this.groupBoxUtils.Text = "Утилиты";
             // 
-            // buttonDataSet
-            // 
-            this.buttonDataSet.Location = new System.Drawing.Point(21, 89);
-            this.buttonDataSet.Name = "buttonDataSet";
-            this.buttonDataSet.Size = new System.Drawing.Size(128, 23);
-            this.buttonDataSet.TabIndex = 15;
-            this.buttonDataSet.Text = "Заполнить данными";
-            this.buttonDataSet.UseVisualStyleBackColor = true;
-            this.buttonDataSet.Click += new System.EventHandler(this.buttonDataSet_Click);
-            // 
             // buttonMakeImmutable
             // 
             this.buttonMakeImmutable.Location = new System.Drawing.Point(21, 118);
@@ -232,6 +222,16 @@
             this.buttonMakeImmutable.Text = "Запретить изменения";
             this.buttonMakeImmutable.UseVisualStyleBackColor = true;
             this.buttonMakeImmutable.Click += new System.EventHandler(this.buttonMakeImmutable_Click);
+            // 
+            // buttonDataSet
+            // 
+            this.buttonDataSet.Location = new System.Drawing.Point(21, 89);
+            this.buttonDataSet.Name = "buttonDataSet";
+            this.buttonDataSet.Size = new System.Drawing.Size(128, 23);
+            this.buttonDataSet.TabIndex = 15;
+            this.buttonDataSet.Text = "Заполнить данными";
+            this.buttonDataSet.UseVisualStyleBackColor = true;
+            this.buttonDataSet.Click += new System.EventHandler(this.buttonDataSet_Click);
             // 
             // View
             // 

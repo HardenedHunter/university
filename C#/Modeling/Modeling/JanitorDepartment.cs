@@ -6,20 +6,14 @@ namespace Modeling
     //Отдел уборщиков
     public class JanitorDepartment : Department
     {
-        public JanitorDepartment()
-        {
-            Employee = new Janitor("Евгений");
-            LinkEvents();
-        }
-
         protected override bool CanHandle(Request request)
         {
             return request is JanitorRequest;
         }
 
-        protected override Employee CreateEmployee(string name)
+        protected sealed override Employee CreateEmployee()
         {
-            return new Janitor(name);
+            return new Janitor(NameGenerator.GetName());
         }
     }
 }

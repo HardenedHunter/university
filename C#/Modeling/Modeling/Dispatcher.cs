@@ -32,26 +32,23 @@ namespace Modeling
         /// Обработка заявок.
         /// </summary>
         /// <param name="size">Ожидаемое количество заявок от населения</param>
-        /// <param name="context">Контекст синхронизации потоков</param>
-        public void Manage(int size, object context)
+        public void Manage(int size)
         {
             RequestCounter = 0;
-            var syncContext = context as SynchronizationContext;
             var rand = new Random(83);
             while (RequestCounter < size)
             {
-                CheckRequests(syncContext);
-                Thread.Sleep(rand.Next(1000, 4000));
+                CheckRequests();
+                Thread.Sleep(rand.Next(1000, 2000));
             }
-            syncContext?.Send(obj => SimulationFinished?.Invoke(), null);
+            ContextProvider.GetInstance().Context.Send(obj => SimulationFinished?.Invoke(), null);
         }
 
         /// <summary>
         /// Один проход обработки. Диспетчер блокирует очередь от других
         /// потоков на время просмотра заявок.
         /// </summary>
-        /// <param name="context"></param>
-        private void CheckRequests(SynchronizationContext context)
+        private void CheckRequests()
         {
             lock (_requests)
             {
@@ -60,16 +57,16 @@ namespace Modeling
 
                 //Иначе достаём из очереди заявку и отправляем её на обработку в отделения
                 var request = _requests.Dequeue();
-                if (_departments.HandleRequest(request, context))
+                if (_departments.HandleRequest(request))
                 {
-                    context.Send(obj => RequestProcessed?.Invoke(obj as Request), request);
+                    ContextProvider.GetInstance().Context.Send(obj => RequestProcessed?.Invoke(obj as Request), request);
                     RequestCounter++;
                 }
                 else
                 {
                     //Если обработать не получилось (соответствующее заявке отделение занято),
                     //заявка уходит обратно в очередь
-                    context.Send(obj => RequestPostponed?.Invoke(obj as Request), request);
+                    ContextProvider.GetInstance().Context.Send(obj => RequestPostponed?.Invoke(obj as Request), request);
                     _requests.Enqueue(request);
                 }
             }

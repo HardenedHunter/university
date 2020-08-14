@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-
+// ReSharper disable VirtualMemberCallInConstructor
 // ReSharper disable CommentTypo
 
 namespace Modeling
@@ -15,6 +15,12 @@ namespace Modeling
         protected Department Next;
 
         public event Action<Request, Employee> RequestFinished;
+
+        protected Department()
+        {
+            Employee = CreateEmployee();
+            Employee.RequestFinished += (request, employee) => RequestFinished?.Invoke(request, employee);
+        }
 
         /// <summary>
         /// Метод для связывания двух отделов
@@ -47,29 +53,19 @@ namespace Modeling
         /// <summary>
         /// Фабричный метод для создания нового сотрудника
         /// </summary>
-        /// <param name="name">Имя</param>
         /// <returns>Новый объект сотрудника</returns>
-        protected abstract Employee CreateEmployee(string name);
-
-        /// <summary>
-        /// Связать событие сотрудника и отдела
-        /// </summary>
-        protected void LinkEvents()
-        {
-            Employee.RequestFinished += (request, employee) => RequestFinished?.Invoke(request, employee);
-        }
+        protected abstract Employee CreateEmployee();
 
         /// <summary>
         /// Обработка заявки
         /// </summary>
         /// <param name="request">Поступающая заявка</param>
-        /// <param name="context">Контекст синхронизации потоков</param>
         /// <returns>Была ли обработана заявка</returns>
-        public virtual bool HandleRequest(Request request, SynchronizationContext context)
+        public bool HandleRequest(Request request)
         {
             //Если этот отдел не может обработать заявку, отправить в следующий
             if (!CanHandle(request))
-                return Next != null && Next.HandleRequest(request, context);
+                return Next != null && Next.HandleRequest(request);
 
             //Если сотрудник всё ещё работает над предыдущей заявкой,
             //обработка заявки пока невозможна
@@ -77,7 +73,7 @@ namespace Modeling
                 return false;
 
             //Иначе сотрудник начинает работу над заявкой
-            Employee.Process(request, context);
+            Employee.Process(request);
             return true;
         }
     }

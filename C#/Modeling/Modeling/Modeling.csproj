@@ -49,6 +49,7 @@
     <Compile Include="Dispatcher.cs" />
     <Compile Include="ElectricianDepartment.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="NameGenerator.cs" />
     <Compile Include="ViewTestSize.cs">
       <SubType>Form</SubType>
     </Compile>

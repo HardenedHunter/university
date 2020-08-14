@@ -57,13 +57,12 @@ namespace Modeling
         /// Моделирование создания и обработки заявок
         /// </summary>
         /// <param name="testSize">Размер модели (количество генерируемых заявок)</param>
-        /// <param name="context">Контекст синхронизации потоков</param>
-        public void Manage(int testSize, SynchronizationContext context)
+        public void Manage(int testSize)
         {
-            var committeeThread = new Thread(syncContext => _committee.Generate(testSize, syncContext));
-            var dispatcherThread = new Thread(syncContext => _dispatcher.Manage(testSize, syncContext));
-            committeeThread.Start(context);
-            dispatcherThread.Start(context);
+            var committeeThread = new Thread(() => _committee.Generate(testSize));
+            var dispatcherThread = new Thread(() => _dispatcher.Manage(testSize));
+            committeeThread.Start();
+            dispatcherThread.Start();
         }
 
         /// <summary>

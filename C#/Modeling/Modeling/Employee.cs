@@ -12,6 +12,7 @@ namespace Modeling
         //Имя сотрудника
         private string _name;
 
+
         //Соответствующий поток для сотрудника
         private Thread _thread;
 
@@ -40,9 +41,8 @@ namespace Modeling
         /// Обработка сотрудником запроса
         /// </summary>
         /// <param name="request">Запрос</param>
-        /// <param name="context">Контекст синхронизации потоков</param>
         /// <returns>Был запрос запущен в обработку или нет</returns>
-        public virtual bool Process(Request request, SynchronizationContext context)
+        public virtual bool Process(Request request)
         {
             bool canProcess = !IsBusy;
             if (canProcess)
@@ -52,7 +52,7 @@ namespace Modeling
                     {
                         Thread.Sleep(8000);
                         request.IsCompleted = true;
-                        context.Send(obj => RequestFinished?.Invoke(obj as Request, this), request);
+                        ContextProvider.GetInstance().Context.Send(obj => RequestFinished?.Invoke(obj as Request, this), request);
                     });
                     _thread.Start();
                 }

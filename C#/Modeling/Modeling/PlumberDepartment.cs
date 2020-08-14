@@ -6,20 +6,14 @@ namespace Modeling
     //Отдел сантехников
     public class PlumberDepartment : Department
     {
-        public PlumberDepartment()
-        {
-            Employee = new Plumber("Егор");
-            LinkEvents();
-        }
-
         protected override bool CanHandle(Request request)
         {
             return request is PlumberRequest;
         }
 
-        protected override Employee CreateEmployee(string name)
+        protected sealed override Employee CreateEmployee()
         {
-            return new Plumber(name);
+            return new Plumber(NameGenerator.GetName());
         }
     }
 }

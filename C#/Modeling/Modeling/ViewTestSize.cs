@@ -18,9 +18,9 @@ namespace Modeling
         private void Setup()
         {
             comboBoxTestSize.Items.Add(5);
-            comboBoxTestSize.Items.Add(15);
+            comboBoxTestSize.Items.Add(10);
+            comboBoxTestSize.Items.Add(20);
             comboBoxTestSize.Items.Add(30);
-            comboBoxTestSize.Items.Add(50);
             comboBoxTestSize.SelectedIndex = 0;
         }
 
